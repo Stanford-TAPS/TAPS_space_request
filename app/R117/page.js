@@ -7,7 +7,7 @@ import { getNextSunday } from "../../lib/utilities";
 import { notFound } from "next/navigation"; //idk exactly what this does lol
 
 export default async function Home() {
-  const events = await getNextWeekEvents("bfa2adbab9424825bc15e06d5bc376d6");
+  const events = await getNextWeekEvents("dc09c477cdc04ff19b34a01b0da321c5");
   console.log(events);
   if (!events) notFound();
 
@@ -18,7 +18,6 @@ export default async function Home() {
         initialDate={getNextSunday()}
         contentHeight="auto"
         events={events}
-        eventColor="#8C1515"
         headerToolbar={{
           start: "",
           center: "title",

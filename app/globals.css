@@ -2,29 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Oswald';
+  src: url('../public/Oswald-VariableFont_wght.ttf') format('truetype');
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('../public/Poppins-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-display: swap;
+}
+
 :root {
-  --foreground-rgb: 255, 255, 255; /* white foreground */
-  --background-start-rgb: 34, 139, 34; /* forest green background */
-  --background-end-rgb: 34, 139, 34; /* same color, since it doesn't need to change */
-  --font-family: 'Georgia', 'Times New Roman', serif;
+  --foreground: #252525;
+  --background: 255, 255, 255;
+  --fc-page-bg-color: rgba(0, 0, 0, 0); /* fixes weird white border around events */
+  --fc-border-color: #a8a6a6;
+  
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255; /* white foreground in dark mode */
-    --background-start-rgb: 0, 0, 0; /* black background in dark mode */
-    --background-end-rgb: 0, 0, 0; /* same color, since it doesn't need to change */
+    --foreground: 255, 255, 255; /* white foreground in dark mode */
+    --background: 0, 0, 0; /* black background in dark mode */
+     
   }
 }
 
+.__className_20951f {
+  font-family: Oswald, sans-serif;
+  font-style: normal;
+}
+
+.fc-event-title {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+  margin-bottom: 1em;
+}
+
+.fc-timegrid-event .fc-event-main {
+  padding: 3px;
+}
+
+.fc-daygrid-block-event .fc-event-time, .fc-daygrid-block-event .fc-event-title {
+  padding-left: 3px;
+}
+
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  margin: 15px;
+  color: rgb(var(--foreground));
+  background: rgb(var(--background));
   font-family: var(--font-family);
 }
 
