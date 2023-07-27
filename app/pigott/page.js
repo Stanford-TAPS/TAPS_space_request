@@ -8,15 +8,17 @@ import { notFound } from "next/navigation"; //idk exactly what this does lol
 
 export default async function Home() {
   const events = await getNextWeekEvents("bfa2adbab9424825bc15e06d5bc376d6");
-  console.log(events);
   if (!events) notFound();
+
+  var nextSunday = getNextSunday();
+  console.log(nextSunday);
 
   return (
     <div>
       <h2 style={{ textAlign: "center", fontSize: "1.5em" }}>Pigott Theater</h2>
       <FullCalendar
         initialView="timeGridWeek"
-        initialDate={getNextSunday()}
+        initialDate={nextSunday}
         contentHeight="auto"
         events={events}
         eventColor="#8C1515"

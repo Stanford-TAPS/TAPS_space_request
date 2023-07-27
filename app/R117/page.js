@@ -8,7 +8,6 @@ import { notFound } from "next/navigation"; //idk exactly what this does lol
 
 export default async function Home() {
   const events = await getNextWeekEvents("dc09c477cdc04ff19b34a01b0da321c5");
-  console.log(events);
   if (!events) notFound();
 
   return (
