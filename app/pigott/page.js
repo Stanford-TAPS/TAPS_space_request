@@ -18,7 +18,7 @@ export default async function Home() {
       <h2 style={{ textAlign: "center", fontSize: "1.5em" }}>Pigott Theater</h2>
       <FullCalendar
         initialView="timeGridWeek"
-        initialDate={nextSunday}
+        initialDate="2023-09-24"
         contentHeight="auto"
         events={events}
         eventColor="#8C1515"
