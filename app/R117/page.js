@@ -12,9 +12,10 @@ export default async function Home() {
 
   return (
     <div>
+      <h2 style={{ textAlign: "center", fontSize: "1.5em" }}>Roble 117</h2>
       <FullCalendar
         initialView="timeGridWeek"
-        initialDate={getNextSunday()}
+        initialDate={getNextSunday().toISOString().slice(0, 10)}
         contentHeight="auto"
         events={events}
         eventColor="#8C1515"
