@@ -13,6 +13,7 @@ export default async function Home() {
 
   return (
     <div>
+      <h2 style={{ textAlign: "center", fontSize: "1.5em" }}>Pigott Theater</h2>
       <FullCalendar
         initialView="timeGridWeek"
         initialDate={getNextSunday()}

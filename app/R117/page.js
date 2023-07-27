@@ -18,6 +18,7 @@ export default async function Home() {
         initialDate={getNextSunday()}
         contentHeight="auto"
         events={events}
+        eventColor="#8C1515"
         headerToolbar={{
           start: "",
           center: "title",
