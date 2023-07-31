@@ -33,7 +33,7 @@
 }
 
 .__className_20951f {
-  font-family: Oswald, sans-serif;
+  font-family: Oswald, sans-serif !important;
   font-style: normal;
 }
 
@@ -54,7 +54,6 @@
 }
 
 body {
-  margin: 15px;
   color: rgb(var(--foreground));
   background: rgb(var(--background));
   font-family: var(--font-family);

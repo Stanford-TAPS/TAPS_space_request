@@ -1,12 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  content: [
+    './app/**/*.{js,ts,jsx,tsx,mdx}', // Note the addition of the `app` directory.
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+
+  ],
   theme: {
     extend: {
-      fontFamily: {
-        'oswald': ['Oswald', 'sans-serif'],
+      colors: {
+        cardinal: '#8C1515',
       },
     },
   },
-  variants: {},
   plugins: [],
 }

@@ -15,7 +15,8 @@ export default async function Home() {
 
   return (
     <div>
-      <h2 style={{ textAlign: "center", fontSize: "1.5em" }}>Pigott Theater</h2>
+      <h2 className="text-center pt-10 text-lg">Pigott Theater</h2>
+      <div class="mx-10 mb-10">
       <FullCalendar
         initialView="timeGridWeek"
         initialDate={nextSunday.toISOString().slice(0, 10)}
@@ -30,6 +31,7 @@ export default async function Home() {
         slotMinTime="08:00"
         slotMaxTime="23:00"
       />
+      </div>
     </div>
   );
 }
