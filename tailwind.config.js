@@ -11,6 +11,9 @@ module.exports = {
       colors: {
         cardinal: '#8C1515',
       },
+      fontFamily: {
+        oswald: ['Oswald', 'sans-serif'],
+      }
     },
   },
   plugins: [],

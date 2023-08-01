@@ -11,12 +11,11 @@ export default async function Home() {
   if (!events) notFound();
 
   var nextSunday = getNextSunday();
-  console.log(nextSunday);
 
   return (
     <div>
       <h2 className="text-center pt-10 text-lg">Pigott Theater</h2>
-      <div class="mx-10 mb-10">
+      <div className="mx-10 mb-10">
       <FullCalendar
         initialView="timeGridWeek"
         initialDate={nextSunday.toISOString().slice(0, 10)}
