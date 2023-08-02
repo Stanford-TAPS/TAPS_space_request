@@ -13,7 +13,7 @@ export default function SpaceForm({ locations }) {
 
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-    <div className="bg-white dark:bg-gray-500 shadow-md px-8 pt-6 pb-8 w-1/3">
+    <div className="bg-white dark:bg-gray-500 shadow-md px-8 pt-6 pb-8 w-full h-full">
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* Name */}
         <div className="mb-4">
@@ -56,7 +56,9 @@ export default function SpaceForm({ locations }) {
             {...register("location")}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           >
-            <option default>-Select a space-</option>
+            <option default disabled>
+              -Select a space-
+            </option>
             {locations.map((location, index) => (
               <option key={index} value={location.id}>
                 {location.title}

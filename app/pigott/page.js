@@ -13,23 +13,23 @@ export default async function Home() {
   var nextSunday = getNextSunday();
 
   return (
-    <div>
+    <div className="h-full">
       <h2 className="text-center pt-10 text-lg">Pigott Theater</h2>
-      <div className="mx-10 mb-10">
-      <FullCalendar
-        initialView="timeGridWeek"
-        initialDate={nextSunday.toISOString().slice(0, 10)}
-        contentHeight="auto"
-        events={events}
-        eventColor="#8C1515"
-        headerToolbar={{
-          start: "",
-          center: "title",
-          end: "",
-        }}
-        slotMinTime="08:00"
-        slotMaxTime="23:00"
-      />
+      <div className="mx-10 mb-10 h-full">
+        <FullCalendar
+          initialView="timeGridWeek"
+          initialDate={nextSunday.toISOString().slice(0, 10)}
+          height="100%"
+          events={events}
+          eventColor="#8C1515"
+          headerToolbar={{
+            start: "",
+            center: "title",
+            end: "",
+          }}
+          slotMinTime="08:00"
+          slotMaxTime="23:00"
+        />
       </div>
     </div>
   );

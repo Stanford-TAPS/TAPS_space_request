@@ -16,12 +16,15 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="font-oswald">
-          <Navbar />
-          <div className="flex">
-            
-            <SpaceForm locations={ spaces } className="basis-1/3"/>
-            <div className="basis-2/3">{children}</div>
+        <div className="font-oswald h-screen">
+          <div>
+            <Navbar />
+          </div>
+          <div className="fixed flex w-full h-full">
+            <div className="basis-1/3">
+              <SpaceForm locations={spaces} />
+            </div>
+            <div className="basis-2/3 right-0">{children}</div>
           </div>
         </div>
       </body>
