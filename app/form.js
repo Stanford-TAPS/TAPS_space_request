@@ -9,39 +9,58 @@ export default function SpaceForm({ locations }) {
     formState: { errors },
   } = useForm({});
   const selectedLocation = watch("location");
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      console.log(data);
+      const response = await fetch("/api/form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        console.log(response);
+      } else {
+        console.log(response);
+      }
+    } catch (err) {
+      // Handle exception
+    }
+  };
 
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-    <div className="bg-white dark:bg-gray-500 shadow-md px-8 pt-6 pb-8 w-full h-full">
+    <div className="fixed top-0 h-full w-1/3 bg-white border-r border-neutral-200 dark:bg-neutral-800 dark:border-0 shadow-md px-8 pt-6 pb-8">
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* Name */}
-        <div className="mb-4">
-          <label htmlFor="name" className="text-gray-500 dark:text-white">
-            Name
+        <div className="mt-20 mb-4">
+          <label htmlFor="title" className="text-neutral-700 dark:text-white">
+            Event Title
           </label>
           <input
             type="text"
-            id="name"
-            {...register("name")}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="title"
+            {...register("title", { required: true })}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
 
         {/* Email */}
         <div className="mb-4">
-          <label htmlFor="email" className="text-gray-500 dark:text-white">
+          <label htmlFor="email" className="text-neutral-700 dark:text-white">
             Email
           </label>
           <input
             type="email"
             id="email"
             {...register("email", { required: true })}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
           />
           {/* errors will return when field validation fails  */}
           {errors.exampleRequired && (
-            <span className="text-red-500 text-xs italic">
+            <span className="text-red-700 text-xs italic">
               This field is required
             </span>
           )}
@@ -49,14 +68,17 @@ export default function SpaceForm({ locations }) {
 
         {/* Location */}
         <div className="mb-4">
-          <label htmlFor="location" className="text-gray-500 dark:text-white">
+          <label
+            htmlFor="location"
+            className="text-neutral-700 dark:text-white"
+          >
             Location
           </label>
           <select
             {...register("location")}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
           >
-            <option default disabled>
+            <option selected disabled hidden>
               -Select a space-
             </option>
             {locations.map((location, index) => (
@@ -66,13 +88,12 @@ export default function SpaceForm({ locations }) {
             ))}
           </select>
         </div>
-        <p>Value: {selectedLocation}</p>
 
         <div className="flex items-center justify-between">
           <input
             type="submit"
             value="Submit Request"
-            className="bg-cardinal hover:bg-red-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-red-700 hover:bg-red-700 click-border-red-700 cursor-pointer text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           />
         </div>
       </form>

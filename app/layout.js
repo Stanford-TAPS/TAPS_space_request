@@ -17,15 +17,9 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <div className="font-oswald h-screen">
-          <div>
-            <Navbar />
-          </div>
-          <div className="fixed flex w-full h-full">
-            <div className="basis-1/3">
-              <SpaceForm locations={spaces} />
-            </div>
-            <div className="basis-2/3 right-0">{children}</div>
-          </div>
+          <Navbar />
+          <SpaceForm locations={spaces} />
+          <div className="absolute right-0 top-20 w-2/3">{children}</div>
         </div>
       </body>
     </html>

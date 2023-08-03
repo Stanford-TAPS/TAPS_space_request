@@ -6,20 +6,27 @@ import FullCalendar from "../../lib/fullcalendar";
 import { getNextSunday } from "../../lib/utilities";
 import { notFound } from "next/navigation"; //idk exactly what this does lol
 
-export default async function Home() {
-  const events = await getNextWeekEvents("bfa2adbab9424825bc15e06d5bc376d6");
+//TODO: implement this (currently a template) to render space calendars statically
+export async function generateStaticParams() {
+  const posts = await fetch("https://.../posts").then((res) => res.json());
+
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+export default async function Page({ params }) {
+  const events = await getNextWeekEvents(params.id);
   if (!events) notFound();
 
-  var nextSunday = getNextSunday();
-
   return (
-    <div className="h-full">
-      <h2 className="text-center pt-10 text-lg">Pigott Theater</h2>
-      <div className="mx-10 mb-10 h-full">
+    <div>
+      <h2 className="text-center pt-10 text-lg">Roble 117</h2>
+      <div class="mx-10 mb-10">
         <FullCalendar
           initialView="timeGridWeek"
-          initialDate={nextSunday.toISOString().slice(0, 10)}
-          height="auto"
+          initialDate={getNextSunday().toISOString().slice(0, 10)}
+          contentHeight="auto"
           events={events}
           eventColor="#8C1515"
           headerToolbar={{
