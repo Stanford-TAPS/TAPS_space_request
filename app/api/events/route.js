@@ -6,6 +6,7 @@ import { getNextSunday } from "../lib/utilities.js";
 const notion = new Client({ auth: process.env.NOTION_KEY });
 
 export async function GET(request) {
+  console.log("got this far :D");
   try {
     const { id } = await request.json();
     const databaseId = process.env.NOTION_EVENTS_ID;
@@ -42,16 +43,13 @@ export async function GET(request) {
       },
     });
 
-    console.log("Notion API called");
     const events = results.map((page) => ({
       title: page.properties["*Record Title"].title[0]?.text?.content,
       start: page.properties["Date"].date.start,
       end: page.properties["Date"].date.end,
     }));
 
-    const response = await notion.pages.create(newPage);
-
-    return NextResponse.json({ status: response.status });
+    return NextResponse.json({ body: events, status: 200 });
   } catch (error) {
     console.log(error);
     return NextResponse.json({ error: "Internal Server Error" });

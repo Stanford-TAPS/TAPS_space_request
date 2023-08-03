@@ -1,14 +1,23 @@
 "use client";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function SpaceForm({ locations }) {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm({});
+
   const selectedLocation = watch("location");
+  useEffect(() => {
+    if (selectedLocation && selectedLocation !== "default") {
+      router.push(`/${selectedLocation}`);
+    }
+  }, [selectedLocation]);
   const onSubmit = async (data) => {
     try {
       console.log(data);
@@ -78,7 +87,7 @@ export default function SpaceForm({ locations }) {
             {...register("location")}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
           >
-            <option selected disabled hidden>
+            <option value="default" disabled hidden>
               -Select a space-
             </option>
             {locations.map((location, index) => (
