@@ -6,23 +6,14 @@ import FullCalendar from "../../lib/fullcalendar";
 import { getNextSunday } from "../../lib/utilities";
 import { notFound } from "next/navigation"; //idk exactly what this does lol
 
-//TODO: implement this (currently a template) to render space calendars statically
-export async function generateStaticParams() {
-  const locations = await getRequestableSpaces();
-  console.log("this is doing something");
-  return locations.map((location) => ({
-    title: location.title,
-    location: location.id,
-  }));
-}
-
-// export default async function Page({ params }) {
-//   console.log(params);
-
-//   const events = await getNextWeekEvents(params.location);
-//   console.log(events);
-
-//   return <h1>This works</h1>;
+//Probably unnecessary, TODO: remove
+// export async function generateStaticParams() {
+//   const locations = await getRequestableSpaces();
+//   console.log("this is doing something");
+//   return locations.map((location) => ({
+//     title: location.title,
+//     location: location.id,
+//   }));
 // }
 
 export default async function Page({ params }) {
@@ -31,7 +22,7 @@ export default async function Page({ params }) {
 
   return (
     <div>
-      <h2 className="text-center pt-10 text-lg">{params.title}</h2>
+      <h2 className="text-center pt-10 text-lg">AAAAA</h2>
       <div className="mx-10 mb-10">
         <FullCalendar
           initialView="timeGridWeek"
