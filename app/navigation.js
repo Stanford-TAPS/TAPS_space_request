@@ -10,13 +10,13 @@ export default function Navbar({ className }) {
           </Link>
         </li>
         <li className="mr-6">
-          <Link className="text-white hover:text-gray-200" href="/pigott">
-            Pigott
+          <Link className="text-white hover:text-gray-200" href="/request">
+            Request a Space
           </Link>
         </li>
         <li className="mr-6">
-          <Link className="text-white hover:text-gray-200" href="/R117">
-            Roble 117
+          <Link className="text-white hover:text-gray-200" href="/">
+            Spaces
           </Link>
         </li>
       </ul>

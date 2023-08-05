@@ -1,20 +1,10 @@
 // import api supports, which are handled separately to keep them
 // from complaining
-import { getNextWeekEvents, getRequestableSpaces } from "../../lib/notion";
-import FullCalendar from "../../lib/fullcalendar";
+import { getNextWeekEvents, getRequestableSpaces } from "../../../lib/notion";
+import FullCalendar from "../../../lib/fullcalendar";
 
-import { getNextSunday } from "../../lib/utilities";
+import { getNextSunday } from "../../../lib/utilities";
 import { notFound } from "next/navigation"; //idk exactly what this does lol
-
-//Probably unnecessary, TODO: remove
-// export async function generateStaticParams() {
-//   const locations = await getRequestableSpaces();
-//   console.log("this is doing something");
-//   return locations.map((location) => ({
-//     title: location.title,
-//     location: location.id,
-//   }));
-// }
 
 export default async function Page({ params }) {
   const events = await getNextWeekEvents(params.location);

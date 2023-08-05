@@ -15,7 +15,7 @@ export default function SpaceForm({ locations }) {
   const selectedLocation = watch("location");
   useEffect(() => {
     if (selectedLocation && selectedLocation !== "default") {
-      router.push(`/${selectedLocation}`);
+      router.push(`/request/${selectedLocation}`);
     }
   }, [selectedLocation]);
   const onSubmit = async (data) => {
