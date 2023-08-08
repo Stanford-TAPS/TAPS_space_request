@@ -6,10 +6,11 @@ import { getNextSunday } from "../../lib/utilities.js";
 import Link from "next/link.js";
 
 export default function Calendar({ events }) {
-  console.log(events);
-  if (events.length === 0) {
+  //console.log(`calendar called with:`, events);
+  if (events == undefined || events.length === 0) {
     return <Default />;
   }
+
   return (
     <FullCalendar
       plugins={[timeGridPlugin]}

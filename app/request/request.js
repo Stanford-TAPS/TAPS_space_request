@@ -1,34 +1,56 @@
 "use client";
 import Link from "next/link";
 import SpaceForm from "./form";
-import { useState, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import Calendar from "./calendar";
 
 export default function SpaceRequest({ spaces }) {
-  let events = [];
+  const [events, setEvents] = useState([]);
   let requestedEvent = null;
+  const [location, setLocation] = useState(null);
 
-  // useLayoutEffect(() => {
-  //   let ignore = false;
-  //   fetch("/api/spaces", {
+  // try {
+  //   const response = await fetch(`/api/spaces/${locationID}`, {
   //     method: "GET",
-  //   }).then((result) => {
-  //     if (!ignore) {
-  //       setSpaces(result);
-  //     }
   //   });
-  //   return () => {
-  //     ignore = true;
-  //   };
-  // }, []);
 
-  const handleLocationSelected = (locationID) => {
-    console.log(locationID);
-    //set loading
-    //call notion api
-    //if success, update loading, events
-    //if fail, set error
+  //   if (response.ok) {
+  //     events = await response.json(); //This is bad!! TODO: fix
+  //   } else {
+  //     console.log(response);
+  //   }
+  // } catch (err) {
+  //   // Handle exception
+  // }
+
+  const handleLocationSelected = async (locationID) => {
+    setLocation(locationID);
   };
+
+  useEffect(() => {
+    if (location) {
+      console.log(`Fetching spaces for location: ${location}`);
+      fetch(`/api/spaces/${location}`, {
+        method: "GET",
+      })
+        .then((response) => {
+          if (!response.ok) {
+            // TODO: better error handling here
+            console.log(
+              `Failed to fetch spaces for location ${location}: ${response.statusText}`
+            );
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // The data of the response contains an array of events for the location
+          if (data) {
+            setEvents(data);
+          }
+        });
+    }
+  }, [location]);
 
   const handleDateSelected = (isValid, startDate, endDate) => {
     //if not valid, change color

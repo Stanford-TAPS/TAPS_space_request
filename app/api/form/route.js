@@ -45,6 +45,7 @@ export async function POST(request) {
 
     return NextResponse.json({ status: response.status });
   } catch (error) {
+    console.log(" D: ");
     console.log(error);
     return NextResponse.json({ error: "Internal Server Error" });
   }
