@@ -3,7 +3,11 @@ import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function SpaceForm({ locations }) {
+export default function SpaceForm({
+  locations,
+  onLocationSelect,
+  onDateSelect,
+}) {
   const router = useRouter();
   const {
     register,
@@ -15,12 +19,12 @@ export default function SpaceForm({ locations }) {
   const selectedLocation = watch("location");
   useEffect(() => {
     if (selectedLocation && selectedLocation !== "default") {
-      router.push(`/request/${selectedLocation}`);
+      onLocationSelect(selectedLocation);
     }
   }, [selectedLocation]);
+
   const onSubmit = async (data) => {
     try {
-      console.log(data);
       const response = await fetch("/api/form", {
         method: "POST",
         headers: {
@@ -98,6 +102,8 @@ export default function SpaceForm({ locations }) {
             ))}
           </select>
         </div>
+
+        <button>Use Calendar API</button>
 
         <div className="flex items-center justify-between">
           <input

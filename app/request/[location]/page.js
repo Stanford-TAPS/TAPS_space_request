@@ -1,34 +1,19 @@
 // import api supports, which are handled separately to keep them
 // from complaining
 import { getNextWeekEvents, getRequestableSpaces } from "../../../lib/notion";
-import FullCalendar from "../../../lib/fullcalendar";
+import Calendar from "../calendar";
 
 import { getNextSunday } from "../../../lib/utilities";
 import { notFound } from "next/navigation"; //idk exactly what this does lol
 
 export default async function Page({ params }) {
   const events = await getNextWeekEvents(params.location);
-  if (!events) notFound();
 
   return (
     <div>
       <h2 className="text-center pt-10 text-lg">AAAAA</h2>
-      <div className="mx-10 mb-10">
-        <FullCalendar
-          initialView="timeGridWeek"
-          initialDate={getNextSunday().toISOString().slice(0, 10)}
-          contentHeight="auto"
-          events={events}
-          eventColor="#8C1515"
-          headerToolbar={{
-            start: "",
-            center: "title",
-            end: "",
-          }}
-          slotMinTime="08:00"
-          slotMaxTime="23:00"
-        />
-      </div>
+      <Calendar events={events} />
+      <div className="mx-10 mb-10"></div>
     </div>
   );
 }

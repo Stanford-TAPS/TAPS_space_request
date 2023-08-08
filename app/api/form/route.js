@@ -5,8 +5,6 @@ import { NextResponse } from "next/server";
 const notion = new Client({ auth: process.env.NOTION_KEY });
 
 export async function POST(request) {
-  // parse the string into a JavaScript object
-
   try {
     const { title, email, location } = await request.json();
 
@@ -22,7 +20,6 @@ export async function POST(request) {
         database_id: process.env.NOTION_SPACE_REQUESTS_ID,
       },
       properties: {
-        // Assuming the database has these fields
         Title: {
           title: [
             {
