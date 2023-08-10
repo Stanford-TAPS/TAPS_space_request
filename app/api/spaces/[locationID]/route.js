@@ -42,11 +42,11 @@ export async function GET(request, { params }) {
       },
     });
 
-    console.log(`Results from Notion API: `, results);
+    //console.log(`Results from Notion API: `, results);
 
     //don't map data if no events to format
     if (results.length === 0) {
-      return NextResponse.json({ body: [] });
+      return NextResponse.json([]);
     }
     const data = results.map((page) => ({
       title: page.properties["*Record Title"].title[0]?.text?.content,

@@ -4,29 +4,46 @@ import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { getNextSunday } from "../../lib/utilities.js";
 import Link from "next/link.js";
+import Error from "next/error.js";
 
-export default function Calendar({ events }) {
-  //console.log(`calendar called with:`, events);
-  if (events == undefined || events.length === 0) {
+export default function Calendar({ events, location, isLoading }) {
+  console.log(`calendar called with:`, events);
+  if (events == undefined) {
+    return <Error />;
+  }
+  if (isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center mt-20">
+        <h1 className="mb-4 text-2xl font-bold">Loading...</h1>
+        <div className="w-12 h-12 border-t-4 border-blue-500 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+  if (location == null) {
     return <Default />;
   }
 
   return (
-    <FullCalendar
-      plugins={[timeGridPlugin]}
-      initialView="timeGridWeek"
-      initialDate={getNextSunday().toISOString().slice(0, 10)}
-      contentHeight="auto"
-      events={events}
-      eventColor="#8C1515"
-      headerToolbar={{
-        start: "",
-        center: "title",
-        end: "",
-      }}
-      slotMinTime="08:00"
-      slotMaxTime="23:00"
-    />
+    <div className="m-8">
+      <h1 className="text-2xl text-center font-bold text-white mb-1">
+        {location}
+      </h1>
+      <FullCalendar
+        plugins={[timeGridPlugin]}
+        initialView="timeGridWeek"
+        initialDate={getNextSunday().toISOString().slice(0, 10)}
+        contentHeight="auto"
+        events={events}
+        eventColor="#8C1515"
+        headerToolbar={{
+          start: "",
+          center: "title",
+          end: "",
+        }}
+        slotMinTime="08:00"
+        slotMaxTime="23:00"
+      />
+    </div>
   );
 }
 
