@@ -13,6 +13,7 @@ export default function SpaceRequest({ spaces }) {
   const [locationTitle, setLocationTitle] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [conflict, setConflict] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const checkConflict = (events, startDate, endDate) => {
     const isConflict = events.some((event) => {
@@ -112,13 +113,32 @@ export default function SpaceRequest({ spaces }) {
 
   return (
     <div>
-      <SpaceForm
-        locations={spaces}
-        isConflicting={conflict}
-        onLocationSelect={handleLocationSelected}
-        onDateSelect={handleDateSelected}
-      />
-      <div className="absolute right-0 top-20 w-2/3">
+      <div
+        className={`fixed top-0 z-10 h-full w-full ${
+          isOpen ? "" : "hidden"
+        } border-r border-neutral-200 bg-white px-10 pb-8 pt-20 shadow-md dark:border-0 dark:bg-neutral-800 md:w-1/2 lg:w-1/3`}
+      >
+        <SpaceForm
+          locations={spaces}
+          isConflicting={conflict}
+          onLocationSelect={handleLocationSelected}
+          onDateSelect={handleDateSelected}
+        />
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="absolute bottom-0 right-6 rounded-t bg-emerald-600 px-6 py-2 text-lg dark:bg-black md:hidden"
+        >
+          View Calendar
+        </button>
+      </div>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="fixed right-0 mt-14 rounded bg-emerald-600 px-4 py-1 dark:bg-neutral-800 md:hidden"
+      >
+        View Form
+      </button>
+
+      <div className="absolute right-0 top-20 w-full md:w-1/2 lg:w-2/3">
         <Calendar
           events={events}
           location={locationTitle}

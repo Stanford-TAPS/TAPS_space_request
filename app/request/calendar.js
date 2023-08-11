@@ -24,7 +24,7 @@ export default function Calendar({ events, location, isLoading }) {
   }
 
   return (
-    <div className="m-8">
+    <div className="m-2 md:m-8">
       <h1 className="mb-1 text-center text-2xl font-bold">{location}</h1>
       <FullCalendar
         plugins={[timeGridPlugin]}

@@ -111,7 +111,7 @@ export default function SpaceForm({
 
   if (submitStatus == "submitting") {
     return (
-      <div className="align-center fixed top-0 flex h-full w-1/3 flex-col justify-center border-r border-neutral-200 bg-white px-10 pb-8 shadow-md dark:border-0 dark:bg-neutral-800">
+      <div className="flex flex-col justify-center">
         <div className="mb-4 h-10 w-10 animate-spin self-center rounded-full border-b-2 border-t-2 border-red-500"></div>
         <p className="mb-6 text-center text-xl font-bold">Submitting...</p>
       </div>
@@ -119,7 +119,7 @@ export default function SpaceForm({
   }
   if (submitStatus == "success") {
     return (
-      <div className="fixed top-0 flex h-full w-1/3 flex-col justify-center border-r border-neutral-200 bg-white px-10 pb-8 shadow-md dark:border-0 dark:bg-neutral-800">
+      <div className="flex flex-col justify-center">
         <p className="mb-6 text-center text-xl font-bold">Success!</p>
         <p className="text-center">
           Please check your email for approval/rejection of your request.
@@ -129,7 +129,7 @@ export default function SpaceForm({
   }
   if (submitStatus == "failure") {
     return (
-      <div className="fixed top-0 flex h-full w-1/3 flex-col justify-center border-r border-neutral-200 bg-white px-10 pb-8 shadow-md dark:border-0 dark:bg-neutral-800">
+      <div className="flex flex-col justify-center">
         <p className="mb-6 text-center text-xl font-bold">
           Something went wrong!
         </p>
@@ -140,10 +140,10 @@ export default function SpaceForm({
 
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-    <div className="fixed top-0 h-full w-1/3 border-r border-neutral-200 bg-white px-10 pb-8 pt-20 shadow-md dark:border-0 dark:bg-neutral-800">
+    <div>
       <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         {/* Name */}
-        <div className="mb-4 mt-20">
+        <div className="mt:10 mb-4 md:mt-20">
           <label htmlFor="title" className="text-neutral-700 dark:text-white">
             Event Title
           </label>
@@ -291,27 +291,27 @@ export default function SpaceForm({
             <input
               type="submit"
               value="Submit Request"
-              className="click-border-red-700 focus:shadow-outline cursor-pointer rounded bg-red-700 px-4 py-2 font-bold text-white hover:bg-red-700 focus:outline-none"
+              className="click-border-red-700 focus:shadow-outline cursor-pointer rounded-full bg-red-700 px-4 py-2 font-bold text-white hover:bg-red-700 focus:outline-none"
             />
           </div>
         )}
 
         {showConfirmation && (
-          <div className="text-md rounded border-2 border-amber-600 bg-amber-50 p-2">
+          <div className="text-md rounded border-2 border-amber-600 bg-amber-50 p-2 text-black">
             <p className="pb-2">
               Your time conflicts with an existing event on the calendar.
             </p>
             <button
-              className="mr-2 rounded border-2 border-neutral-700 bg-white px-1.5 py-0.5 text-neutral-700 hover:bg-neutral-100"
+              className="mr-2 rounded-full border-2 border-neutral-700 bg-white px-2 py-0.5 text-neutral-700 hover:bg-neutral-100"
               onClick={() => setShowConfirmation(false)}
             >
               Cancel
             </button>
             <button
-              className="rounded bg-amber-600 px-2 py-1 text-white hover:bg-amber-700"
+              className="rounded-full bg-amber-600 px-3 py-1 text-white hover:bg-amber-700"
               onClick={handleConfirmSubmit}
             >
-              Confirm Anyway
+              Submit Anyway
             </button>
           </div>
         )}
