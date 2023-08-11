@@ -3,15 +3,17 @@ import Image from "next/image";
 
 export default function Navbar({ className }) {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-10 flex items-center justify-between flex-wrap bg-cardinal p-6">
+    <nav className="fixed top-0 left-0 right-0 z-10 flex items-center justify-between flex-wrap bg-cardinal p-4">
       <div className="flex items-center">
-        <a
-          href="https://taps.stanford.edu/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image src="/path/to/icon.png" alt="TAPS" width={24} height={24} />
-        </a>
+        <div className="bg-white rounded p-1">
+          <a
+            href="https://taps.stanford.edu/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image src="/taps_home.png" alt="TAPS" width={100} height={30} />
+          </a>
+        </div>
         <ul className="flex ml-6">
           <li className="mr-6">
             <Link href="/" className="text-white hover:text-gray-200">

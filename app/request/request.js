@@ -4,8 +4,8 @@ import SpaceForm from "./form";
 import { useState, useEffect } from "react";
 import Calendar from "./calendar";
 
-const CONFLICT_EVENT_COLOR = "#FFA500";
-const DEFAULT_EVENT_COLOR = "#4dcbcb";
+const CONFLICT_EVENT_COLOR = "#fbbf24"; // green 400
+const DEFAULT_EVENT_COLOR = "#34d399"; // amber 400
 
 export default function SpaceRequest({ spaces }) {
   const [events, setEvents] = useState([]);
@@ -43,7 +43,7 @@ export default function SpaceRequest({ spaces }) {
           if (!response.ok) {
             // TODO: better error handling here
             console.log(
-              `Failed to fetch spaces for location ${location}: ${response.statusText}`
+              `Failed to fetch spaces for location ${location}: ${response.statusText}`,
             );
             return;
           }
@@ -65,7 +65,7 @@ export default function SpaceRequest({ spaces }) {
             }
             console.log("setting events");
             setLocationTitle(
-              spaces.find((space) => space.id == location).title
+              spaces.find((space) => space.id == location).title,
             ); //search title of selected location
             setEvents(data);
             setIsLoading(false);
@@ -115,6 +115,7 @@ export default function SpaceRequest({ spaces }) {
     <div>
       <SpaceForm
         locations={spaces}
+        isConflicting={conflict}
         onLocationSelect={handleLocationSelected}
         onDateSelect={handleDateSelected}
       />

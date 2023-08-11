@@ -7,6 +7,7 @@ import { useState } from "react";
 //This is the component for the form
 export default function SpaceForm({
   locations, // an array of location objects containing their titles and ids
+  isConflicting, // a boolean that updates to true if the chosen event conflicts with existing events
   onLocationSelect, // callback function to trigger calendar update
   onDateSelect, // callback that adds proposed event to calendar
 }) {
@@ -79,7 +80,7 @@ export default function SpaceForm({
       });
 
       if (response.ok) {
-        //setSubmitStatus("success");
+        setSubmitStatus("success");
         console.log(response);
       } else {
         setSubmitStatus("failure");
@@ -93,16 +94,16 @@ export default function SpaceForm({
 
   if (submitStatus == "submitting") {
     return (
-      <div className="fixed top-0 h-full w-1/3 bg-white border-r border-neutral-200 dark:bg-neutral-800 dark:border-0 shadow-md px-10 pb-8 flex flex-col justify-center align-center">
-        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-red-500 self-center mb-4"></div>
-        <p className="text-xl font-bold text-center mb-6">Submitting...</p>
+      <div className="align-center fixed top-0 flex h-full w-1/3 flex-col justify-center border-r border-neutral-200 bg-white px-10 pb-8 shadow-md dark:border-0 dark:bg-neutral-800">
+        <div className="mb-4 h-10 w-10 animate-spin self-center rounded-full border-b-2 border-t-2 border-red-500"></div>
+        <p className="mb-6 text-center text-xl font-bold">Submitting...</p>
       </div>
     );
   }
   if (submitStatus == "success") {
     return (
-      <div className="fixed top-0 h-full w-1/3 bg-white border-r border-neutral-200 dark:bg-neutral-800 dark:border-0 shadow-md px-10 pb-8 flex flex-col justify-center">
-        <p className="text-xl font-bold text-center mb-6">Success!</p>
+      <div className="fixed top-0 flex h-full w-1/3 flex-col justify-center border-r border-neutral-200 bg-white px-10 pb-8 shadow-md dark:border-0 dark:bg-neutral-800">
+        <p className="mb-6 text-center text-xl font-bold">Success!</p>
         <p className="text-center">
           Please check your email for approval/rejection of your request.
         </p>
@@ -111,8 +112,8 @@ export default function SpaceForm({
   }
   if (submitStatus == "failure") {
     return (
-      <div className="fixed top-0 h-full w-1/3 bg-white border-r border-neutral-200 dark:bg-neutral-800 dark:border-0 shadow-md px-10 pb-8 flex flex-col justify-center">
-        <p className="text-xl font-bold text-center mb-6">
+      <div className="fixed top-0 flex h-full w-1/3 flex-col justify-center border-r border-neutral-200 bg-white px-10 pb-8 shadow-md dark:border-0 dark:bg-neutral-800">
+        <p className="mb-6 text-center text-xl font-bold">
           Something went wrong!
         </p>
         <p className="text-center">Please try again later.</p>
@@ -122,10 +123,10 @@ export default function SpaceForm({
 
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-    <div className="fixed top-0 h-full w-1/3 bg-white border-r border-neutral-200 dark:bg-neutral-800 dark:border-0 shadow-md px-10 pt-20 pb-8">
+    <div className="fixed top-0 h-full w-1/3 border-r border-neutral-200 bg-white px-10 pb-8 pt-20 shadow-md dark:border-0 dark:bg-neutral-800">
       <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         {/* Name */}
-        <div className="mt-20 mb-4">
+        <div className="mb-4 mt-20">
           <label htmlFor="title" className="text-neutral-700 dark:text-white">
             Event Title
           </label>
@@ -136,10 +137,10 @@ export default function SpaceForm({
             {...register("title", {
               required: "Please input a title",
             })}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none"
           />
           {errors.title && (
-            <p className="text-red-700 text-xs px-1 bg-white mt-1 rounded outline">
+            <p className=" mt-2 rounded border-red-700 bg-red-100 px-1 text-xs text-red-700 outline">
               {errors.title.message}
             </p>
           )}
@@ -160,10 +161,10 @@ export default function SpaceForm({
                 message: "Please use your Stanford email address",
               },
             })}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none"
           />
           {errors.email && (
-            <p className="text-red-700 text-xs px-1 bg-white mt-1 rounded outline">
+            <p className=" mt-2 rounded border-red-700 bg-red-100 px-1 text-xs text-red-700 outline">
               {errors.email.message}
             </p>
           )}
@@ -182,7 +183,7 @@ export default function SpaceForm({
               validate: validateLocation,
             })}
             defaultValue={"default"}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none"
           >
             <option value="default" disabled hidden>
               -Select a space-
@@ -194,7 +195,7 @@ export default function SpaceForm({
             ))}
           </select>
           {errors.location && (
-            <p className="text-red-700 text-xs px-1 bg-white mt-1 rounded outline">
+            <p className=" mt-2 rounded border-red-700 bg-red-100 px-1 text-xs text-red-700 outline">
               {errors.location.message}
             </p>
           )}
@@ -212,16 +213,16 @@ export default function SpaceForm({
               required: "Please select a date",
               validate: validateDate,
             })}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none"
           />
           {errors.date && (
-            <p className="text-red-700 text-xs px-1 bg-white mt-1 rounded outline">
+            <p className=" mt-2 rounded border-red-700 bg-red-100 px-1 text-xs text-red-700 outline">
               {errors.date.message}
             </p>
           )}
         </div>
 
-        <div className="flex justify-between mb-4">
+        <div className="mb-4 flex justify-between">
           <div className="w-1/2 pr-2">
             <label htmlFor="start" className="text-neutral-700 dark:text-white">
               Start
@@ -232,10 +233,10 @@ export default function SpaceForm({
               min="08:00"
               max="23:00"
               {...register("start", { required: "required" })}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none"
             />
             {errors.start && (
-              <p className="text-red-700 text-xs px-1 bg-white mt-1 rounded outline">
+              <p className=" mt-2 rounded border-red-700 bg-red-100 px-1 text-xs text-red-700 outline">
                 {errors.start.message}
               </p>
             )}
@@ -251,22 +252,28 @@ export default function SpaceForm({
               min="08:00"
               max="23:00"
               {...register("end", { required: "required" })}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none"
             />
             {errors.end && (
-              <p className="text-red-700 text-xs px-1 bg-white mt-1 rounded outline">
+              <p className=" mt-2 rounded border-red-700 bg-red-100 px-1 text-xs text-red-700 outline">
                 {errors.end.message}
               </p>
             )}
           </div>
         </div>
 
+        {isConflicting && (
+          <div className="text-s rounded border-2 border-amber-600 bg-amber-100 p-1 px-3 font-bold text-amber-600">
+            Warning: The selected time conflicts with an existing event!
+          </div>
+        )}
+
         {/* Submit button */}
-        <div className="flex items-center justify-between">
+        <div className="mt-4 flex items-center justify-between">
           <input
             type="submit"
             value="Submit Request"
-            className="bg-red-700 hover:bg-red-700 click-border-red-700 cursor-pointer text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="click-border-red-700 focus:shadow-outline cursor-pointer rounded bg-red-700 px-4 py-2 font-bold text-white hover:bg-red-700 focus:outline-none"
           />
         </div>
       </form>
