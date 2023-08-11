@@ -13,9 +13,9 @@ export default function Calendar({ events, location, isLoading }) {
   }
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center mt-20">
+      <div className="mt-20 flex flex-col items-center justify-center">
         <h1 className="mb-4 text-2xl font-bold">Loading...</h1>
-        <div className="w-12 h-12 border-t-4 border-blue-500 rounded-full animate-spin"></div>
+        <div className="h-12 w-12 animate-spin rounded-full border-t-4 border-blue-500"></div>
       </div>
     );
   }
@@ -25,9 +25,7 @@ export default function Calendar({ events, location, isLoading }) {
 
   return (
     <div className="m-8">
-      <h1 className="text-2xl text-center font-bold text-white mb-1">
-        {location}
-      </h1>
+      <h1 className="mb-1 text-center text-2xl font-bold">{location}</h1>
       <FullCalendar
         plugins={[timeGridPlugin]}
         initialView="timeGridWeek"
@@ -49,11 +47,11 @@ export default function Calendar({ events, location, isLoading }) {
 
 function Default() {
   return (
-    <div className="flex flex-col justify-center items-center p-5 space-y-5">
-      <h1 className="text-2xl font-bold text-center md:mt-20">
+    <div className="flex flex-col items-center justify-center space-y-5 p-5">
+      <h1 className="text-center text-2xl font-bold md:mt-20">
         Select a location to view its availability
       </h1>
-      <div className="p-5 border border-gray-200 shadow rounded w-full md:w-2/3 lg:w-1/2">
+      <div className="w-full rounded border border-gray-200 p-5 shadow md:w-2/3 lg:w-1/2">
         <p className="mb-4">
           Please note that spaces can only be reserved for the following week.
           Available hours may vary by location, but are typically between 8:30

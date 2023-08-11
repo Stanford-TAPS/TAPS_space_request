@@ -3,18 +3,18 @@ import Image from "next/image";
 
 export default function Navbar({ className }) {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-10 flex items-center justify-between flex-wrap bg-cardinal p-4">
+    <nav className="fixed left-0 right-0 top-0 z-10 flex flex-wrap items-center justify-between bg-cardinal p-4 text-lg">
       <div className="flex items-center">
-        <div className="bg-white rounded p-1">
+        <div className="height-28 mr-2 rounded-full bg-white p-1 px-2">
           <a
             href="https://taps.stanford.edu/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Image src="/taps_home.png" alt="TAPS" width={100} height={30} />
+            <Image src="/taps_home.png" alt="TAPS" width={110} height={100} />
           </a>
         </div>
-        <ul className="flex ml-6">
+        <ul className="ml-6 flex">
           <li className="mr-6">
             <Link href="/" className="text-white hover:text-gray-200">
               Home
@@ -26,7 +26,7 @@ export default function Navbar({ className }) {
             </Link>
           </li>
           <li className="mr-6">
-            <Link href="/" className="text-white hover:text-gray-200">
+            <Link href="/view" className="text-white hover:text-gray-200">
               Spaces
             </Link>
           </li>
@@ -35,7 +35,7 @@ export default function Navbar({ className }) {
       <div>
         <Link
           href="/approve"
-          className="text-white hover:text-gray-200 px-4 py-2 border border-white rounded"
+          className="rounded-full border border-white px-4 py-2 text-white hover:text-gray-200"
         >
           Approval page
         </Link>

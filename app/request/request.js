@@ -4,8 +4,8 @@ import SpaceForm from "./form";
 import { useState, useEffect } from "react";
 import Calendar from "./calendar";
 
-const CONFLICT_EVENT_COLOR = "#fbbf24"; // green 400
-const DEFAULT_EVENT_COLOR = "#34d399"; // amber 400
+const CONFLICT_EVENT_COLOR = "#d97706"; // amber 600
+const DEFAULT_EVENT_COLOR = "#059669"; // emerald 600
 
 export default function SpaceRequest({ spaces }) {
   const [events, setEvents] = useState([]);
@@ -103,7 +103,6 @@ export default function SpaceRequest({ spaces }) {
         start: startDate,
         end: endDate,
         color: eventColor,
-        textColor: "black",
       };
 
       // Add the new editable event to the events array

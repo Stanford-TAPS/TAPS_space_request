@@ -12,6 +12,9 @@ export default function SpaceForm({
   onDateSelect, // callback that adds proposed event to calendar
 }) {
   const [submitStatus, setSubmitStatus] = useState("unsubmitted");
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [formData, setFormData] = useState(null);
+
   // prepare React Hook Form methods
   const {
     register,
@@ -58,9 +61,7 @@ export default function SpaceForm({
     return value !== "default" || "Please select a location";
   };
 
-  // submitted form is posted to Notion
-  // TODO: make UX responsive to submitted form
-  const onSubmit = async (data) => {
+  const submitForm = async (data) => {
     // format dates for Notion
     const startDate = new Date(`${data.date}T${data.start}`).toISOString();
     const endDate = new Date(`${data.date}T${data.end}`).toISOString();
@@ -89,6 +90,22 @@ export default function SpaceForm({
     } catch (err) {
       setSubmitStatus("failure");
       console.log(err);
+    }
+  };
+
+  const onSubmit = (data) => {
+    if (isConflicting) {
+      setFormData(data); // Save the form data
+      setShowConfirmation(true);
+      return;
+    }
+
+    submitForm(data);
+  };
+
+  const handleConfirmSubmit = () => {
+    if (formData) {
+      submitForm(formData);
     }
   };
 
@@ -140,7 +157,7 @@ export default function SpaceForm({
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none"
           />
           {errors.title && (
-            <p className=" mt-2 rounded border-red-700 bg-red-100 px-1 text-xs text-red-700 outline">
+            <p className=" mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
               {errors.title.message}
             </p>
           )}
@@ -164,7 +181,7 @@ export default function SpaceForm({
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none"
           />
           {errors.email && (
-            <p className=" mt-2 rounded border-red-700 bg-red-100 px-1 text-xs text-red-700 outline">
+            <p className=" mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
               {errors.email.message}
             </p>
           )}
@@ -195,7 +212,7 @@ export default function SpaceForm({
             ))}
           </select>
           {errors.location && (
-            <p className=" mt-2 rounded border-red-700 bg-red-100 px-1 text-xs text-red-700 outline">
+            <p className=" mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
               {errors.location.message}
             </p>
           )}
@@ -216,7 +233,7 @@ export default function SpaceForm({
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none"
           />
           {errors.date && (
-            <p className=" mt-2 rounded border-red-700 bg-red-100 px-1 text-xs text-red-700 outline">
+            <p className=" mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
               {errors.date.message}
             </p>
           )}
@@ -236,7 +253,7 @@ export default function SpaceForm({
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none"
             />
             {errors.start && (
-              <p className=" mt-2 rounded border-red-700 bg-red-100 px-1 text-xs text-red-700 outline">
+              <p className=" mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
                 {errors.start.message}
               </p>
             )}
@@ -255,27 +272,49 @@ export default function SpaceForm({
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none"
             />
             {errors.end && (
-              <p className=" mt-2 rounded border-red-700 bg-red-100 px-1 text-xs text-red-700 outline">
+              <p className=" mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
                 {errors.end.message}
               </p>
             )}
           </div>
         </div>
 
-        {isConflicting && (
-          <div className="text-s rounded border-2 border-amber-600 bg-amber-100 p-1 px-3 font-bold text-amber-600">
+        {isConflicting && !showConfirmation && (
+          <div className="text-s rounded border-2 border-amber-600 bg-amber-50 p-1 px-3 text-amber-600">
             Warning: The selected time conflicts with an existing event!
           </div>
         )}
 
         {/* Submit button */}
-        <div className="mt-4 flex items-center justify-between">
-          <input
-            type="submit"
-            value="Submit Request"
-            className="click-border-red-700 focus:shadow-outline cursor-pointer rounded bg-red-700 px-4 py-2 font-bold text-white hover:bg-red-700 focus:outline-none"
-          />
-        </div>
+        {!showConfirmation && (
+          <div className="mt-4 flex items-center justify-between">
+            <input
+              type="submit"
+              value="Submit Request"
+              className="click-border-red-700 focus:shadow-outline cursor-pointer rounded bg-red-700 px-4 py-2 font-bold text-white hover:bg-red-700 focus:outline-none"
+            />
+          </div>
+        )}
+
+        {showConfirmation && (
+          <div className="text-md rounded border-2 border-amber-600 bg-amber-50 p-2">
+            <p className="pb-2">
+              Your time conflicts with an existing event on the calendar.
+            </p>
+            <button
+              className="mr-2 rounded border-2 border-neutral-700 bg-white px-1.5 py-0.5 text-neutral-700 hover:bg-neutral-100"
+              onClick={() => setShowConfirmation(false)}
+            >
+              Cancel
+            </button>
+            <button
+              className="rounded bg-amber-600 px-2 py-1 text-white hover:bg-amber-700"
+              onClick={handleConfirmSubmit}
+            >
+              Confirm Anyway
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );
