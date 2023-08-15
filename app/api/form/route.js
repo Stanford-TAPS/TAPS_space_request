@@ -40,6 +40,11 @@ export async function POST(request) {
             time_zone: "America/Los_Angeles",
           },
         },
+        Status: {
+          select: {
+            name: "New",
+          },
+        },
       },
     };
     // Create the page in Notion

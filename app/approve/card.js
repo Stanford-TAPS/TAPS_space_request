@@ -2,8 +2,10 @@
 import { useState } from "react";
 import ConflictBox from "./conflict";
 
-export default function RequestCard({ request, requests }) {
+export default function RequestCard({ request, requests, eraseRequest }) {
   const [approveStatus, setApproveStatus] = useState(null);
+  const [denyStatus, setDenyStatus] = useState(null);
+
   const approveRequest = async (request) => {
     setApproveStatus("approving");
     try {
@@ -17,6 +19,7 @@ export default function RequestCard({ request, requests }) {
 
       if (response.ok) {
         setApproveStatus("success");
+        eraseRequest(request);
         console.log(response);
       } else {
         setApproveStatus("failure");
@@ -28,6 +31,76 @@ export default function RequestCard({ request, requests }) {
     }
   };
 
+  const denyRequest = async (request) => {
+    setDenyStatus("denying");
+    try {
+      const response = await fetch("/api/deny", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(request),
+      });
+
+      if (response.ok) {
+        setDenyStatus("success");
+        eraseRequest(request);
+        console.log(response);
+      } else {
+        setDenyStatus("failure");
+        console.log(response);
+      }
+    } catch (err) {
+      setDenyStatus("failure");
+      console.log(err);
+    }
+  };
+
+  if (approveStatus == "approving") {
+    return (
+      <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg">
+        Approving...
+      </div>
+    );
+  }
+
+  if (approveStatus == "success") {
+    return (
+      <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg">
+        <p>Approved!</p>
+        <p>
+          {" "}
+          - that means the event was sent to the Notion Events database. If you
+          are testing, remember to remove it later :)
+        </p>
+      </div>
+    );
+  }
+
+  if (approveStatus == "approving") {
+    return (
+      <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg">
+        loading...
+      </div>
+    );
+  }
+
+  if (denyStatus == "success") {
+    return (
+      <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg">
+        <p>Denied!</p>
+      </div>
+    );
+  }
+
+  if (approveStatus == "failure" || denyStatus == "failure") {
+    return (
+      <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg">
+        Something went wrong :/
+      </div>
+    );
+  }
+
   return (
     <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg">
       <h2 className="font-playfair mb-6 text-center text-4xl font-bold">
@@ -38,16 +111,16 @@ export default function RequestCard({ request, requests }) {
         <p>{`${request.startTime} - ${request.endTime}`}</p>
       </div>
       <p className="pb-4">{`Location: ${request.location}`}</p>
-      <p>{`Contact: `}</p>
-      <div className="flex w-full justify-between pt-8">
+      <p>{`Contact: (this is still in progress)`}</p>
+      <div className="mb-8 flex w-full justify-between pt-8">
         <button
-          //onClick={() => approveRequest(request)}
+          onClick={() => approveRequest(request)}
           className="w-24 rounded-lg bg-green-500 p-2 text-white hover:bg-green-600 hover:shadow-md"
         >
           Approve
         </button>
         <button
-          //onClick={() => approveRequest(request)}
+          onClick={() => denyRequest(request)}
           className="w-24 rounded-lg bg-red-500 p-2 text-white hover:bg-red-600 hover:shadow-md"
         >
           Deny

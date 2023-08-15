@@ -48,10 +48,9 @@ export default async function Approve() {
       }
     }
   }
-
   return (
     <div className="h-screen w-screen pt-20">
-      <Table requests={spaceRequests} />
+      <Table requests={spaceRequests} locations={locations} />
     </div>
   );
 }
