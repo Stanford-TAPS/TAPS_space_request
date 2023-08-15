@@ -139,7 +139,7 @@ export default function SpaceRequest({ spaces }) {
         View Form
       </button>
 
-      <div className="absolute right-0 top-20 w-full md:w-1/2 lg:w-2/3">
+      <div className="no-scrollbar absolute right-0 top-20 w-full md:w-1/2 lg:w-2/3">
         <Calendar
           events={events}
           location={locationTitle}

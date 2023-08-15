@@ -13,7 +13,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="font-oswald h-screen">
+        <div className="h-screen font-oswald">
           <Navbar />
           <div>{children}</div>
         </div>

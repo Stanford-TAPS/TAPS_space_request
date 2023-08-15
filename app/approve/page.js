@@ -21,6 +21,7 @@ export default async function Approve() {
     spaceRequests[i].date = format(currentEventInterval.start, "MMM dd");
     spaceRequests[i].startTime = format(currentEventInterval.start, "hh:mm aa");
     spaceRequests[i].endTime = format(currentEventInterval.end, "hh:mm aa");
+    spaceRequests[i].conflicts = [];
 
     // Check if the current event conflicts with any other events at the same location
     for (let j = 0; j < spaceRequests.length; j++) {
@@ -38,6 +39,10 @@ export default async function Approve() {
           isWithinInterval(currentEventInterval.end, otherEventInterval)
         ) {
           spaceRequests[i].conflictStatus = "requestedConflict";
+          spaceRequests[i].conflicts.push({
+            title: spaceRequests[j].title,
+            id: j,
+          });
           break; // exit loop once conflict is found
         }
       }

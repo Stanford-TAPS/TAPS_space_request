@@ -14,8 +14,8 @@ module.exports = {
         oswald: ["Oswald", "sans-serif"],
         playfair: ["Playfair", "serif"],
       },
-      textShadow: {
-        "outline-white": "-1px 0 white, 0 1px white, 1px 0 white, 0 -1px white",
+      boxShadow: {
+        b: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
       },
     },
   },
