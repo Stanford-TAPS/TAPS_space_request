@@ -6,16 +6,16 @@ const notion = new Client({ auth: process.env.NOTION_KEY });
 
 export async function POST(request) {
   try {
-    const { title, email, location, startDate, endDate, timeZone } =
-      await request.json();
+    console.log("calling Notion");
+    const { title, locationID, start, end } = await request.json();
 
     const newPage = {
       parent: {
         type: "database_id",
-        database_id: process.env.NOTION_SPACE_REQUESTS_ID,
+        database_id: process.env.NOTION_EVENTS_ID,
       },
       properties: {
-        Title: {
+        "*Record Title": {
           title: [
             {
               type: "text",
@@ -23,27 +23,34 @@ export async function POST(request) {
             },
           ],
         },
-        Email: {
-          email: email,
-        },
-        Location: {
-          relation: [
+        "*Record Type": {
+          multi_select: [
             {
-              id: location,
+              name: "Space Booking",
             },
           ],
         },
-        Date: {
+        // Email: {
+        //   email: email,    TODO: Search for contacts, then assign new contact if nonexistant
+        // },
+        "Event Location": {
+          relation: [
+            {
+              id: locationID,
+            },
+          ],
+        },
+        "Event Date": {
           date: {
-            start: startDate,
-            end: endDate,
-            time_zone: "America/Los_Angeles",
+            start: start,
+            end: end,
           },
         },
       },
     };
     // Create the page in Notion
     const response = await notion.pages.create(newPage);
+    console.log("Notion called");
 
     return NextResponse.json({ status: response.status });
   } catch (error) {

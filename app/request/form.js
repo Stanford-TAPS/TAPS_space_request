@@ -1,7 +1,7 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
-import { getNextSunday } from "../../lib/utilities";
+import { convertDate, getNextSunday } from "../../lib/utilities";
 import { useState } from "react";
 
 //This is the component for the form
@@ -14,6 +14,14 @@ export default function SpaceForm({
   const [submitStatus, setSubmitStatus] = useState("unsubmitted");
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [formData, setFormData] = useState(null);
+  const [isStanfordTimezone, setIsStanfordTimezone] = useState(null);
+
+  // if timezone is not same as Stanford, we need a warning
+  useEffect(() => {
+    const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const stanfordTimezone = "America/Los_Angeles";
+    setIsStanfordTimezone(userTimezone === stanfordTimezone);
+  }, []);
 
   // prepare React Hook Form methods
   const {
@@ -37,13 +45,14 @@ export default function SpaceForm({
   const selectedEnd = watch("end");
   useEffect(() => {
     if (selectedDate && selectedStart && selectedEnd) {
-      const startDate = new Date(`${selectedDate}T${selectedStart}`);
-      const endDate = new Date(`${selectedDate}T${selectedEnd}`);
+      const startDate = `${selectedDate}T${selectedStart}`;
+      const endDate = `${selectedDate}T${selectedEnd}`;
       onDateSelect(startDate, endDate);
     }
   }, [selectedDate, selectedStart, selectedEnd]);
 
   // validating date is within next Sunday - Saturday week
+  // TODO: Fix so it actually works right :)
   const validateDate = (value) => {
     const selectedDate = new Date(value);
     const nextSunday = getNextSunday();
@@ -63,8 +72,8 @@ export default function SpaceForm({
 
   const submitForm = async (data) => {
     // format dates for Notion
-    const startDate = new Date(`${data.date}T${data.start}`).toISOString();
-    const endDate = new Date(`${data.date}T${data.end}`).toISOString();
+    const startDate = `${data.date}T${data.start}`;
+    const endDate = `${data.date}T${data.end}`;
     const payload = {
       ...data,
       startDate,
@@ -140,24 +149,31 @@ export default function SpaceForm({
 
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-    <div>
+    <div style={{ maxWidth: "260px" }} className="mx-auto">
       <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         {/* Name */}
-        <div className="mt:10 mb-4 md:mt-20">
+        <div className="mt:10 relative mb-4 md:mt-20">
+          {" "}
+          {/* Added relative positioning here */}
           <label htmlFor="title" className="text-neutral-700 dark:text-white">
             Event Title
           </label>
           <input
             type="text"
             id="title"
-            maxLength="25"
+            maxLength="40"
             {...register("title", {
               required: "Please input a title",
             })}
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none"
           />
+          <span className="absolute bottom-2 right-3 text-xs text-neutral-500">
+            {" "}
+            {/* Added absolute positioning here */}
+            {watch("title") ? 40 - watch("title").length : ""}
+          </span>
           {errors.title && (
-            <p className=" mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
+            <p className="mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
               {errors.title.message}
             </p>
           )}
@@ -280,8 +296,14 @@ export default function SpaceForm({
         </div>
 
         {isConflicting && !showConfirmation && (
-          <div className="text-s rounded border-2 border-amber-600 bg-amber-50 p-1 px-3 text-amber-600">
+          <div className="text-s mb-2 rounded border-2 border-amber-600 bg-amber-50 p-1 px-3 text-amber-600">
             Warning: The selected time conflicts with an existing event!
+          </div>
+        )}
+
+        {!isStanfordTimezone && (
+          <div className=" text-[0.9rem] ">
+            Please note that all dates are in Stanford's time zone (PST/PDT).
           </div>
         )}
 

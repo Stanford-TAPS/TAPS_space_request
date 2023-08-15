@@ -1,6 +1,6 @@
 import { Client } from "@notionhq/client";
 import { NextResponse } from "next/server";
-import { getNextSunday } from "../../../../lib/utilities";
+import { getNextSunday, convertDate } from "../../../../lib/utilities";
 
 // Initialize Notion client
 const notion = new Client({ auth: process.env.NOTION_KEY });
@@ -12,9 +12,9 @@ export async function GET(request, { params }) {
     const databaseId = process.env.NOTION_EVENTS_ID;
     // date calculations
     const date = getNextSunday();
-    const startDate = date.toISOString();
+    const startDate = convertDate(date);
     date.setDate(date.getDate() + 7);
-    const endDate = date.toISOString();
+    const endDate = convertDate(date);
 
     const { results } = await notion.databases.query({
       database_id: databaseId,
@@ -57,11 +57,11 @@ export async function GET(request, { params }) {
   } catch (error) {
     console.error(
       `Error fetching events for location ${params.locationID}:`,
-      error
+      error,
     );
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

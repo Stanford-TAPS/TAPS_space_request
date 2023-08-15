@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="flex h-screen flex-col items-center justify-center space-y-5">
-      <h1 className="m-4 text-center text-2xl dark:text-white md:text-3xl">
+      <h1 className="font-playfair m-4 text-center text-2xl font-bold dark:text-white md:text-5xl">
         Welcome to the TAPS Space Request page!
       </h1>
       <div className="flex space-x-4">

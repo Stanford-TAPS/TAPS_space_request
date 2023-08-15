@@ -1,20 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;600&family=Playfair:opsz,wght@5..1200,600;5..1200,800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Oswald';
-  src: url('../public/Oswald-VariableFont_wght.ttf') format('truetype');
-  font-weight: 300 900;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Poppins';
-  src: url('../public/Poppins-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-display: swap;
-}
 
 :root {
   --foreground: #252525;
@@ -32,7 +20,7 @@
 }
 
 .fc-event-title {
-  font-family: 'Poppins', sans-serif !important;
+  font-family: 'Oswald', sans-serif !important;
 }
 
 .fc .fc-toolbar.fc-header-toolbar {
@@ -55,6 +43,6 @@
 body {
   color: rgb(var(--foreground));
   background: rgb(var(--background));
-  font-family: var(--font-family);
+  font-family: 'Oswald', sans-serif; 
 }
 

@@ -12,6 +12,7 @@ module.exports = {
       },
       fontFamily: {
         oswald: ["Oswald", "sans-serif"],
+        playfair: ["Playfair", "serif"],
       },
       textShadow: {
         "outline-white": "-1px 0 white, 0 1px white, 1px 0 white, 0 -1px white",

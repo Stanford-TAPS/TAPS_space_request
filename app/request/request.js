@@ -17,11 +17,10 @@ export default function SpaceRequest({ spaces }) {
 
   const checkConflict = (events, startDate, endDate) => {
     const isConflict = events.some((event) => {
-      const eventStart = new Date(event.start);
-      const eventEnd = new Date(event.end);
+      if (event.id === "123") return false;
       return (
-        (startDate >= eventStart && startDate < eventEnd) ||
-        (endDate > eventStart && endDate <= eventEnd)
+        (startDate >= event.start && startDate < event.end) ||
+        (endDate > event.start && endDate <= event.end)
       );
     });
 
@@ -55,9 +54,11 @@ export default function SpaceRequest({ spaces }) {
           if (data) {
             let requestedEvent = events.find((event) => event.id == "123");
             if (requestedEvent) {
-              let startDate = new Date(requestedEvent.start);
-              let endDate = new Date(requestedEvent.end);
-              const isConflict = checkConflict(data, startDate, endDate);
+              const isConflict = checkConflict(
+                data,
+                requestedEvent.start,
+                requestedEvent.end,
+              );
               console.log("On location change, conflict status =", isConflict);
               requestedEvent.color = isConflict
                 ? CONFLICT_EVENT_COLOR
@@ -76,7 +77,7 @@ export default function SpaceRequest({ spaces }) {
   }, [location]);
 
   const handleDateSelected = (startDate, endDate) => {
-    //console.log("Date selected!", startDate, endDate);
+    console.log("Date selected!", startDate, endDate);
     const isConflict = checkConflict(events, startDate, endDate);
     const eventColor = isConflict ? CONFLICT_EVENT_COLOR : DEFAULT_EVENT_COLOR; // Orange if conflict, else default color
 

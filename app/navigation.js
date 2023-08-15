@@ -3,22 +3,22 @@ import Image from "next/image";
 
 export default function Navbar({ className }) {
   return (
-    <nav className="fixed left-0 right-0 top-0 z-40 flex flex-wrap items-center justify-between bg-cardinal p-4 text-lg">
+    <nav className="fixed left-0 right-0 top-0 z-40 flex flex-wrap items-center justify-between bg-cardinal p-4 text-xl">
       <div className="flex items-center">
         <ul className="ml-6 flex">
           <li className="mr-6">
             <Link href="/" className="text-white hover:text-gray-200">
-              Home
+              HOME
             </Link>
           </li>
           <li className="mr-6">
             <Link href="/request" className="text-white hover:text-gray-200">
-              Request
+              REQUEST
             </Link>
           </li>
           <li className="mr-6">
             <Link href="/view" className="text-white hover:text-gray-200">
-              Spaces
+              SPACES
             </Link>
           </li>
         </ul>

@@ -30,6 +30,7 @@ export default function Calendar({ events, location, isLoading }) {
         plugins={[timeGridPlugin]}
         initialView="timeGridWeek"
         initialDate={getNextSunday().toISOString().slice(0, 10)}
+        timeZone="America/Los_Angeles"
         contentHeight="auto"
         events={events}
         eventColor="#8C1515"
