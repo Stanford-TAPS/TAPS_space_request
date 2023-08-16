@@ -1,7 +1,7 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
-import { convertDate, getNextSunday } from "../lib/utilities";
+import { convertDate, getNextSunday } from "../../lib/utilities";
 import { useState } from "react";
 
 //This is the component for the form
@@ -149,10 +149,10 @@ export default function SpaceForm({
 
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-    <div style={{ maxWidth: "260px" }} className="mx-auto">
+    <div style={{ maxWidth: "260px" }} className="m-auto md:pt-10">
       <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         {/* Name */}
-        <div className="mt:10 relative mb-4 md:mt-20">
+        <div className="mb-4">
           {" "}
           {/* Added relative positioning here */}
           <label htmlFor="title" className="text-neutral-700 dark:text-white">
@@ -169,7 +169,6 @@ export default function SpaceForm({
           />
           <span className="absolute bottom-2 right-3 text-xs text-neutral-500">
             {" "}
-            {/* Added absolute positioning here */}
             {watch("title") ? 40 - watch("title").length : ""}
           </span>
           {errors.title && (

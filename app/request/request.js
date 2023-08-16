@@ -11,7 +11,6 @@ export default function SpaceRequest({ spaces, eventsByLocation }) {
   const [events, setEvents] = useState([]);
   const [location, setLocation] = useState(null);
   const [locationTitle, setLocationTitle] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [conflict, setConflict] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
 
@@ -89,11 +88,11 @@ export default function SpaceRequest({ spaces, eventsByLocation }) {
   };
 
   return (
-    <div>
+    <div className="flex h-full flex-row justify-stretch">
       <div
-        className={`fixed top-0 z-10 h-full w-full ${
+        className={`h-full w-full ${
           isOpen ? "" : "hidden"
-        } border-r border-neutral-200 bg-white px-10 pb-8 pt-20 shadow-md dark:border-0 dark:bg-neutral-800 md:w-1/2 lg:w-1/3`}
+        } border-r border-neutral-200 bg-white p-10 shadow-md dark:border-0 dark:bg-neutral-800 md:w-1/2 lg:w-1/4`}
       >
         <SpaceForm
           locations={spaces}
@@ -115,12 +114,8 @@ export default function SpaceRequest({ spaces, eventsByLocation }) {
         View Form
       </button>
 
-      <div className="no-scrollbar absolute right-0 top-20 w-full md:w-1/2 lg:w-2/3">
-        <Calendar
-          events={events}
-          location={locationTitle}
-          isLoading={isLoading}
-        />
+      <div className="no-scrollbar h-full w-full overflow-scroll p-10 md:w-1/2 lg:w-3/4">
+        <Calendar events={events} location={locationTitle} />
       </div>
     </div>
   );

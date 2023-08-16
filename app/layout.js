@@ -13,9 +13,11 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="h-screen font-oswald">
-          <Navbar />
-          <div>{children}</div>
+        <div className="flex h-screen w-screen flex-col justify-stretch font-oswald">
+          <div className="left-0 right-0 top-0 z-40 flex-shrink-0">
+            <Navbar />
+          </div>
+          <div className="flex-grow overflow-auto">{children}</div>
         </div>
       </body>
     </html>

@@ -1,5 +1,6 @@
 import { Client } from "@notionhq/client";
 import { NextResponse } from "next/server";
+import { notion } from "../../../lib/notion";
 
 // Initialize Notion client
 const notion = new Client({ auth: process.env.NOTION_KEY });

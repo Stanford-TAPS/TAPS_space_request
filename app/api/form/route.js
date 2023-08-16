@@ -1,8 +1,6 @@
 import { Client } from "@notionhq/client";
 import { NextResponse } from "next/server";
-
-// Initialize Notion client
-const notion = new Client({ auth: process.env.NOTION_KEY });
+import { notion } from "../../../lib/notion";
 
 export async function POST(request) {
   try {

@@ -1,4 +1,5 @@
-import { getRequestableSpaces, getSpaceRequests } from "../lib/notion";
+import { getRequestableSpaces, getSpaceRequests } from "../../lib/notion";
+import ApprovalSystem from "./approve";
 import Table from "./table";
 import { format, parseISO, isWithinInterval } from "date-fns";
 
@@ -51,8 +52,8 @@ export default async function Approve() {
     }
   }
   return (
-    <div className="h-screen w-screen pt-20">
-      <Table requests={spaceRequests} locations={locations} />
+    <div className="h-full w-full">
+      <ApprovalSystem requests={spaceRequests} locations={locations} />
     </div>
   );
 }
