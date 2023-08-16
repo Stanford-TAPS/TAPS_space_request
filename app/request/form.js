@@ -1,7 +1,7 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
-import { convertDate, getNextSunday } from "../../lib/utilities";
+import { convertDate, getNextSunday } from "../lib/utilities";
 import { useState } from "react";
 
 //This is the component for the form

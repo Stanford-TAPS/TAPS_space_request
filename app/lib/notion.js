@@ -8,7 +8,7 @@ export const notion = new Client({
   auth: process.env.NOTION_KEY,
 });
 
-export const getNextWeekEvents = async () => {
+export const getNextWeekEvents = cache(async () => {
   const databaseId = process.env.NOTION_EVENTS_ID;
   const date = getNextSunday();
   const startDate = convertDate(date);
@@ -43,7 +43,6 @@ export const getNextWeekEvents = async () => {
       ],
     },
   });
-
   const eventsByLocation = {};
 
   results.forEach((page) => {
@@ -61,9 +60,8 @@ export const getNextWeekEvents = async () => {
       });
     }
   });
-
   return eventsByLocation;
-};
+}, revalidate);
 
 export const getRequestableSpaces = cache(async () => {
   const databaseId = process.env.NOTION_FACILITIES_ID;

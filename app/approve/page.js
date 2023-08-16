@@ -1,6 +1,8 @@
-import { getSpaceRequests, getRequestableSpaces } from "../../lib/notion";
+import { getRequestableSpaces, getSpaceRequests } from "../lib/notion";
 import Table from "./table";
 import { format, parseISO, isWithinInterval } from "date-fns";
+
+export const dynamic = "force-dynamic"; // refreshing the page means data is refetched
 
 export default async function Approve() {
   const spaceRequests = await getSpaceRequests();
