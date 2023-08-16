@@ -22,9 +22,9 @@ export default function LocationFilter({
       onMouseEnter={() => setShowDropdown(true)}
       onMouseLeave={() => setShowDropdown(false)}
     >
-      <div className="rounded border bg-white p-2">
+      <div className="truncate rounded border bg-white p-2 dark:border-black dark:bg-neutral-800">
         {selectedLocations.length === 0
-          ? "Select Locations"
+          ? "Filter by Location"
           : selectedLocations
               .map(
                 (id) => locations.find((location) => location.id === id).title,
@@ -32,18 +32,17 @@ export default function LocationFilter({
               .join(", ")}
       </div>
       {showDropdown && (
-        <div className="absolute w-64 rounded-b border bg-white p-2 shadow-md">
+        <div className="absolute w-64 rounded-b border bg-white shadow-md dark:border-t-0 dark:border-black dark:bg-neutral-800">
           {locations.map((location) => (
-            <div key={location.id}>
-              <label className="cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="mr-2"
-                  checked={selectedLocations.includes(location.id)}
-                  onChange={() => handleChange(location.id)}
-                />
-                {location.title}
-              </label>
+            <div
+              key={location.id}
+              className="flex cursor-pointer items-center p-2"
+              onClick={() => handleChange(location.id)}
+            >
+              {selectedLocations.includes(location.id) && (
+                <span className="mr-2 text-green-500">✔</span>
+              )}
+              <span>{location.title}</span>
             </div>
           ))}
         </div>

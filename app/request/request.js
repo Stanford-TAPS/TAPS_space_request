@@ -7,7 +7,7 @@ import Calendar from "./calendar";
 const CONFLICT_EVENT_COLOR = "#d97706"; // amber 600
 const DEFAULT_EVENT_COLOR = "#059669"; // emerald 600
 
-export default function SpaceRequest({ spaces }) {
+export default function SpaceRequest({ spaces, eventsByLocation }) {
   const [events, setEvents] = useState([]);
   const [location, setLocation] = useState(null);
   const [locationTitle, setLocationTitle] = useState(null);
@@ -30,51 +30,27 @@ export default function SpaceRequest({ spaces }) {
 
   const handleLocationSelected = (locationID) => {
     setLocation(locationID);
-  };
-
-  useEffect(() => {
-    if (location) {
-      setIsLoading(true);
-      console.log(`Fetching spaces for location: ${location}`);
-      fetch(`/api/spaces/${location}`, {
-        method: "GET",
-      })
-        .then((response) => {
-          if (!response.ok) {
-            // TODO: better error handling here
-            console.log(
-              `Failed to fetch spaces for location ${location}: ${response.statusText}`,
-            );
-            return;
-          }
-          return response.json();
-        })
-        .then((data) => {
-          // The data of the response contains an array of events for the location
-          if (data) {
-            let requestedEvent = events.find((event) => event.id == "123");
-            if (requestedEvent) {
-              const isConflict = checkConflict(
-                data,
-                requestedEvent.start,
-                requestedEvent.end,
-              );
-              console.log("On location change, conflict status =", isConflict);
-              requestedEvent.color = isConflict
-                ? CONFLICT_EVENT_COLOR
-                : DEFAULT_EVENT_COLOR; // Orange if conflict, else default color
-              data.push(requestedEvent);
-            }
-            console.log("setting events");
-            setLocationTitle(
-              spaces.find((space) => space.id == location).title,
-            ); //search title of selected location
-            setEvents(data);
-            setIsLoading(false);
-          }
-        });
+    const data = eventsByLocation[locationID]; // Access events directly from eventsByLocation
+    if (data) {
+      let requestedEvent = events.find((event) => event.id == "123");
+      if (requestedEvent) {
+        const isConflict = checkConflict(
+          data,
+          requestedEvent.start,
+          requestedEvent.end,
+        );
+        requestedEvent.color = isConflict
+          ? CONFLICT_EVENT_COLOR
+          : DEFAULT_EVENT_COLOR;
+        data.push(requestedEvent);
+      }
+      setLocationTitle(spaces.find((space) => space.id == locationID).title); // search title of selected location
+      setEvents(data);
+    } else {
+      setLocationTitle(spaces.find((space) => space.id == locationID).title); // search title of selected location
+      setEvents([]);
     }
-  }, [location]);
+  };
 
   const handleDateSelected = (startDate, endDate) => {
     console.log("Date selected!", startDate, endDate);

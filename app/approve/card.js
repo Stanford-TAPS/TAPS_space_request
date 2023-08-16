@@ -58,7 +58,7 @@ export default function RequestCard({ request, requests, eraseRequest }) {
 
   if (approveStatus == "approving") {
     return (
-      <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg">
+      <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg dark:border-0 dark:bg-neutral-800">
         Approving...
       </div>
     );
@@ -66,7 +66,7 @@ export default function RequestCard({ request, requests, eraseRequest }) {
 
   if (approveStatus == "success") {
     return (
-      <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg">
+      <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg dark:border-0 dark:bg-neutral-800">
         <p>Approved!</p>
         <p>
           {" "}
@@ -79,7 +79,7 @@ export default function RequestCard({ request, requests, eraseRequest }) {
 
   if (approveStatus == "approving") {
     return (
-      <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg">
+      <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg dark:border-0 dark:bg-neutral-800">
         loading...
       </div>
     );
@@ -87,7 +87,7 @@ export default function RequestCard({ request, requests, eraseRequest }) {
 
   if (denyStatus == "success") {
     return (
-      <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg">
+      <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg dark:border-0 dark:bg-neutral-800">
         <p>Denied!</p>
       </div>
     );
@@ -95,14 +95,14 @@ export default function RequestCard({ request, requests, eraseRequest }) {
 
   if (approveStatus == "failure" || denyStatus == "failure") {
     return (
-      <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg">
+      <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg dark:border-0 dark:bg-neutral-800">
         Something went wrong :/
       </div>
     );
   }
 
   return (
-    <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg">
+    <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg dark:border-0 dark:bg-neutral-800">
       <h2 className="font-playfair mb-6 text-center text-4xl font-bold">
         {request.title}
       </h2>
