@@ -34,13 +34,13 @@ export default function Table({
   }
 
   return (
-    <div className="no-scrollbar mx-auto mb-6 mt-4 flex w-3/5 flex-col">
+    <div className="mx-auto mb-6 mt-4 flex w-3/5 flex-col">
       <LocationFilter
         locations={locations}
         selectedLocations={selectedLocations}
         setSelectedLocations={setSelectedLocations}
       />
-      <div className="mt-2 grow overflow-auto rounded shadow-lg outline outline-1 outline-neutral-200 dark:bg-neutral-800 dark:outline-none">
+      <div className="no-scrollbar mt-2 grow overflow-auto rounded shadow-lg outline outline-1 outline-neutral-200 dark:bg-neutral-800 dark:outline-none">
         <table className="w-full text-lg">
           <thead className="sticky left-0 right-0 top-0 z-10 bg-white outline outline-1 outline-neutral-200 dark:bg-neutral-800 dark:outline-2 dark:outline-neutral-900">
             <tr>

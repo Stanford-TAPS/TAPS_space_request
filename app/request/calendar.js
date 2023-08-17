@@ -16,8 +16,8 @@ export default function Calendar({ events, location }) {
   }
 
   return (
-    <div className="overflow:auto h-full">
-      <h1 className="font-playfair mb-1 text-center text-4xl font-bold">
+    <>
+      <h1 className="font-playfair mb-1 text-center text-2xl font-bold md:text-4xl">
         {location}
       </h1>
       <FullCalendar
@@ -36,7 +36,7 @@ export default function Calendar({ events, location }) {
         slotMinTime="08:00"
         slotMaxTime="23:00"
       />
-    </div>
+    </>
   );
 }
 

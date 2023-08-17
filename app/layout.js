@@ -17,7 +17,7 @@ export default async function RootLayout({ children }) {
           <div className="left-0 right-0 top-0 z-40 flex-shrink-0">
             <Navbar />
           </div>
-          <div className="flex-grow overflow-auto">{children}</div>
+          <div className="relative flex-grow overflow-auto">{children}</div>
         </div>
       </body>
     </html>

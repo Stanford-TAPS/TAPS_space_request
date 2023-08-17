@@ -88,11 +88,11 @@ export default function SpaceRequest({ spaces, eventsByLocation }) {
   };
 
   return (
-    <div className="flex h-full flex-row justify-stretch">
+    <div className="flex h-full flex-row justify-stretch md:flex-row">
       <div
         className={`h-full w-full ${
-          isOpen ? "" : "hidden"
-        } border-r border-neutral-200 bg-white p-10 shadow-md dark:border-0 dark:bg-neutral-800 md:w-1/2 lg:w-1/4`}
+          isOpen || (isOpen === false && isOpen) ? "" : "hidden"
+        } border-r border-neutral-200 bg-white p-10 shadow-md dark:border-0 dark:bg-neutral-800 md:block md:w-1/2 lg:w-1/4`}
       >
         <SpaceForm
           locations={spaces}
@@ -101,20 +101,26 @@ export default function SpaceRequest({ spaces, eventsByLocation }) {
           onDateSelect={handleDateSelected}
         />
         <button
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setIsOpen(false)}
           className="absolute bottom-0 right-6 rounded-t bg-emerald-600 px-6 py-2 text-lg dark:bg-black md:hidden"
         >
           View Calendar
         </button>
       </div>
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed right-0 mt-14 rounded bg-emerald-600 px-4 py-1 dark:bg-neutral-800 md:hidden"
+        onClick={() => setIsOpen(true)}
+        className={`absolute right-0 top-0 rounded bg-emerald-600 px-4 py-1 dark:bg-neutral-800 ${
+          isOpen ? "hidden" : ""
+        } md:hidden`}
       >
         View Form
       </button>
 
-      <div className="no-scrollbar h-full w-full overflow-scroll p-10 md:w-1/2 lg:w-3/4">
+      <div
+        className={`no-scrollbar h-full w-full overflow-scroll py-8 md:w-1/2 md:p-10 lg:w-3/4 ${
+          isOpen ? "hidden md:block" : "md:block"
+        }`}
+      >
         <Calendar events={events} location={locationTitle} />
       </div>
     </div>

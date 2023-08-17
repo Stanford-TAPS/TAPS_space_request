@@ -152,7 +152,7 @@ export default function SpaceForm({
     <div style={{ maxWidth: "260px" }} className="m-auto md:pt-10">
       <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         {/* Name */}
-        <div className="mb-4">
+        <div className="relative mb-4">
           {" "}
           {/* Added relative positioning here */}
           <label htmlFor="title" className="text-neutral-700 dark:text-white">

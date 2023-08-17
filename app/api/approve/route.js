@@ -66,6 +66,7 @@ export async function POST(request) {
           },
         },
       });
+
       if (response == {}) {
         return NextResponse.json({ status: 400 });
       }

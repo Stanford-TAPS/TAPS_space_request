@@ -36,7 +36,7 @@ export default function LocationFilter({
           {locations.map((location) => (
             <div
               key={location.id}
-              className="flex cursor-pointer items-center p-2"
+              className="flex cursor-pointer items-center p-2 hover:outline hover:outline-1 hover:outline-white"
               onClick={() => handleChange(location.id)}
             >
               {selectedLocations.includes(location.id) && (
