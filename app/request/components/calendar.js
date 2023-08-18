@@ -2,7 +2,7 @@
 
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import { getNextSunday } from "../../lib/utilities.js";
+import { getNextSunday } from "../../lib/utilities";
 import Link from "next/link.js";
 import Error from "next/error.js";
 

@@ -1,6 +1,6 @@
 import { Client } from "@notionhq/client";
 import { NextResponse } from "next/server";
-import { notion } from "../../../lib/notion";
+import { notion } from "../notion";
 
 export async function POST(request) {
   try {

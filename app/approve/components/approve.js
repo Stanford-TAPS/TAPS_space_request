@@ -2,26 +2,28 @@
 import Table from "./table";
 import RequestCard from "./card";
 import { useState, useEffect } from "react";
-import { format, parseISO, isWithinInterval } from "date-fns";
+import RefreshIcon from "./refresh_icon";
+import { formatRequests } from "../lib/request_format.js";
 
-// Holds a list of requests and their conflicts/conflict status. On
-// approval of a request,
 export default function ApprovalSystem({
   requests: initialRequests,
   locations,
+  events,
 }) {
-  const [selectedRequest, setSelectedRequest] = useState(null);
-  const [approveStatus, setApproveStatus] = useState(null);
-  const [denyStatus, setDenyStatus] = useState(null);
+  const [selectedRequest, setSelectedRequest] = useState(null); // tracking selected request
+  const [approveStatus, setApproveStatus] = useState(null); // tracking state of approval API calls
+  const [denyStatus, setDenyStatus] = useState(null); // tracking state of denial API calls
   const [requests, setRequests] = useState(
-    formatRequests(initialRequests, locations),
+    formatRequests(initialRequests, locations, events), // formatting requests recieved from Notion, and tracking their temp state
   );
-  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false); // tracking data refreshes
 
   // Automatically refreshes requests every 10 min
   useEffect(() => {
     const refresh = async () => {
-      await refetchEvents();
+      setIsRefreshing(true);
+      await refetchRequests();
+      setIsRefreshing(false);
     };
 
     const intervalId = setInterval(refresh, 10 * 60 * 1000); // 10 minutes in milliseconds
@@ -29,10 +31,12 @@ export default function ApprovalSystem({
     return () => clearInterval(intervalId); // This will clear the interval when the component unmounts
   }, []);
 
+  // sets chosen request
   function handleRequestSelected(request) {
     setSelectedRequest(request);
   }
 
+  // calls API to approve request
   const approveRequest = async (request) => {
     setApproveStatus("approving");
     try {
@@ -57,6 +61,7 @@ export default function ApprovalSystem({
     }
   };
 
+  // calls API to deny request
   const denyRequest = async (request) => {
     setDenyStatus("denying");
     try {
@@ -82,17 +87,22 @@ export default function ApprovalSystem({
   };
 
   async function handleDecision(decision, message) {
+    setSelectedRequest(null); //close request card
+    setRequests(
+      requests.filter((request) => request.id !== selectedRequest.id),
+    );
+    setIsRefreshing(true);
     if (decision == "approve") {
       await approveRequest(selectedRequest);
     } else if (decision == "deny") {
       await denyRequest(selectedRequest);
     }
 
-    refetchEvents();
-    setSelectedRequest(null); //close request card
+    await refetchRequests();
+    setIsRefreshing(false);
   }
 
-  async function refetchEvents() {
+  async function refetchRequests() {
     const response = await fetch("/api/get_requests", {
       method: "GET",
       headers: {
@@ -100,7 +110,7 @@ export default function ApprovalSystem({
       },
     });
     const { spaceRequests } = await response.json();
-    setRequests(formatRequests(spaceRequests, locations));
+    setRequests(formatRequests(spaceRequests, locations, events));
   }
 
   return (
@@ -114,52 +124,11 @@ export default function ApprovalSystem({
         selectedRequest={selectedRequest}
         onRequestSelected={handleRequestSelected}
       />
+      {isRefreshing && (
+        <div className="absolute right-4 top-4">
+          <RefreshIcon />
+        </div>
+      )}
     </div>
   );
-}
-
-export function formatRequests(spaceRequests, locations) {
-  for (let i = 0; i < spaceRequests.length; i++) {
-    const location = locations.find(
-      ({ id }) => id === spaceRequests[i].locationID,
-    );
-    spaceRequests[i].location = location.title;
-    spaceRequests[i].conflictStatus = "noConflict"; // default status
-
-    const currentEventInterval = {
-      start: parseISO(spaceRequests[i].start),
-      end: parseISO(spaceRequests[i].end),
-    };
-
-    spaceRequests[i].date = format(currentEventInterval.start, "MMM dd");
-    spaceRequests[i].startTime = format(currentEventInterval.start, "hh:mm aa");
-    spaceRequests[i].endTime = format(currentEventInterval.end, "hh:mm aa");
-    spaceRequests[i].conflicts = [];
-
-    // Check if the current event conflicts with any other events at the same location
-    for (let j = 0; j < spaceRequests.length; j++) {
-      if (
-        i !== j &&
-        spaceRequests[i].locationID === spaceRequests[j].locationID
-      ) {
-        const otherEventInterval = {
-          start: parseISO(spaceRequests[j].start),
-          end: parseISO(spaceRequests[j].end),
-        };
-
-        if (
-          isWithinInterval(currentEventInterval.start, otherEventInterval) ||
-          isWithinInterval(currentEventInterval.end, otherEventInterval)
-        ) {
-          spaceRequests[i].conflictStatus = "requestedConflict";
-          spaceRequests[i].conflicts.push({
-            title: spaceRequests[j].title,
-            id: j,
-          });
-          break; // exit loop once conflict is found
-        }
-      }
-    }
-  }
-  return spaceRequests;
 }

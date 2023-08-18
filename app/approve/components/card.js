@@ -48,7 +48,10 @@ export default function RequestCard({ request, requests, onDecision }) {
         </button>
       </div>
       {request.conflictStatus != "noConflict" && (
-        <ConflictBox conflicts={request.conflicts} />
+        <ConflictBox
+          conflicts={request.conflicts}
+          status={request.conflictStatus}
+        />
       )}
 
       {decision && (
@@ -60,6 +63,7 @@ export default function RequestCard({ request, requests, onDecision }) {
           <div className="absolute left-1/2 top-1/2 z-40 -translate-x-1/2 -translate-y-1/2 transform">
             <MessageBox
               decision={decision}
+              requestName={request.title}
               onConfirm={handleConfirm}
               onCancel={handleCancel}
             />

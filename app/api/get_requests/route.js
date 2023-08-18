@@ -1,4 +1,4 @@
-import { notion } from "../../../lib/notion";
+import { notion } from "../notion";
 import { NextResponse } from "next/server";
 
 export async function GET() {

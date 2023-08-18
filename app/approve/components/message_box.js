@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 
-export default function MessageBox({ decision, onConfirm, onCancel }) {
+export default function MessageBox({
+  decision,
+  requestName,
+  onConfirm,
+  onCancel,
+}) {
   const [message, setMessage] = useState("");
 
   const handleConfirm = () => {
@@ -9,9 +14,13 @@ export default function MessageBox({ decision, onConfirm, onCancel }) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center rounded-md border border-gray-300 bg-white p-4 dark:border-none dark:bg-neutral-700">
+    <div className="flex flex-col items-center justify-center rounded-md border border-gray-300 bg-white p-8 dark:border-none dark:bg-neutral-700">
+      <p className="w-full pb-3">
+        {decision == "approve" ? "Approving" : "Denying"}{" "}
+        <span className="font-bold">{requestName}</span>:
+      </p>
       <textarea
-        className="mb-2 rounded border border-gray-200 p-2 text-black"
+        className="mb-2 h-48 w-96 rounded border border-gray-200 p-2 text-black"
         placeholder="Enter optional message..."
         value={message}
         onChange={(e) => setMessage(e.target.value)}

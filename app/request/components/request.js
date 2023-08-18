@@ -17,10 +17,7 @@ export default function SpaceRequest({ spaces, eventsByLocation }) {
   const checkConflict = (events, startDate, endDate) => {
     const isConflict = events.some((event) => {
       if (event.id === "123") return false;
-      return (
-        (startDate >= event.start && startDate < event.end) ||
-        (endDate > event.start && endDate <= event.end)
-      );
+      return startDate < event.end && endDate > event.start;
     });
 
     setConflict(isConflict);

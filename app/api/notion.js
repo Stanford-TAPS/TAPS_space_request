@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { Client } from "@notionhq/client";
-import { getNextSunday, convertDate } from "./utilities";
+import { getNextSunday, convertDate } from "../lib/utilities";
 
 const revalidate = 60; // revalidate the data at most every min
 export const notion = new Client({

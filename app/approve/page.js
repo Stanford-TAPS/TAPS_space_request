@@ -1,16 +1,25 @@
-import { getRequestableSpaces, getSpaceRequests } from "../../lib/notion";
-import ApprovalSystem from "./approve";
-import Table from "./table";
+import {
+  getRequestableSpaces,
+  getSpaceRequests,
+  getNextWeekEvents,
+} from "../api/notion";
+import ApprovalSystem from "./components/approve";
+import Table from "./components/table";
 
 export const dynamic = "force-dynamic"; // refreshing the page means data is refetched
 
 export default async function Approve() {
   const spaceRequests = await getSpaceRequests();
   const locations = await getRequestableSpaces();
+  const events = await getNextWeekEvents();
 
   return (
-    <div className="h-full w-full">
-      <ApprovalSystem requests={spaceRequests} locations={locations} />
-    </div>
+    <>
+      <ApprovalSystem
+        requests={spaceRequests}
+        locations={locations}
+        events={events}
+      />
+    </>
   );
 }
