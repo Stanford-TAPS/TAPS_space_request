@@ -3,30 +3,31 @@ import Table from "./table";
 import RequestCard from "./card";
 import { useState, useEffect } from "react";
 import RefreshIcon from "./refresh_icon";
-import { formatRequests } from "../lib/request_format.js";
+import { formatRequests, addRequestToEvents } from "../lib/request_format.js";
 
 export default function ApprovalSystem({
   requests: initialRequests,
   locations,
-  events,
+  events: initialEvents,
 }) {
   const [selectedRequest, setSelectedRequest] = useState(null); // tracking selected request
   const [approveStatus, setApproveStatus] = useState(null); // tracking state of approval API calls
   const [denyStatus, setDenyStatus] = useState(null); // tracking state of denial API calls
   const [requests, setRequests] = useState(
-    formatRequests(initialRequests, locations, events), // formatting requests recieved from Notion, and tracking their temp state
+    formatRequests(initialRequests, locations, initialEvents), // formatting requests recieved from Notion, and tracking their temp state
   );
+  const [events, setEvents] = useState(initialEvents); // tracking events, updated on refresh to include new approvals
   const [isRefreshing, setIsRefreshing] = useState(false); // tracking data refreshes
 
-  // Automatically refreshes requests every 10 min
+  // Automatically refreshes requests every 2 min
   useEffect(() => {
     const refresh = async () => {
       setIsRefreshing(true);
-      await refetchRequests();
+      await refetchRequests(events);
       setIsRefreshing(false);
     };
 
-    const intervalId = setInterval(refresh, 10 * 60 * 1000); // 10 minutes in milliseconds
+    const intervalId = setInterval(refresh, 2 * 60 * 1000); // 2 minutes in milliseconds
 
     return () => clearInterval(intervalId); // This will clear the interval when the component unmounts
   }, []);
@@ -87,22 +88,27 @@ export default function ApprovalSystem({
   };
 
   async function handleDecision(decision, message) {
-    setSelectedRequest(null); //close request card
+    setSelectedRequest(null); // close request card
     setRequests(
       requests.filter((request) => request.id !== selectedRequest.id),
     );
     setIsRefreshing(true);
+
+    let updatedEvents = events;
+
     if (decision == "approve") {
       await approveRequest(selectedRequest);
+      updatedEvents = addRequestToEvents(events, selectedRequest);
+      setEvents(updatedEvents);
     } else if (decision == "deny") {
       await denyRequest(selectedRequest);
     }
 
-    await refetchRequests();
+    await refetchRequests(updatedEvents);
     setIsRefreshing(false);
   }
 
-  const refetchRequests = async () => {
+  const refetchRequests = async (events) => {
     const response = await fetch("/api/get_requests", {
       method: "GET",
       headers: {

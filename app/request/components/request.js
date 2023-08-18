@@ -10,6 +10,7 @@ const DEFAULT_EVENT_COLOR = "#059669"; // emerald 600
 // Handles logic and state of the space request system
 export default function SpaceRequest({ spaces, eventsByLocation }) {
   const [location, setLocation] = useState(null); // tracks selected location
+  const [locationTitle, setLocationTitle] = useState(null);
   const [events, setEvents] = useState([]); // holds events for the selected location
   const [conflict, setConflict] = useState(false); // tracks whether the request date/time conflitcs with an existing event
   const [isOpen, setIsOpen] = useState(true); // (for mobile) tracks whether the form is open/visible
@@ -118,7 +119,7 @@ export default function SpaceRequest({ spaces, eventsByLocation }) {
           isOpen ? "hidden md:block" : "md:block"
         }`}
       >
-        <Calendar events={events} location={location ? location.title : null} />
+        <Calendar events={events} location={locationTitle} />
       </div>
     </div>
   );

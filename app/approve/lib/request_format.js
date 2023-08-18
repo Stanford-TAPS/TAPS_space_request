@@ -68,3 +68,21 @@ export function formatRequests(spaceRequests, locations, events) {
   }
   return spaceRequests;
 }
+
+export function addRequestToEvents(events, request) {
+  const locationID = request.locationID;
+
+  const newEvent = {
+    title: request.title,
+    start: request.start,
+    end: request.end,
+  };
+
+  // Create a new events object with the new event added to the appropriate location
+  return {
+    ...events,
+    [locationID]: events[locationID]
+      ? [...events[locationID], newEvent]
+      : [newEvent],
+  };
+}
