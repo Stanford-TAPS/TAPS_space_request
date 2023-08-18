@@ -1,17 +1,22 @@
 "use client";
-
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { getNextSunday } from "../../lib/utilities";
 import Link from "next/link.js";
 import Error from "next/error.js";
 
-export default function Calendar({ events, location }) {
-  console.log(`calendar called with:`, events);
+// Calendar component shows next week view and displays any events in range,
+// as well as the location title
+export default function Calendar({
+  events, // array of events, organized into FullCalendar's event object structure
+  location, // location title
+}) {
   if (events == undefined) {
+    // handle edge case
     return <Error />;
   }
   if (location == null) {
+    // until a location is set, shows a default screen
     return <Default />;
   }
 
@@ -40,6 +45,7 @@ export default function Calendar({ events, location }) {
   );
 }
 
+// default screen
 function Default() {
   return (
     <div className="flex h-full flex-col items-center justify-start space-y-8 p-5 pt-32">

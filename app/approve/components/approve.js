@@ -102,7 +102,7 @@ export default function ApprovalSystem({
     setIsRefreshing(false);
   }
 
-  async function refetchRequests() {
+  const refetchRequests = async () => {
     const response = await fetch("/api/get_requests", {
       method: "GET",
       headers: {
@@ -111,7 +111,7 @@ export default function ApprovalSystem({
     });
     const { spaceRequests } = await response.json();
     setRequests(formatRequests(spaceRequests, locations, events));
-  }
+  };
 
   return (
     <div className="flex h-full">

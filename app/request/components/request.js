@@ -7,12 +7,12 @@ import Calendar from "./calendar";
 const CONFLICT_EVENT_COLOR = "#d97706"; // amber 600
 const DEFAULT_EVENT_COLOR = "#059669"; // emerald 600
 
+// Handles logic and state of the space request system
 export default function SpaceRequest({ spaces, eventsByLocation }) {
-  const [events, setEvents] = useState([]);
-  const [location, setLocation] = useState(null);
-  const [locationTitle, setLocationTitle] = useState(null);
-  const [conflict, setConflict] = useState(false);
-  const [isOpen, setIsOpen] = useState(true);
+  const [location, setLocation] = useState(null); // tracks selected location
+  const [events, setEvents] = useState([]); // holds events for the selected location
+  const [conflict, setConflict] = useState(false); // tracks whether the request date/time conflitcs with an existing event
+  const [isOpen, setIsOpen] = useState(true); // (for mobile) tracks whether the form is open/visible
 
   const checkConflict = (events, startDate, endDate) => {
     const isConflict = events.some((event) => {
@@ -118,7 +118,7 @@ export default function SpaceRequest({ spaces, eventsByLocation }) {
           isOpen ? "hidden md:block" : "md:block"
         }`}
       >
-        <Calendar events={events} location={locationTitle} />
+        <Calendar events={events} location={location ? location.title : null} />
       </div>
     </div>
   );

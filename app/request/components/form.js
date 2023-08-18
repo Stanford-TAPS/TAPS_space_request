@@ -4,19 +4,21 @@ import { useEffect } from "react";
 import { convertDate, getNextSunday } from "../../lib/utilities";
 import { useState } from "react";
 
-//This is the component for the form
+// This is the component for the form. It uses the React Hook Form
+// library for structure and behavior.
 export default function SpaceForm({
   locations, // an array of location objects containing their titles and ids
   isConflicting, // a boolean that updates to true if the chosen event conflicts with existing events
   onLocationSelect, // callback function to trigger calendar update
   onDateSelect, // callback that adds proposed event to calendar
 }) {
-  const [submitStatus, setSubmitStatus] = useState("unsubmitted");
-  const [showConfirmation, setShowConfirmation] = useState(false);
-  const [formData, setFormData] = useState(null);
-  const [isStanfordTimezone, setIsStanfordTimezone] = useState(null);
+  const [submitStatus, setSubmitStatus] = useState("unsubmitted"); // tracks state of form submission API call for loading
+  const [showConfirmation, setShowConfirmation] = useState(false); // controls when confirmation box is shown (if there are conflicts)
+  const [formData, setFormData] = useState(null); // saves form data on initial submission while user confirms
+  const [isStanfordTimezone, setIsStanfordTimezone] = useState(null); // tracks if user is not in Stanford's local time
 
-  // if timezone is not same as Stanford, we need a warning
+  // if timezone is not same as Stanford, we track it to warn them
+  // that times in the system are all based on local Stanford time
   useEffect(() => {
     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const stanfordTimezone = "America/Los_Angeles";
@@ -52,7 +54,6 @@ export default function SpaceForm({
   }, [selectedDate, selectedStart, selectedEnd]);
 
   // validating date is within next Sunday - Saturday week
-  // TODO: Fix so it actually works right :)
   const validateDate = (value) => {
     const selectedDate = new Date(value);
     const nextSunday = getNextSunday();
@@ -79,6 +80,8 @@ export default function SpaceForm({
       startDate,
       endDate,
     };
+
+    // make API call
     setSubmitStatus("submitting");
     try {
       const response = await fetch("/api/form", {
@@ -102,7 +105,8 @@ export default function SpaceForm({
     }
   };
 
-  const onSubmit = (data) => {
+  // function called on form submission. Handles conflict confirmation
+  function onSubmit(data) {
     if (isConflicting) {
       setFormData(data); // Save the form data
       setShowConfirmation(true);
@@ -110,14 +114,15 @@ export default function SpaceForm({
     }
 
     submitForm(data);
-  };
+  }
 
-  const handleConfirmSubmit = () => {
+  function handleConfirmSubmit() {
     if (formData) {
       submitForm(formData);
     }
-  };
+  }
 
+  // temporary display while API is being called
   if (submitStatus == "submitting") {
     return (
       <div className="flex flex-col justify-center">
@@ -126,6 +131,8 @@ export default function SpaceForm({
       </div>
     );
   }
+
+  // shown on successful submission (API call successful)
   if (submitStatus == "success") {
     return (
       <div className="flex flex-col justify-center">
@@ -136,6 +143,8 @@ export default function SpaceForm({
       </div>
     );
   }
+
+  // shown if API call fails
   if (submitStatus == "failure") {
     return (
       <div className="flex flex-col justify-center">
@@ -147,6 +156,7 @@ export default function SpaceForm({
     );
   }
 
+  // form jsx
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
     <div style={{ maxWidth: "260px" }} className="m-auto md:pt-10">
@@ -302,7 +312,8 @@ export default function SpaceForm({
 
         {!isStanfordTimezone && (
           <div className=" text-[0.9rem] ">
-            Please note that all dates are in Stanford's time zone (PST/PDT).
+            Please note that all dates are in Stanford&apos;s time zone
+            (PST/PDT).
           </div>
         )}
 
