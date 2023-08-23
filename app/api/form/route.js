@@ -4,8 +4,16 @@ import { notion } from "../notion";
 
 export async function POST(request) {
   try {
-    const { title, email, location, startDate, endDate, timeZone } =
-      await request.json();
+    const {
+      title,
+      email,
+      group,
+      location,
+      startDate,
+      endDate,
+      description,
+      timeZone,
+    } = await request.json();
 
     const newPage = {
       parent: {
@@ -27,7 +35,7 @@ export async function POST(request) {
         Location: {
           relation: [
             {
-              id: location,
+              id: location.value,
             },
           ],
         },
@@ -38,6 +46,16 @@ export async function POST(request) {
             time_zone: "America/Los_Angeles",
           },
         },
+        Description: {
+          rich_text: [
+            {
+              type: "text",
+              text: {
+                content: description,
+              },
+            },
+          ],
+        },
         Status: {
           select: {
             name: "New",
@@ -45,10 +63,28 @@ export async function POST(request) {
         },
       },
     };
+
+    // Add group only if it is not null
+    if (group) {
+      newPage.properties["Group/Organization"] = {
+        relation: [
+          {
+            id: group.value,
+          },
+        ],
+      };
+    }
+
     // Create the page in Notion
     const response = await notion.pages.create(newPage);
 
-    return NextResponse.json({ status: response.status });
+    if (response == {}) {
+      return NextResponse.json({ status: 400 });
+    } 
+    if (response.status) {
+      return NextResponse.json({ status: response.status });
+    }
+    return NextResponse.json(response, {status: 200});
   } catch (error) {
     return NextResponse.json({ error: "Internal Server Error" });
   }

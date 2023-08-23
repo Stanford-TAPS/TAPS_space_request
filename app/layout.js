@@ -5,8 +5,8 @@ import Navbar from "./navigation.js";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Requestable Space Availability",
-  description: "TAPS Requestable Spaces availability",
+  title: "TAPS Space Request",
+  description: "Information and form to request TAPS spaces for rehearsals",
 };
 
 export default async function RootLayout({ children }) {

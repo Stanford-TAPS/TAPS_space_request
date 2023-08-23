@@ -21,6 +21,8 @@ export async function GET() {
     start: page.properties["Date"].date?.start,
     end: page.properties["Date"].date?.end,
     locationID: page.properties["Location"].relation[0].id,
+    group: page.properties["Group/Organization"].relation[0]?.id,
+    description: page.properties["Description"].rich_text[0]?.text?.content,
   }));
 
   return NextResponse.json({ spaceRequests });

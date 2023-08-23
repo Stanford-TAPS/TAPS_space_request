@@ -8,7 +8,7 @@ const CONFLICT_EVENT_COLOR = "#d97706"; // amber 600
 const DEFAULT_EVENT_COLOR = "#059669"; // emerald 600
 
 // Handles logic and state of the space request system
-export default function SpaceRequest({ spaces, eventsByLocation }) {
+export default function SpaceRequest({ spaces, eventsByLocation, groups }) {
   const [location, setLocation] = useState(null); // tracks selected location
   const [locationTitle, setLocationTitle] = useState(null);
   const [events, setEvents] = useState([]); // holds events for the selected location
@@ -90,10 +90,11 @@ export default function SpaceRequest({ spaces, eventsByLocation }) {
       <div
         className={`h-full w-full ${
           isOpen || (isOpen === false && isOpen) ? "" : "hidden"
-        } border-r border-neutral-200 bg-white p-10 shadow-md dark:border-0 dark:bg-neutral-800 md:block md:w-1/2 lg:w-1/4`}
+        } overflow-auto border-r border-neutral-200 bg-white p-10 shadow-md dark:border-0 dark:bg-neutral-800 md:block md:w-1/2 lg:w-1/4`}
       >
         <SpaceForm
           locations={spaces}
+          groups={groups}
           isConflicting={conflict}
           onLocationSelect={handleLocationSelected}
           onDateSelect={handleDateSelected}

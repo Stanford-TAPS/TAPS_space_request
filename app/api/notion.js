@@ -72,10 +72,40 @@ export const getRequestableSpaces = cache(async () => {
         equals: "Yes",
       },
     },
+    sorts: [
+      {
+        property: "Record Name",
+        direction: "ascending",
+      },
+    ],
   });
 
   return results.map((page) => ({
     title: page.properties["Record Name"].title[0]?.text?.content,
+    id: page.id,
+  }));
+}, 3600);
+
+export const getGroups = cache(async () => {
+  const databaseId = process.env.NOTION_GROUPS_ID;
+  const { results } = await notion.databases.query({
+    database_id: databaseId,
+    filter: {
+      property: "Verified?",
+      select: {
+        equals: "Yes",
+      },
+    },
+    sorts: [
+      {
+        property: "Name",
+        direction: "ascending",
+      },
+    ],
+  });
+
+  return results.map((page) => ({
+    title: page.properties["Name"].title[0]?.text?.content,
     id: page.id,
   }));
 }, 3600);
@@ -90,6 +120,12 @@ export const getSpaceRequests = async () => {
         equals: "New",
       },
     },
+    sorts: [
+      {
+        timestamp: "created_time",
+        direction: "descending",
+      },
+    ],
   });
 
   return results.map((page) => ({
@@ -98,5 +134,7 @@ export const getSpaceRequests = async () => {
     start: page.properties["Date"].date?.start,
     end: page.properties["Date"].date?.end,
     locationID: page.properties["Location"].relation[0].id,
+    group: page.properties["Group/Organization"].relation[0]?.id,
+    description: page.properties["Description"].rich_text[0]?.text?.content,
   }));
 };

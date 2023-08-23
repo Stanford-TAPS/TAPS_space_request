@@ -1,13 +1,18 @@
 "use client";
-import { useForm } from "react-hook-form";
+import "react-datepicker/dist/react-datepicker.css";
+import { useForm, Controller } from "react-hook-form";
 import { useEffect } from "react";
 import { convertDate, getNextSunday } from "../../lib/utilities";
 import { useState } from "react";
+import GroupSelect from "./group_select";
+import LocationSelect from "./location_select";
+import ReactDatePicker from "react-datepicker";
 
 // This is the component for the form. It uses the React Hook Form
 // library for structure and behavior.
 export default function SpaceForm({
   locations, // an array of location objects containing their titles and ids
+  groups, // an array of groups
   isConflicting, // a boolean that updates to true if the chosen event conflicts with existing events
   onLocationSelect, // callback function to trigger calendar update
   onDateSelect, // callback that adds proposed event to calendar
@@ -31,13 +36,19 @@ export default function SpaceForm({
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm({});
+    control,
+  } = useForm({
+    defaultValues: {
+      group: null,
+    },
+  });
 
   // watching for selected location
   const selectedLocation = watch("location");
   useEffect(() => {
-    if (selectedLocation && selectedLocation !== "default") {
-      onLocationSelect(selectedLocation);
+    if (selectedLocation && selectedLocation.value) {
+      // checking the value property
+      onLocationSelect(selectedLocation.value); // pass the value property to the handler
     }
   }, [selectedLocation]);
 
@@ -47,31 +58,21 @@ export default function SpaceForm({
   const selectedEnd = watch("end");
   useEffect(() => {
     if (selectedDate && selectedStart && selectedEnd) {
-      const startDate = `${selectedDate}T${selectedStart}`;
-      const endDate = `${selectedDate}T${selectedEnd}`;
+      const formattedDate = selectedDate.toISOString().split("T")[0];
+      const startDate = `${formattedDate}T${selectedStart}`;
+      const endDate = `${formattedDate}T${selectedEnd}`;
       onDateSelect(startDate, endDate);
     }
   }, [selectedDate, selectedStart, selectedEnd]);
 
-  // validating date is within next Sunday - Saturday week
-  const validateDate = (value) => {
-    const selectedDate = new Date(value);
-    const nextSunday = getNextSunday();
-    const nextSaturday = new Date(nextSunday);
-    nextSaturday.setDate(nextSaturday.getDate() + 6);
-
-    return (
-      (selectedDate >= nextSunday && selectedDate <= nextSaturday) ||
-      "Date must be for next week"
-    );
-  };
-
-  // validating that a location has been selected
-  const validateLocation = (value) => {
-    return value !== "default" || "Please select a location";
-  };
+  const nextSunday = getNextSunday();
+  const nextSaturday = new Date(nextSunday);
+  nextSaturday.setDate(nextSaturday.getDate() + 6);
 
   const submitForm = async (data) => {
+    if (data.description === "") {
+      data.description = "none"; //Notion can't handle an empty string
+    }
     // format dates for Notion
     const startDate = `${data.date}T${data.start}`;
     const endDate = `${data.date}T${data.end}`;
@@ -159,7 +160,7 @@ export default function SpaceForm({
   // form jsx
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-    <div style={{ maxWidth: "260px" }} className="m-auto md:pt-10">
+    <div style={{ maxWidth: "260px" }} className="m-auto">
       <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         {/* Name */}
         <div className="relative mb-4">
@@ -175,7 +176,7 @@ export default function SpaceForm({
             {...register("title", {
               required: "Please input a title",
             })}
-            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none"
+            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none focus:ring-2 focus:ring-red-700"
           />
           <span className="absolute bottom-2 right-3 text-xs text-neutral-500">
             {" "}
@@ -203,7 +204,7 @@ export default function SpaceForm({
                 message: "Please use your Stanford email address",
               },
             })}
-            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none"
+            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none focus:ring-2 focus:ring-red-700"
           />
           {errors.email && (
             <p className=" mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
@@ -212,56 +213,49 @@ export default function SpaceForm({
           )}
         </div>
 
+        {/* Group */}
+        <GroupSelect control={control} groups={groups} />
+
         {/* Location */}
-        <div className="mb-4">
-          <label
-            htmlFor="location"
-            className="text-neutral-700 dark:text-white"
-          >
-            Location
-          </label>
-          <select
-            {...register("location", {
-              validate: validateLocation,
-            })}
-            defaultValue={"default"}
-            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none"
-          >
-            <option value="default" disabled hidden>
-              -Select a space-
-            </option>
-            {locations.map((location, index) => (
-              <option key={index} value={location.id}>
-                {location.title}
-              </option>
-            ))}
-          </select>
-          {errors.location && (
-            <p className=" mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
-              {errors.location.message}
-            </p>
-          )}
-        </div>
+        <LocationSelect
+          control={control}
+          locations={locations}
+          errors={errors}
+        />
 
         {/* Date */}
         <div className="mb-4">
           <label htmlFor="date" className="text-neutral-700 dark:text-white">
             Date
           </label>
-          <input
-            type="date"
-            id="date"
-            {...register("date", {
+          <Controller
+            control={control}
+            name="date"
+            rules={{
               required: "Please select a date",
-              validate: validateDate,
-            })}
-            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none"
+              validate: (value) =>
+                isWithinInterval(value, {
+                  start: nextSunday,
+                  end: nextSaturday,
+                }) || "Date must be for next week",
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <div className="flex w-full justify-center">
+                <ReactDatePicker
+                  selected={value}
+                  onChange={onChange}
+                  minDate={nextSunday}
+                  maxDate={nextSaturday}
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none focus:ring-2 focus:ring-red-700"
+                />
+                {error && (
+                  <p className="mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
+                    {error.message}
+                  </p>
+                )}
+              </div>
+            )}
           />
-          {errors.date && (
-            <p className=" mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
-              {errors.date.message}
-            </p>
-          )}
         </div>
 
         <div className="mb-4 flex justify-between">
@@ -275,7 +269,7 @@ export default function SpaceForm({
               min="08:00"
               max="23:00"
               {...register("start", { required: "required" })}
-              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none"
+              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none focus:ring-2 focus:ring-red-700"
             />
             {errors.start && (
               <p className=" mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
@@ -294,7 +288,7 @@ export default function SpaceForm({
               min="08:00"
               max="23:00"
               {...register("end", { required: "required" })}
-              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none"
+              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none focus:ring-2 focus:ring-red-700"
             />
             {errors.end && (
               <p className=" mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
@@ -316,6 +310,23 @@ export default function SpaceForm({
             (PST/PDT).
           </div>
         )}
+
+        {/* Description */}
+        <div className="mb-4">
+          <label
+            htmlFor="description"
+            className="text-neutral-700 dark:text-white"
+          >
+            Description (optional)
+          </label>
+          <textarea
+            id="description"
+            defaultValue=""
+            {...register("description")}
+            className="focus:shadow-outline w-full resize-none appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none focus:ring-2 focus:ring-red-700"
+            rows="3"
+          />
+        </div>
 
         {/* Submit button */}
         {!showConfirmation && (

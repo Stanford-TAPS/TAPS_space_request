@@ -1,9 +1,11 @@
 "use client";
 import Table from "./table";
+import Calendar from "./calendar";
 import RequestCard from "./card";
 import { useState, useEffect } from "react";
 import RefreshIcon from "./refresh_icon";
 import { formatRequests, addRequestToEvents } from "../lib/request_format.js";
+import LocationFilter from "./filter";
 
 export default function ApprovalSystem({
   requests: initialRequests,
@@ -18,6 +20,7 @@ export default function ApprovalSystem({
   );
   const [events, setEvents] = useState(initialEvents); // tracking events, updated on refresh to include new approvals
   const [isRefreshing, setIsRefreshing] = useState(false); // tracking data refreshes
+  const [view, setView] = useState("table");
 
   // Automatically refreshes requests every 2 min
   useEffect(() => {
@@ -119,22 +122,68 @@ export default function ApprovalSystem({
     setRequests(formatRequests(spaceRequests, locations, events));
   };
 
+  const [selectedLocations, setSelectedLocations] = useState([]);
+
+  // Function to handle the change of selected locations
+  const handleLocationChange = (event) => {
+    const selectedOptions = Array.from(
+      event.target.selectedOptions,
+      (option) => option.value,
+    );
+    setSelectedLocations(selectedOptions);
+  };
+
+  // Filter the requests based on the selected locations
+  const filteredRequests = requests.filter(
+    (request) =>
+      selectedLocations.length === 0 ||
+      selectedLocations.includes(request.locationID.toString()),
+  );
+
   return (
     <div className="flex h-full">
       {selectedRequest && (
         <RequestCard request={selectedRequest} onDecision={handleDecision} />
       )}
-      <Table
-        requests={requests}
-        locations={locations}
-        selectedRequest={selectedRequest}
-        onRequestSelected={handleRequestSelected}
-      />
-      {isRefreshing && (
-        <div className="absolute right-4 top-4">
-          <RefreshIcon />
+      <div className="mx-auto mb-6 mt-4 flex w-3/5 flex-col">
+        <div className="flex flex-row justify-between">
+          <LocationFilter
+            locations={locations}
+            selectedLocations={selectedLocations}
+            setSelectedLocations={setSelectedLocations}
+          />
+          <div className="flex flex-row">
+            {isRefreshing && (
+              <div className="mr-4 p-2">
+                <RefreshIcon />
+              </div>
+            )}
+            <button
+              className="rounded border p-2 dark:border-black dark:bg-neutral-800"
+              onClick={() =>
+                view == "table" ? setView("calendar") : setView("table")
+              }
+            >
+              {view == "table" ? "Calendar View" : "Table View"}
+            </button>
+          </div>
         </div>
-      )}
+        {view == "table" ? (
+          <Table
+            requests={filteredRequests}
+            selectedRequest={selectedRequest}
+            onRequestSelected={handleRequestSelected}
+          />
+        ) : (
+          <Calendar
+            requests={filteredRequests}
+            selectedLocations={selectedLocations}
+            events={events}
+            selectedRequest={selectedRequest}
+            onRequestSelected={handleRequestSelected}
+          />
+        )}
+      </div>
     </div>
   );
 }

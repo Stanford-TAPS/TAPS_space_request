@@ -20,7 +20,7 @@ export default function MessageBox({
         <span className="font-bold">{requestName}</span>:
       </p>
       <textarea
-        className="mb-2 h-48 w-96 rounded border border-gray-200 p-2 text-black"
+        className="focus:shadow-outline mb-2 h-48 w-96 resize-none appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none focus:ring-2 focus:ring-red-700"
         placeholder="Enter optional message..."
         value={message}
         onChange={(e) => setMessage(e.target.value)}
