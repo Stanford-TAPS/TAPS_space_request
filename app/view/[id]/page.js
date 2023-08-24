@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import "font-awesome/css/font-awesome.min.css";
 
+export const dynamic = "force-dynamic";
+
 export async function generateStaticParams() {
   const pagesInfo = await getLocationPages();
   return pagesInfo.map((page) => ({
@@ -25,7 +27,7 @@ export default async function SpaceView({ params }) {
       <div className="relative h-1/2 w-full overflow-hidden">
         <Image
           src={pageInfo.cover}
-          alt={`Cover image of ${pagesInfo.title}`}
+          alt={`Cover image of ${pageInfo.title}`}
           fill={true}
           className="object-cover"
           priority
