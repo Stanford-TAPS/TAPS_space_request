@@ -160,5 +160,9 @@ export const getLocationPages = cache(async () => {
     cover: page.cover.file.url,
     description: page.properties["Description"].rich_text[0]?.text?.content,
     capacity: page.properties["Capacity"].rich_text[0]?.text?.content,
+    isAccessible:
+      page.properties["Accessible?"].select?.name == "Accessible"
+        ? true
+        : false,
   }));
 });
