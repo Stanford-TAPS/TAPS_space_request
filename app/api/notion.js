@@ -127,14 +127,38 @@ export const getSpaceRequests = async () => {
       },
     ],
   });
-
   return results.map((page) => ({
     title: page.properties["Title"].title[0]?.text?.content,
     id: page.id,
     start: page.properties["Date"].date?.start,
     end: page.properties["Date"].date?.end,
     locationID: page.properties["Location"].relation[0].id,
-    group: page.properties["Group/Organization"].relation[0]?.id,
-    description: page.properties["Description"].rich_text[0]?.text?.content,
   }));
 };
+
+export const getLocationPages = cache(async () => {
+  const databaseId = process.env.NOTION_FACILITIES_ID;
+  const { results } = await notion.databases.query({
+    database_id: databaseId,
+    filter: {
+      property: "Reservable?",
+      select: {
+        equals: "Yes",
+      },
+    },
+    sorts: [
+      {
+        property: "Record Name",
+        direction: "ascending",
+      },
+    ],
+  });
+
+  return results.map((page) => ({
+    title: page.properties["Record Name"].title[0]?.text?.content,
+    id: page.id,
+    cover: page.cover.file.url,
+    description: page.properties["Description"].rich_text[0]?.text?.content,
+    capacity: page.properties["Capacity"].rich_text[0]?.text?.content,
+  }));
+});
