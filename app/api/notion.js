@@ -64,7 +64,6 @@ export const getNextWeekEvents = async () => {
       });
     }
   });
-  console.log("events by location: ", eventsByLocation);
   return eventsByLocation;
 };
 

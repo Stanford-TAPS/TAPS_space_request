@@ -97,14 +97,11 @@ export default function SpaceForm({
 
       if (response.ok) {
         setSubmitStatus("success");
-        console.log(response);
       } else {
         setSubmitStatus("failure");
-        console.log(response);
       }
     } catch (err) {
       setSubmitStatus("failure");
-      console.log(err);
     }
   };
 

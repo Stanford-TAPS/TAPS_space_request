@@ -114,7 +114,6 @@ export default function ApprovalSystem({
       },
     });
     const { spaceRequests } = await response.json();
-    console.log("fettched requests:", spaceRequests);
     setRequests(formatRequests(spaceRequests, locations, events));
   };
 

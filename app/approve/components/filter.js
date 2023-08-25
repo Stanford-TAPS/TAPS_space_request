@@ -32,7 +32,7 @@ export default function LocationFilter({
               .join(", ")}
       </div>
       {showDropdown && (
-        <div className="dark: absolute w-64 rounded-b border bg-white shadow-md shadow-black dark:border-t-0 dark:border-black dark:bg-neutral-800">
+        <div className="dark: absolute w-64 rounded-b border bg-white shadow-md dark:border-t-0 dark:border-black dark:bg-neutral-800 dark:shadow-black">
           {locations.map((location) => (
             <div
               key={location.id}

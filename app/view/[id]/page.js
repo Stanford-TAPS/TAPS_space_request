@@ -39,7 +39,7 @@ export default async function SpaceView({ params }) {
         )}
       </div>
       <div className="p-5 text-center text-3xl font-bold">{pageInfo.title}</div>
-      <div className="text-md mx-auto w-1/2 rounded border-2 border-white p-4">
+      <div className="text-md mx-auto w-1/2 rounded border-2 border-white p-4 text-center">
         {pageInfo.description}
       </div>
     </>
