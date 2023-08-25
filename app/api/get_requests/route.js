@@ -15,6 +15,10 @@ export async function GET() {
     },
   });
 
+  if (!results || results == {}) {
+    return NextResponse.json({ status: 400 });
+  }
+
   const spaceRequests = results.map((page) => ({
     title: page.properties["Title"].title[0]?.text?.content,
     id: page.id,

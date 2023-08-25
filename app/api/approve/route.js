@@ -4,7 +4,6 @@ import { notion } from "../notion";
 
 export async function POST(request) {
   try {
-    console.log("calling Notion");
     const { title, locationID, start, end, id } = await request.json();
 
     const newPage = {

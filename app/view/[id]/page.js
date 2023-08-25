@@ -3,8 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import "font-awesome/css/font-awesome.min.css";
 
-export const dynamic = "force-dynamic";
-
 export async function generateStaticParams() {
   const pagesInfo = await getLocationPages();
   return pagesInfo.map((page) => ({

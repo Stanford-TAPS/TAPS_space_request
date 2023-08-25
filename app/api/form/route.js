@@ -65,7 +65,7 @@ export async function POST(request) {
     };
 
     // Add group only if it is not null
-    if (group) {
+    if (group && group.value) {
       newPage.properties["Group/Organization"] = {
         relation: [
           {
@@ -80,11 +80,11 @@ export async function POST(request) {
 
     if (response == {}) {
       return NextResponse.json({ status: 400 });
-    } 
+    }
     if (response.status) {
       return NextResponse.json({ status: response.status });
     }
-    return NextResponse.json(response, {status: 200});
+    return NextResponse.json(response, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Internal Server Error" });
   }

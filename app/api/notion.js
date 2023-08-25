@@ -2,23 +2,23 @@ import { cache } from "react";
 import { Client } from "@notionhq/client";
 import { getNextSunday, convertDate } from "../lib/utilities";
 
-const revalidate = 60; // revalidate the data at most every min
+const revalidate = 3600 * 60; // default revalidation every hour
+
 export const notion = new Client({
   auth: process.env.NOTION_KEY,
 });
 
-export const getNextWeekEvents = cache(async () => {
-  const databaseId = process.env.NOTION_EVENTS_ID;
-  const date = getNextSunday();
+export const getNextWeekEvents = async () => {
+  const date = new Date();
   const startDate = convertDate(date);
-  date.setDate(date.getDate() + 7);
+  date.setDate(date.getDate() + 14);
   const endDate = convertDate(date);
 
   const requestableSpaces = await getRequestableSpaces();
   const requestableLocationIds = requestableSpaces.map((space) => space.id);
 
   const { results } = await notion.databases.query({
-    database_id: databaseId,
+    database_id: process.env.NOTION_EVENTS_ID,
     filter: {
       and: [
         {
@@ -42,7 +42,12 @@ export const getNextWeekEvents = cache(async () => {
       ],
     },
   });
+
   const eventsByLocation = {};
+
+  if (!results) {
+    throw new Error("Error fetching next week events");
+  }
 
   results.forEach((page) => {
     const locationId = page.properties["Event Location"].relation[0].id;
@@ -59,8 +64,9 @@ export const getNextWeekEvents = cache(async () => {
       });
     }
   });
+  console.log("events by location: ", eventsByLocation);
   return eventsByLocation;
-}, revalidate);
+};
 
 export const getRequestableSpaces = cache(async () => {
   const databaseId = process.env.NOTION_FACILITIES_ID;
@@ -80,11 +86,15 @@ export const getRequestableSpaces = cache(async () => {
     ],
   });
 
+  if (!results) {
+    throw new Error("Error fetching requestable spaces");
+  }
+
   return results.map((page) => ({
     title: page.properties["Record Name"].title[0]?.text?.content,
     id: page.id,
   }));
-}, 3600);
+});
 
 export const getGroups = cache(async () => {
   const databaseId = process.env.NOTION_GROUPS_ID;
@@ -104,11 +114,15 @@ export const getGroups = cache(async () => {
     ],
   });
 
+  if (!results) {
+    throw new Error("Error fetching groups");
+  }
+
   return results.map((page) => ({
     title: page.properties["Name"].title[0]?.text?.content,
     id: page.id,
   }));
-}, 3600);
+});
 
 export const getSpaceRequests = async () => {
   const databaseId = process.env.NOTION_SPACE_REQUESTS_ID;
@@ -127,12 +141,19 @@ export const getSpaceRequests = async () => {
       },
     ],
   });
+
+  if (!results) {
+    throw new Error("Error fetching space requests");
+  }
+
   return results.map((page) => ({
     title: page.properties["Title"].title[0]?.text?.content,
     id: page.id,
     start: page.properties["Date"].date?.start,
     end: page.properties["Date"].date?.end,
     locationID: page.properties["Location"].relation[0].id,
+    group: page.properties["Group/Organization"].relation[0]?.id,
+    description: page.properties["Description"].rich_text[0]?.text?.content,
   }));
 };
 
@@ -154,6 +175,10 @@ export const getLocationPages = cache(async () => {
     ],
   });
 
+  if (!results) {
+    throw new Error("Error fetching page data for locations");
+  }
+
   return results.map((page) => ({
     title: page.properties["Record Name"].title[0]?.text?.content,
     id: page.id,
@@ -166,3 +191,5 @@ export const getLocationPages = cache(async () => {
         : false,
   }));
 });
+
+export const getCoverImage = async (pageID) => {};

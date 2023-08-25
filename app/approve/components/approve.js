@@ -33,7 +33,7 @@ export default function ApprovalSystem({
     const intervalId = setInterval(refresh, 2 * 60 * 1000); // 2 minutes in milliseconds
 
     return () => clearInterval(intervalId); // This will clear the interval when the component unmounts
-  }, []);
+  }, [events]);
 
   // sets chosen request
   function handleRequestSelected(request) {
@@ -54,14 +54,11 @@ export default function ApprovalSystem({
 
       if (response.ok) {
         setApproveStatus("success");
-        console.log(response);
       } else {
         setApproveStatus("failure");
-        console.log(response);
       }
     } catch (err) {
       setApproveStatus("failure");
-      console.log(err);
     }
   };
 
@@ -79,14 +76,11 @@ export default function ApprovalSystem({
 
       if (response.ok) {
         setDenyStatus("success");
-        console.log(response);
       } else {
         setDenyStatus("failure");
-        console.log(response);
       }
     } catch (err) {
       setDenyStatus("failure");
-      console.log(err);
     }
   };
 
@@ -106,6 +100,7 @@ export default function ApprovalSystem({
     } else if (decision == "deny") {
       await denyRequest(selectedRequest);
     }
+    console.log("Updated events: ", updatedEvents);
 
     await refetchRequests(updatedEvents);
     setIsRefreshing(false);
@@ -119,6 +114,7 @@ export default function ApprovalSystem({
       },
     });
     const { spaceRequests } = await response.json();
+    console.log("fettched requests:", spaceRequests);
     setRequests(formatRequests(spaceRequests, locations, events));
   };
 

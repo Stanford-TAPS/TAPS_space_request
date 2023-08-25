@@ -12,7 +12,6 @@ export default async function Approve() {
   const spaceRequests = await getSpaceRequests();
   const locations = await getRequestableSpaces();
   const events = await getNextWeekEvents();
-  console.log(spaceRequests);
   return (
     <>
       <ApprovalSystem

@@ -7,6 +7,7 @@ import { useState } from "react";
 import GroupSelect from "./group_select";
 import LocationSelect from "./location_select";
 import ReactDatePicker from "react-datepicker";
+import { isWithinInterval } from "date-fns";
 
 // This is the component for the form. It uses the React Hook Form
 // library for structure and behavior.
@@ -74,8 +75,9 @@ export default function SpaceForm({
       data.description = "none"; //Notion can't handle an empty string
     }
     // format dates for Notion
-    const startDate = `${data.date}T${data.start}`;
-    const endDate = `${data.date}T${data.end}`;
+    const formattedDate = data.date.toISOString().split("T")[0];
+    const startDate = `${formattedDate}T${data.start}`;
+    const endDate = `${formattedDate}T${data.end}`;
     const payload = {
       ...data,
       startDate,
@@ -233,14 +235,9 @@ export default function SpaceForm({
             name="date"
             rules={{
               required: "Please select a date",
-              validate: (value) =>
-                isWithinInterval(value, {
-                  start: nextSunday,
-                  end: nextSaturday,
-                }) || "Date must be for next week",
             }}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <div className="flex w-full justify-center">
+            render={({ field: { onChange, value } }) => (
+              <div className="w-full">
                 <ReactDatePicker
                   selected={value}
                   onChange={onChange}
@@ -248,11 +245,6 @@ export default function SpaceForm({
                   maxDate={nextSaturday}
                   className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none focus:ring-2 focus:ring-red-700"
                 />
-                {error && (
-                  <p className="mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
-                    {error.message}
-                  </p>
-                )}
               </div>
             )}
           />

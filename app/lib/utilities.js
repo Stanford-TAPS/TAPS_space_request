@@ -3,7 +3,6 @@ export function getNextSunday() {
   const nextSunday = new Date(today);
 
   nextSunday.setDate(today.getDate() + ((7 - today.getDay()) % 7));
-  console.log(nextSunday);
   return nextSunday;
 }
 

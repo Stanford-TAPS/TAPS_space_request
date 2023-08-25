@@ -9,7 +9,6 @@ export default function MessageBox({
   const [message, setMessage] = useState("");
 
   const handleConfirm = () => {
-    console.log(decision, " message:", message);
     onConfirm(message);
   };
 

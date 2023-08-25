@@ -50,7 +50,6 @@ export default function SpaceRequest({ spaces, eventsByLocation, groups }) {
   };
 
   const handleDateSelected = (startDate, endDate) => {
-    console.log("Date selected!", startDate, endDate);
     const isConflict = checkConflict(events, startDate, endDate);
     const eventColor = isConflict ? CONFLICT_EVENT_COLOR : DEFAULT_EVENT_COLOR; // Orange if conflict, else default color
 
@@ -68,7 +67,6 @@ export default function SpaceRequest({ spaces, eventsByLocation, groups }) {
           return event;
         }
       });
-      console.log(newEvents);
       setEvents(newEvents);
     } else {
       // Otherwise, create a new event object with the given start and end dates
