@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { convertDate, getNextSunday } from "../../lib/utilities";
 import { useState } from "react";
 import GroupSelect from "./group_select";
-import LocationSelect from "./location_select";
+import LocationSelect from "../../components/location_select";
 import ReactDatePicker from "react-datepicker";
 import { isWithinInterval } from "date-fns";
 

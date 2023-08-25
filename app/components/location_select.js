@@ -2,11 +2,20 @@ import React from "react";
 import Select from "react-select";
 import { Controller } from "react-hook-form";
 
-export default function LocationSelect({ control, locations, errors }) {
+export default function LocationSelect({
+  control,
+  locations,
+  errors,
+  defaultValue,
+}) {
   const options = locations.map((location) => ({
     value: location.id,
     label: location.title,
   }));
+
+  const defaultIndex = defaultValue
+    ? options.findIndex((option) => option.label == defaultValue)
+    : -1;
 
   return (
     <div className="mb-4">
@@ -16,7 +25,7 @@ export default function LocationSelect({ control, locations, errors }) {
       <Controller
         name="location"
         control={control}
-        defaultValue={null}
+        defaultValue={defaultValue ? options[defaultIndex] : null}
         rules={{ required: "Please select a location" }}
         render={({ field }) => (
           <Select

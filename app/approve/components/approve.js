@@ -138,7 +138,11 @@ export default function ApprovalSystem({
   return (
     <div className="flex h-full">
       {selectedRequest && (
-        <RequestCard request={selectedRequest} onDecision={handleDecision} />
+        <RequestCard
+          request={selectedRequest}
+          locations={locations}
+          onDecision={handleDecision}
+        />
       )}
       <div className="mx-auto mb-6 mt-4 flex w-3/5 flex-col">
         <div className="flex flex-row justify-between">
