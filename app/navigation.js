@@ -17,7 +17,7 @@ export default function Navbar({ className }) {
             </Link>
           </li>
           <li className="mr-6">
-            <Link href="/view" className="text-white hover:text-gray-200">
+            <Link href="/spaces" className="text-white hover:text-gray-200">
               SPACES
             </Link>
           </li>

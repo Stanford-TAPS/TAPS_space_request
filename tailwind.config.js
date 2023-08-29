@@ -13,6 +13,7 @@ module.exports = {
       fontFamily: {
         oswald: ["Oswald", "sans-serif"],
         playfair: ["Playfair", "serif"],
+        roboto: ["Roboto Condensed", "Oswald", "sans-serif"],
       },
       boxShadow: {
         b: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",

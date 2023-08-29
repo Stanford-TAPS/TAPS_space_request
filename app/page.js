@@ -3,12 +3,12 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="flex h-full flex-col items-center justify-center space-y-5">
-      <h1 className="font-playfair m-4 text-center text-2xl font-bold dark:text-white md:text-5xl">
+      <h1 className="m-4 text-center font-playfair text-2xl font-bold dark:text-white md:text-5xl">
         Welcome to the TAPS Space Request page!
       </h1>
       <div className="flex space-x-4">
         <Link
-          href="/view"
+          href="/spaces"
           className="rounded border-2 border-black bg-transparent p-3 text-xl transition-colors duration-200 hover:bg-gray-200 hover:shadow-lg dark:border-white dark:text-white dark:hover:bg-gray-600 md:text-2xl"
         >
           View Spaces

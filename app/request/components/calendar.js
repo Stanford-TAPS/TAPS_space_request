@@ -22,7 +22,7 @@ export default function Calendar({
 
   return (
     <>
-      <h1 className="font-playfair mb-1 text-center text-2xl font-bold md:text-4xl">
+      <h1 className="mb-1 text-center font-playfair text-2xl font-bold md:text-4xl">
         {location}
       </h1>
       <FullCalendar
@@ -49,7 +49,7 @@ export default function Calendar({
 function Default() {
   return (
     <div className="flex h-full flex-col items-center justify-start space-y-8 p-5 pt-32">
-      <h1 className="font-playfair text-center text-3xl font-bold ">
+      <h1 className="text-center font-playfair text-3xl font-bold ">
         Select a location to view its availability
       </h1>
       <div className="w-full rounded border border-gray-200 p-5 shadow md:w-2/3 lg:w-1/2">
@@ -57,7 +57,7 @@ function Default() {
           Please note that spaces can only be reserved for the following week.
           Available hours may vary by location, but are typically between 8:30
           am and 10:30 pm.{" "}
-          <Link href="/view" className="text-blue-500 hover:underline">
+          <Link href="/spaces" className="text-blue-500 hover:underline">
             View Spaces
           </Link>{" "}
           for more information on individual spaces.
