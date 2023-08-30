@@ -4,7 +4,7 @@ import { Controller } from "react-hook-form";
 
 export default function GroupSelect({ control, groups }) {
   const options = [
-    { value: null, label: "None" }, // None option at the beginning
+    { value: null, label: "None" }, // None option at the beginning for independent reservers
     ...groups.map((group) => ({
       value: group.id,
       label: group.title,

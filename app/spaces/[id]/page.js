@@ -1,6 +1,7 @@
 import { getLocationPages } from "../../api/notion";
 import Image from "next/image";
 import Link from "next/link";
+import BackButton from "../components/back_button";
 
 export async function generateStaticParams() {
   const pagesInfo = await getLocationPages();
@@ -12,20 +13,17 @@ export async function generateStaticParams() {
 export default async function SpaceView({ params }) {
   const pagesInfo = await getLocationPages();
   const pageInfo = pagesInfo.find((page) => page.id == params.id);
+
   return (
     <>
-      <Link
-        href="/spaces"
-        className="absolute left-2 top-2 z-10 rounded bg-white p-2 dark:bg-black"
-      >
-        Back
-      </Link>
+      <BackButton className="absolute left-2 top-2 z-10 rounded bg-white p-2 dark:bg-black" />
 
-      <div className="relative h-1/2 w-full overflow-hidden">
+      <div className="relative h-1/2 w-full overflow-hidden bg-neutral-800">
         <Image
           src={pageInfo.cover}
           alt={`Cover image of ${pageInfo.title}`}
           fill={true}
+          sizes="100vw"
           className="object-cover"
           priority
         />

@@ -181,7 +181,9 @@ export const getLocationPages = cache(async () => {
   return results.map((page) => ({
     title: page.properties["Record Name"].title[0]?.text?.content,
     id: page.id,
+    building: page.properties["Building"].relation[0].id,
     cover: page.cover.file.url,
+    tags: page.properties["Tags"].multiselect,
     description: page.properties["Description"].rich_text[0]?.text?.content,
     capacity: page.properties["Capacity"].rich_text[0]?.text?.content,
     isAccessible:

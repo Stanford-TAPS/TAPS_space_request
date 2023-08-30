@@ -1,7 +1,6 @@
 "use client";
-import Link from "next/link";
-import SpaceForm from "./form";
 import { useState, useEffect } from "react";
+import SpaceForm from "./form";
 import Calendar from "./calendar";
 
 const CONFLICT_EVENT_COLOR = "#d97706"; // amber 600
@@ -15,9 +14,10 @@ export default function SpaceRequest({ spaces, eventsByLocation, groups }) {
   const [conflict, setConflict] = useState(false); // tracks whether the request date/time conflitcs with an existing event
   const [isOpen, setIsOpen] = useState(true); // (for mobile) tracks whether the form is open/visible
 
+  // checking if the selected time conflicts with an event
   const checkConflict = (events, startDate, endDate) => {
     const isConflict = events.some((event) => {
-      if (event.id === "123") return false;
+      if (event.id === "123") return false; // tracking event using id 123. TODO: change to event sources
       return startDate < event.end && endDate > event.start;
     });
 
@@ -25,6 +25,8 @@ export default function SpaceRequest({ spaces, eventsByLocation, groups }) {
     return isConflict;
   };
 
+  // when a location is selected, grabs events for the location, rechecks conflict, and
+  // finds title data for calendar
   const handleLocationSelected = (locationID) => {
     setLocation(locationID);
     const data = eventsByLocation[locationID]; // Access events directly from eventsByLocation
@@ -49,12 +51,14 @@ export default function SpaceRequest({ spaces, eventsByLocation, groups }) {
     }
   };
 
+  // when a full date is selected, this rechecks for a conflict
+  // and changes the event color based on conflict status
   const handleDateSelected = (startDate, endDate) => {
     const isConflict = checkConflict(events, startDate, endDate);
     const eventColor = isConflict ? CONFLICT_EVENT_COLOR : DEFAULT_EVENT_COLOR; // Orange if conflict, else default color
 
     let requestedEvent = events.find((event) => event.id == "123");
-    if (requestedEvent) {
+    if (requestedEvent) { // edit existing event
       const newEvents = events.map((event) => {
         if (event.id === "123") {
           return {
@@ -68,8 +72,7 @@ export default function SpaceRequest({ spaces, eventsByLocation, groups }) {
         }
       });
       setEvents(newEvents);
-    } else {
-      // Otherwise, create a new event object with the given start and end dates
+    } else { // if no existing event, create one
       requestedEvent = {
         id: "123",
         title: "[Your Event]",
@@ -77,8 +80,8 @@ export default function SpaceRequest({ spaces, eventsByLocation, groups }) {
         end: endDate,
         color: eventColor,
       };
-
-      // Add the new editable event to the events array
+      
+      // Add the new event to the events array
       setEvents([...events, requestedEvent]);
     }
   };
