@@ -29,89 +29,9 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground: 255, 255, 255; /* white foreground in dark mode */
-    --background: 0, 0, 0; /* black background in dark mode */
+    --background: 23, 23, 23; /* neutral-900 background in dark mode */
      
   }
-}
-
-.fc-event-title {
-  font-family: 'Oswald', sans-serif !important;
-}
-
-.fc .fc-toolbar.fc-header-toolbar {
-  margin-bottom: 1em;
-  font-size: 0.7rem;
-}
-
-.fc-theme-standard .fc-scrollgrid {
-  border: none;
-}
-
-.fc-theme-standard th {
-  border: none;
-}
-
-.clickable-event {
-  cursor: pointer;
-}
-
-.fc-col-header {
-  padding-bottom: 1px; /* Add padding at the bottom */
-  background-image: linear-gradient(to right, transparent -1px, var(--fc-border-color) 3%, var(--fc-border-color), var(--fc-border-color) calc(100% + 1px));
-  background-size: 100% 1px; /* Match the border size */
-  background-repeat: no-repeat;
-  background-position: bottom;
-}
-
-
-.fc-theme-standard td {
-  border-top: none;
-  border-bottom: none;
-}
-
-.fc-timegrid-event .fc-event-main {
-  padding: 3px;
-}
-
-.fc-daygrid-day-frame {
-  border: none;
-
-}
-
-.fc-daygrid-block-event .fc-event-time, .fc-daygrid-block-event .fc-event-title {
-  padding-left: 3px;
-}
-
-.fc .fc-timegrid-divider {
-  position: relative;
-  padding: 2px;
-}
-
-.fc .fc-timegrid-divider::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1px; /* Height of the border */
-  background-image: linear-gradient(to right, transparent, var(--fc-border-color) 3%, var(--fc-border-color));
-}
-
-.fc .fc-cell-shaded, .fc .fc-day-disabled {
-  background: linear-gradient(to right, transparent, var(--fc-neutral-bg-color) 3%, var(--fc-neutral-bg-color));
-}
-
-.fc-timegrid-body {
-  border-bottom: none; /* Remove the original border */
-  background-image: linear-gradient(to right, transparent, var(--fc-border-color) 30px, var(--fc-border-color));
-  background-size: 100% 1px; /* Match the border size */
-  background-repeat: no-repeat;
-  background-position: bottom;
-}
-
-.fc .fc-timegrid-slot-minor {
-  border: none;
-  border-bottom: 1px dashed var(--fc-border-color);
 }
 
 .react-datepicker-wrapper {
@@ -128,6 +48,101 @@
 
 .react-datepicker__header {
   background-color: #f5f5f5 !important;
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+  margin-bottom: 1em;
+  font-size: 0.7rem;
+}
+
+.perspective {
+  perspective: 1px;
+  perspective-origin: 0 0;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.parallax-child {
+  transform-origin: 0 0;
+  transform: translateZ(-2px) scale(3);
+}
+
+
+.request .fc-event-title {
+  font-family: 'Oswald', sans-serif !important;
+}
+
+.request .fc-theme-standard .fc-scrollgrid {
+  border: none;
+}
+
+.request .fc-theme-standard th {
+  border: none;
+}
+
+.request .clickable-event {
+  cursor: pointer;
+}
+
+.request .fc-col-header {
+  padding-bottom: 1px; /* Add padding at the bottom */
+  background-image: linear-gradient(to right, transparent -1px, var(--fc-border-color) 3%, var(--fc-border-color), var(--fc-border-color) calc(100% + 1px));
+  background-size: 100% 1px; /* Match the border size */
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+
+
+.request .fc-theme-standard td {
+  border-top: none;
+  border-bottom: none;
+}
+
+.request .fc-timegrid-event .fc-event-main {
+  padding: 3px;
+}
+
+.request .fc-daygrid-day-frame {
+  border: none;
+
+}
+
+.request .fc-daygrid-block-event .fc-event-time, .fc-daygrid-block-event .fc-event-title {
+  padding-left: 3px;
+}
+
+.request .fc .fc-timegrid-divider {
+  position: relative;
+  padding: 2px;
+}
+
+.request .fc .fc-timegrid-divider::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px; /* Height of the border */
+  background-image: linear-gradient(to right, transparent, var(--fc-border-color) 3%, var(--fc-border-color));
+}
+
+.request .fc .fc-cell-shaded, .fc .fc-day-disabled {
+  background: linear-gradient(to right, transparent, var(--fc-neutral-bg-color) 3%, var(--fc-neutral-bg-color));
+}
+
+.request .fc-timegrid-body {
+  border-bottom: none; /* Remove the original border */
+  background-image: linear-gradient(to right, transparent, var(--fc-border-color) 30px, var(--fc-border-color));
+  background-size: 100% 1px; /* Match the border size */
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+
+.request .fc .fc-timegrid-slot-minor {
+  border: none;
+  border-bottom: 1px dashed var(--fc-border-color);
 }
 
 body {

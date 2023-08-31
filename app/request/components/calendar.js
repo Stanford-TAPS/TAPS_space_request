@@ -1,4 +1,5 @@
 "use client";
+import "../../request_calendar_override.css";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { getNextSunday } from "../../lib/utilities";
@@ -21,8 +22,8 @@ export default function Calendar({
   }
 
   return (
-    <>
-      <h1 className="mb-1 text-center font-playfair text-2xl font-bold md:text-4xl">
+    <div className="request">
+      <h1 className="font-roboto mb-1 text-center text-2xl font-bold  md:text-4xl">
         {location}
       </h1>
       <FullCalendar
@@ -41,27 +42,25 @@ export default function Calendar({
         slotMinTime="08:00"
         slotMaxTime="23:00"
       />
-    </>
+    </div>
   );
 }
 
 // default screen
 function Default() {
   return (
-    <div className="flex h-full flex-col items-center justify-start space-y-8 p-5 pt-32">
-      <h1 className="text-center font-playfair text-3xl font-bold ">
+    <div className="flex h-full flex-col items-center justify-start space-y-8  p-5 pt-32">
+      <h1 className="text-center text-4xl">
         Select a location to view its availability
       </h1>
-      <div className="w-full rounded border border-gray-200 p-5 shadow md:w-2/3 lg:w-1/2">
-        <p className="mb-4">
-          Please note that spaces can only be reserved for the following week.
-          Available hours may vary by location, but are typically between 8:30
-          am and 10:30 pm.{" "}
-          <Link href="/spaces" className="text-blue-500 hover:underline">
-            View Spaces
-          </Link>{" "}
-          for more information on individual spaces.
-        </p>
+      <div className="w-full p-5 text-center text-lg leading-relaxed md:w-2/3">
+        Please note that spaces can only be reserved for the following week.
+        Available hours may vary by location, but are typically between 8:30 am
+        and 10:30 pm.{" "}
+        <Link href="/spaces" className="text-blue-500 hover:underline">
+          View Spaces
+        </Link>{" "}
+        for more information on individual spaces.
       </div>
     </div>
   );

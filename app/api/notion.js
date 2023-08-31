@@ -183,7 +183,7 @@ export const getLocationPages = cache(async () => {
     id: page.id,
     building: page.properties["Building"].relation[0].id,
     cover: page.cover.file.url,
-    tags: page.properties["Tags"].multiselect,
+    tags: page.properties["Tags"].multi_select,
     description: page.properties["Description"].rich_text[0]?.text?.content,
     capacity: page.properties["Capacity"].rich_text[0]?.text?.content,
     isAccessible:
@@ -193,4 +193,50 @@ export const getLocationPages = cache(async () => {
   }));
 });
 
-export const getCoverImage = async (pageID) => {};
+export const getNextMonthEvents = async (locationID) => {
+  const { results } = await notion.databases.query({
+    database_id: process.env.NOTION_EVENTS_ID,
+    filter: {
+      and: [
+        {
+          property: "Event Location",
+          relation: {
+            contains: locationID,
+          },
+        },
+        {
+          or: [
+            {
+              property: "Event Date",
+              date: {
+                past_month: {},
+              },
+            },
+            {
+              property: "Event Date",
+              date: {
+                next_month: {},
+              },
+            },
+          ],
+        },
+      ],
+    },
+  });
+
+  if (!results) {
+    throw new Error("Error fetching next week events");
+  }
+
+  const events = [];
+
+  results.forEach((page) => {
+    events.push({
+      title: page.properties["*Record Title"].title[0]?.text?.content,
+      start: page.properties["Event Date"].date.start,
+      end: page.properties["Event Date"].date.end,
+    });
+  });
+
+  return events;
+};

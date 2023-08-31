@@ -58,7 +58,8 @@ export default function SpaceRequest({ spaces, eventsByLocation, groups }) {
     const eventColor = isConflict ? CONFLICT_EVENT_COLOR : DEFAULT_EVENT_COLOR; // Orange if conflict, else default color
 
     let requestedEvent = events.find((event) => event.id == "123");
-    if (requestedEvent) { // edit existing event
+    if (requestedEvent) {
+      // edit existing event
       const newEvents = events.map((event) => {
         if (event.id === "123") {
           return {
@@ -72,7 +73,8 @@ export default function SpaceRequest({ spaces, eventsByLocation, groups }) {
         }
       });
       setEvents(newEvents);
-    } else { // if no existing event, create one
+    } else {
+      // if no existing event, create one
       requestedEvent = {
         id: "123",
         title: "[Your Event]",
@@ -80,7 +82,7 @@ export default function SpaceRequest({ spaces, eventsByLocation, groups }) {
         end: endDate,
         color: eventColor,
       };
-      
+
       // Add the new event to the events array
       setEvents([...events, requestedEvent]);
     }
@@ -117,7 +119,7 @@ export default function SpaceRequest({ spaces, eventsByLocation, groups }) {
       </button>
 
       <div
-        className={`no-scrollbar h-full w-full overflow-scroll py-8 md:w-1/2 md:p-10 lg:w-3/4 ${
+        className={`no-scrollbar h-full w-full overflow-scroll py-8 md:w-1/2 md:p-16 lg:w-3/4 ${
           isOpen ? "hidden md:block" : "md:block"
         }`}
       >

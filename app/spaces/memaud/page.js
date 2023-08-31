@@ -31,7 +31,7 @@ export default async function MemAud() {
         <br />
         Building hours: weekdays 8:30am - 11:00pm
       </div>
-      <button className="font-roboto mx-auto mt-10 w-fit rounded bg-red-600 px-8 py-4 text-center text-3xl font-bold text-white">
+      <button className="font-roboto mx-auto mt-10 w-fit rounded bg-red-600 px-8 py-4 text-center text-3xl font-bold text-white transition-all  hover:bg-red-700">
         Book a Space in Memorial Hall*
       </button>
       <div className="mb-10 p-2 text-center text-xl text-black">
