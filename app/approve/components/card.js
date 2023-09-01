@@ -38,7 +38,7 @@ export default function RequestCard({ request, locations, onDecision }) {
           Warning! This feature doesn&apos;t actually work yet :)
         </p>
       )}
-      <h2 className="mb-6 text-center font-playfair text-4xl font-bold">
+      <h2 className="mb-6 text-center font-roboto text-4xl font-bold">
         {request.title}
       </h2>
       <div className="flex w-full justify-between pb-4">

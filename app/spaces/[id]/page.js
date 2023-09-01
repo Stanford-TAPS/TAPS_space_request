@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWheelchair } from "@fortawesome/free-solid-svg-icons";
 import SpaceCalendar from "../components/calendar";
 
+export const dynamic = "force-dynamic";
+
 export async function generateStaticParams() {
   const pagesInfo = await getLocationPages();
   return pagesInfo.map((page) => ({
@@ -19,8 +21,8 @@ export default async function SpaceView({ params }) {
   const events = await getNextMonthEvents(pageInfo.id);
 
   return (
-    <div className="bg-white text-black">
-      <BackButton className="absolute left-2 top-2 z-10 rounded bg-white p-2" />
+    <>
+      <BackButton className="absolute left-2 top-2 z-10 rounded-full bg-white px-6 py-2 dark:bg-neutral-800" />
 
       <div className="relative flex h-80 w-full  items-center justify-center overflow-hidden bg-neutral-800">
         <Image
@@ -31,7 +33,7 @@ export default async function SpaceView({ params }) {
           className="object-cover"
           priority
         />
-        <div className="font-roboto z-10 border-4 border-yellow-400 p-12 text-center text-5xl font-bold uppercase text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]">
+        <div className="z-10 border-4 border-yellow-400 p-12 text-center font-roboto text-5xl font-bold uppercase text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]">
           {pageInfo.title}
         </div>
       </div>
@@ -42,7 +44,7 @@ export default async function SpaceView({ params }) {
             <div className="pr-1">Accessible</div>
           </div>
         ) : (
-          <div className="m-1 w-fit self-center rounded-full border-2 border-red-600 p-2 text-red-600">
+          <div className="mt-1 w-fit self-center rounded-full bg-red-600  p-2 text-sm text-white dark:bg-red-700">
             Not Accessible
           </div>
         )}
@@ -58,7 +60,7 @@ export default async function SpaceView({ params }) {
         })}
       </div>
 
-      <div className="text-md mx-auto w-fit max-w-2xl rounded border-2 border-black p-6 text-center">
+      <div className="text-md mx-auto w-fit max-w-2xl rounded-lg border-2 border-black p-6 text-center dark:border-0 dark:bg-neutral-800">
         {pageInfo.capacity && (
           <div className="mb-2">
             <span className="mr-1 font-bold">Capacity</span>
@@ -68,11 +70,11 @@ export default async function SpaceView({ params }) {
         {pageInfo.description}
       </div>
 
-      <div className="font-roboto mx-auto mt-10 w-1/2 text-center text-2xl font-bold">
+      <div className="mx-auto mt-10 w-1/2 text-center font-roboto text-2xl font-bold">
         Events scheduled at {pageInfo.title}
       </div>
-      <div className="mx-auto mt-2 w-48 border-b-2 border-black"></div>
+      <div className="mx-auto mt-2 w-48 border-b-2 border-black dark:border-white"></div>
       <SpaceCalendar events={events} location={pageInfo.title} />
-    </div>
+    </>
   );
 }

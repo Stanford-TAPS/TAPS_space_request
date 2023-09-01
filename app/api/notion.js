@@ -240,3 +240,49 @@ export const getNextMonthEvents = async (locationID) => {
 
   return events;
 };
+
+export const getAllEvents = async () => {
+  const requestableSpaces = await getRequestableSpaces();
+  const requestableLocationIds = requestableSpaces.map((space) => space.id);
+
+  const { results } = await notion.databases.query({
+    database_id: process.env.NOTION_EVENTS_ID,
+    filter: {
+      and: [
+        {
+          or: [
+            {
+              property: "Event Date",
+              date: {
+                past_month: {},
+              },
+            },
+            {
+              property: "Event Date",
+              date: {
+                next_month: {},
+              },
+            },
+          ],
+        },
+        {
+          property: "Event Location",
+          relation: {
+            is_not_empty: true,
+          },
+        },
+      ],
+    },
+  });
+
+  let events = [];
+  results.forEach((page) => {
+    events.push({
+      title: page.properties["*Record Title"].title[0]?.text?.content,
+      locationID: page.properties["Event Location"].relation[0].id,
+      start: page.properties["Event Date"].date.start,
+      end: page.properties["Event Date"].date.end,
+    });
+  });
+  return events;
+};

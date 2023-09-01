@@ -7,7 +7,7 @@ import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 export default function View() {
   //const pagesInfo = await getLocationPages();
   return (
-    <div className="align-center relative flex w-full flex-col bg-white">
+    <div className="align-center relative flex w-full flex-col bg-white dark:bg-neutral-900">
       <div className="flex h-72 w-full flex-row">
         <Link
           href="/spaces/memaud"
@@ -21,7 +21,7 @@ export default function View() {
           />
           <div className="absolute inset-0 z-10 bg-black opacity-40 transition-all group-hover:opacity-20"></div>
           <div className="absolute inset-0 flex items-center justify-center text-white">
-            <p className="font-roboto z-20 text-2xl font-bold">MEMORIAL HALL</p>
+            <p className="z-20 font-roboto text-2xl font-bold">MEMORIAL HALL</p>
           </div>
         </Link>
         <Link
@@ -36,7 +36,7 @@ export default function View() {
           />
           <div className="absolute inset-0 z-10 bg-black opacity-40 transition-all group-hover:opacity-20"></div>
           <div className="absolute inset-0 flex items-center justify-center text-white">
-            <p className="font-roboto z-20 text-2xl font-bold">ROBLE GYM</p>
+            <p className="z-20 font-roboto text-2xl font-bold">ROBLE GYM</p>
           </div>
         </Link>
         <Link
@@ -51,17 +51,17 @@ export default function View() {
           />
           <div className="absolute inset-0 z-10 bg-black opacity-40 transition-all group-hover:opacity-20"></div>
           <div className="absolute inset-0 flex items-center justify-center text-white">
-            <p className="font-roboto z-20 text-2xl font-bold">
+            <p className="z-20 font-roboto text-2xl font-bold">
               NITERY THEATER
             </p>
           </div>
         </Link>
       </div>
-      <div className="font-roboto mt-10 text-center text-6xl font-bold text-black">
+      <div className="mt-10 text-center font-roboto text-6xl font-bold text-black dark:text-white">
         TAPS SPACES
       </div>
-      <div className="m-auto mb-10 mt-6 w-16 border-2 border-red-900"></div>
-      <div className="m-auto w-1/2 text-center text-2xl text-black">
+      <div className="m-auto mb-10 mt-6 w-16 border-2 border-red-900 dark:border-red-700"></div>
+      <div className="m-auto w-1/2 text-center text-2xl text-black dark:text-white">
         TAPS maintains facilities for classes, rehearsals, design work,
         performances, and more.
         <br />
@@ -72,11 +72,11 @@ export default function View() {
       <a
         href="https://taps.stanford.edu/space-usage/"
         target="_blank"
-        className="m-auto mb-20 mt-8 rounded bg-black px-8 py-4 text-2xl font-bold text-white ring-black hover:shadow-lg hover:ring-2"
+        className="m-auto mb-20 mt-8 rounded bg-black px-8 py-4 text-2xl font-bold text-white ring-black hover:shadow-lg hover:ring-2 dark:bg-neutral-900 dark:ring-1 dark:ring-white"
       >
         TAPS Space Use Guidelines
       </a>
-      <div className="flex w-full flex-row justify-between bg-neutral-200 p-12">
+      <div className="flex w-full flex-row justify-between bg-neutral-200 p-12 dark:bg-neutral-800">
         <div className="relative h-auto w-full overflow-hidden">
           <Image
             src="/memaud.jpg"
@@ -86,10 +86,10 @@ export default function View() {
           />
         </div>
         <div className="max-w-xl px-4 py-8 pl-16 ">
-          <div className="font-roboto text-center text-5xl font-bold text-black">
+          <div className="text-center font-roboto text-5xl font-bold">
             MEMORIAL HALL
           </div>
-          <div className="m-auto mb-3 mt-3 w-16 border border-black"></div>
+          <div className="m-auto mb-3 mt-3 w-16 border border-black dark:border-white"></div>
           <a
             target="_blank"
             href="https://goo.gl/maps/WUqaZN9qbpfpxC5i9"
@@ -97,9 +97,9 @@ export default function View() {
           >
             <FontAwesomeIcon
               icon={faLocationDot}
-              className="m-5 ml-0 text-2xl text-black transition-all group-hover:text-blue-600"
+              className="m-5 ml-0 text-2xl transition-all group-hover:text-blue-600"
             />
-            <div className="text-left text-xl leading-relaxed text-black">
+            <div className="text-left text-xl leading-relaxed">
               551 JANE STANFORD WAY <br />
               STANFORD CA 94305
             </div>
@@ -108,18 +108,18 @@ export default function View() {
             <a
               target="_blank"
               href="https://taps.stanford.edu/venue-information/"
-              className="font-roboto rounded border-2 border-red-600 px-6 py-2 text-center text-2xl font-bold text-red-600 hover:shadow-lg hover:outline hover:outline-1"
+              className="rounded border-2 border-red-600 px-6 py-2 text-center font-roboto text-2xl font-bold text-red-600 hover:shadow-lg hover:outline hover:outline-1"
             >
               Building Info
             </a>
             <Link
               href="/spaces/memaud"
-              className="font-roboto rounded border-2 border-red-600 bg-red-600 px-6 py-2 text-center text-2xl font-bold text-white outline-red-600 hover:shadow-lg hover:outline hover:outline-1"
+              className="rounded border-2 border-red-600 bg-red-600 px-6 py-2 text-center font-roboto text-2xl font-bold text-white outline-red-600 hover:shadow-lg hover:outline hover:outline-1"
             >
               View Spaces
             </Link>
           </div>
-          <div className="text-center text-xl leading-relaxed text-black">
+          <div className="text-center text-xl leading-relaxed">
             Memorial Hall houses classrooms, rehearsal and performance spaces,
             the costume shop, scene shops, and TAPS faculty and production staff
             offices.
@@ -135,12 +135,12 @@ export default function View() {
           </div>
         </div>
       </div>
-      <div className="flex w-full flex-row justify-between bg-red-100 p-12">
+      <div className="flex w-full flex-row justify-between bg-white p-12 dark:bg-neutral-900">
         <div className="max-w-xl px-4 py-8 pr-16 ">
-          <div className="font-roboto text-center text-5xl font-bold text-black">
+          <div className="text-center font-roboto text-5xl font-bold">
             ROBLE GYM
           </div>
-          <div className="m-auto mb-6 mt-3 w-16 border border-black"></div>
+          <div className="m-auto mb-6 mt-3 w-16 border border-black dark:border-white"></div>
           <a
             target="_blank"
             href="https://goo.gl/maps/Q9x9AD9xTCj2j4JQA"
@@ -148,9 +148,9 @@ export default function View() {
           >
             <FontAwesomeIcon
               icon={faLocationDot}
-              className="m-5 ml-0 text-2xl text-black transition-all group-hover:text-blue-600"
+              className="m-5 ml-0 text-2xl transition-all group-hover:text-blue-600"
             />
-            <div className="text-left text-xl leading-relaxed text-black">
+            <div className="text-left text-xl leading-relaxed">
               375 SANTA TERESA STREET <br />
               STANFORD, CA 94305
             </div>
@@ -159,18 +159,18 @@ export default function View() {
             <a
               target="_blank"
               href="https://taps.stanford.edu/roble-gym/"
-              className="font-roboto rounded border-2 border-red-600 px-6 py-2 text-center text-2xl font-bold text-red-600 hover:shadow-lg hover:outline hover:outline-1"
+              className="rounded border-2 border-red-600 px-6 py-2 text-center font-roboto text-2xl font-bold text-red-600 hover:shadow-lg hover:outline hover:outline-1"
             >
               Building Info
             </a>
             <Link
               href="/spaces/roble"
-              className="font-roboto rounded border-2 border-red-600 bg-red-600 px-6 py-2 text-center text-2xl font-bold text-white outline-red-600 hover:shadow-lg hover:outline hover:outline-1"
+              className="rounded border-2 border-red-600 bg-red-600 px-6 py-2 text-center font-roboto text-2xl font-bold text-white outline-red-600 hover:shadow-lg hover:outline hover:outline-1"
             >
               View Spaces
             </Link>
           </div>
-          <div className="text-center text-xl leading-relaxed text-black">
+          <div className="text-center text-xl leading-relaxed">
             Roble Gymnasium Building re-opened in 2016 as Stanford’s newest arts
             building. Originally built in 1931 as the women’s gymnasium, the $28
             million renovation created new theatrical performance spaces and
@@ -192,7 +192,7 @@ export default function View() {
           />
         </div>
       </div>
-      <div className="flex w-full flex-row justify-between bg-neutral-200 p-12">
+      <div className="flex w-full flex-row justify-between bg-neutral-200 p-12 dark:bg-neutral-800">
         <div className="relative h-auto w-full overflow-hidden">
           <Image
             src="/nitery.jpg"
@@ -202,10 +202,10 @@ export default function View() {
           />
         </div>
         <div className="max-w-xl px-4 py-8 pl-16 ">
-          <div className="font-roboto text-center text-5xl font-bold text-black">
+          <div className="text-center font-roboto text-5xl font-bold">
             NITERY THEATER
           </div>
-          <div className="m-auto mb-3 mt-3 w-16 border border-black"></div>
+          <div className="m-auto mb-3 mt-3 w-16 border border-black dark:border-white"></div>
           <a
             target="_blank"
             href="https://goo.gl/maps/avZjhGXb2Twr8mgY7"
@@ -213,9 +213,9 @@ export default function View() {
           >
             <FontAwesomeIcon
               icon={faLocationDot}
-              className="m-5 ml-0 text-2xl text-black transition-all group-hover:text-blue-600"
+              className="m-5 ml-0 text-2xl transition-all group-hover:text-blue-600"
             />
-            <div className="text-left text-xl leading-relaxed text-black">
+            <div className="text-left text-xl leading-relaxed">
               514 LASUEN MALL <br />
               STANFORD, CA 94305
             </div>
@@ -223,12 +223,12 @@ export default function View() {
           <div className="flex flex-row justify-evenly py-4">
             <Link
               href="/spaces/nitery"
-              className="font-roboto rounded border-2 border-red-600 bg-red-600 px-6 py-2 text-center text-2xl font-bold text-white outline-red-600 hover:shadow-lg hover:outline hover:outline-1"
+              className="rounded border-2 border-red-600 bg-red-600 px-6 py-2 text-center font-roboto text-2xl font-bold text-white outline-red-600 hover:shadow-lg hover:outline hover:outline-1"
             >
               View Info
             </Link>
           </div>
-          <div className="text-center text-xl leading-relaxed text-black">
+          <div className="text-center text-xl leading-relaxed">
             Nitery Theater is located in the Old Union and is home to the
             Experimental Nitery Studio. An intimate black-box theater, Nitery is
             outfitted with full lighting, projection, and sound equipment for

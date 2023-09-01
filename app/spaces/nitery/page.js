@@ -13,7 +13,7 @@ export default async function MemAud() {
   const events = await getNextMonthEvents(pageInfo.id);
 
   return (
-    <div className="flex w-full flex-col content-center bg-white text-black">
+    <div className="flex w-full flex-col content-center bg-white dark:bg-neutral-900">
       <div className="relative flex h-96 w-full items-center justify-center overflow-hidden">
         <Image
           src="/nitery.jpg"
@@ -22,7 +22,7 @@ export default async function MemAud() {
           className="object-cover"
           priority={true}
         />
-        <div className="font-roboto z-10 border-4 border-yellow-400 p-12 text-center text-7xl font-bold text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]">
+        <div className="z-10 border-4 border-yellow-400 p-12 text-center font-roboto text-7xl font-bold text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]">
           NITERY THEATER
         </div>
       </div>
@@ -30,12 +30,12 @@ export default async function MemAud() {
       <div>
         <div className="my-4 flex justify-center">
           {pageInfo.isAccessible ? (
-            <div className="m-1 flex w-fit self-center rounded-full bg-blue-600 p-2 text-white">
+            <div className="m-1 flex w-fit self-center rounded-full bg-blue-700 p-2 text-white">
               <FontAwesomeIcon icon={faWheelchair} className="p-1" />
               <div className="pr-1">Accessible</div>
             </div>
           ) : (
-            <div className="m-1 w-fit self-center rounded-full border-2 border-red-600 p-2 text-red-600">
+            <div className="mt-1 w-fit self-center rounded-full bg-red-600  p-2 text-sm text-white dark:bg-red-700">
               Not Accessible
             </div>
           )}
@@ -43,7 +43,7 @@ export default async function MemAud() {
             return (
               <div
                 key={tag.id}
-                className={`m-1 rounded-full bg-green-600 px-4 py-2 text-white`}
+                className={`m-1 rounded-full bg-green-600 px-4 py-2 text-white dark:bg-green-700`}
               >
                 {tag.name}
               </div>
@@ -60,7 +60,7 @@ export default async function MemAud() {
             )}
             <div>{pageInfo.description}</div>
           </div>
-          <div className="mx-auto w-96 shrink-0 rounded-xl bg-blue-200 p-8 pb-12">
+          <div className="mx-auto w-96 shrink-0 rounded-xl bg-blue-200 p-8 pb-12 dark:bg-neutral-700">
             <div className="mb-6">
               The Nitery is run by TAPS, and the venue&apos;s annual season is
               curated by the Nitery Experimental Theater Board (NExT).
@@ -68,7 +68,7 @@ export default async function MemAud() {
             <div className="flex w-full justify-center">
               <a
                 href="https://www.nextheatre.com/"
-                className="w-fit rounded bg-red-600 p-2 text-white outline-red-600 hover:shadow-lg hover:outline hover:outline-2"
+                className="w-fit rounded bg-red-700 p-2 text-white outline-red-700 hover:shadow-lg hover:outline hover:outline-2"
               >
                 Read about NExT
               </a>
@@ -77,10 +77,10 @@ export default async function MemAud() {
         </div>
       </div>
 
-      <div className="font-roboto mx-auto mt-10 w-1/2 text-center text-2xl font-bold">
+      <div className="mx-auto mt-10 w-1/2 text-center font-roboto text-2xl font-bold">
         Events scheduled at the Nitery
       </div>
-      <div className="mx-auto mt-2 w-48 border-b-2 border-black"></div>
+      <div className="mx-auto mt-2 w-48 border-b-2 border-black dark:border-white"></div>
       <SpaceCalendar events={events} location={pageInfo.title} />
     </div>
   );
