@@ -1,8 +1,7 @@
 "use client";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import Link from "next/link.js";
-import Error from "next/error.js";
+import Error from "next/error";
 
 // Calendar component shows next week view and displays any events in range,
 // as well as the location title
@@ -12,11 +11,11 @@ export default function SpaceCalendar({
 }) {
   if (events == undefined) {
     // handle edge case
-    return <Error />;
+    return <Error statusCode={400}/>;
   }
 
   return (
-    <div className="mx-auto w-1/2 py-6">
+    <div className="w-1/2 py-6 mx-auto">
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"

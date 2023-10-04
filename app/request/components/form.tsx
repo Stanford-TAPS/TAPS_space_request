@@ -40,7 +40,17 @@ export default function SpaceForm({
     control,
   } = useForm({
     defaultValues: {
-      group: null,
+      location: null,
+      date: null,
+      start: null,
+      end: null,
+      group: {
+        id: null,
+        title: null,
+      },
+      email: null,
+      title: null,
+      description: null,
     },
   });
 
@@ -126,8 +136,8 @@ export default function SpaceForm({
   if (submitStatus == "submitting") {
     return (
       <div className="flex flex-col justify-center">
-        <div className="mb-4 h-10 w-10 animate-spin self-center rounded-full border-b-2 border-t-2 border-red-500"></div>
-        <p className="mb-6 text-center text-xl font-bold">Submitting...</p>
+        <div className="self-center w-10 h-10 mb-4 border-t-2 border-b-2 border-red-500 rounded-full animate-spin"></div>
+        <p className="mb-6 text-xl font-bold text-center">Submitting...</p>
       </div>
     );
   }
@@ -136,7 +146,7 @@ export default function SpaceForm({
   if (submitStatus == "success") {
     return (
       <div className="flex flex-col justify-center">
-        <p className="mb-6 text-center text-xl font-bold">Success!</p>
+        <p className="mb-6 text-xl font-bold text-center">Success!</p>
         <p className="text-center">
           Please check your email for approval/rejection of your request.
         </p>
@@ -148,7 +158,7 @@ export default function SpaceForm({
   if (submitStatus == "failure") {
     return (
       <div className="flex flex-col justify-center">
-        <p className="mb-6 text-center text-xl font-bold">
+        <p className="mb-6 text-xl font-bold text-center">
           Something went wrong!
         </p>
         <p className="text-center">Please try again later.</p>
@@ -171,19 +181,19 @@ export default function SpaceForm({
           <input
             type="text"
             id="title"
-            maxLength="40"
+            maxLength={40}
             {...register("title", {
               required: "Please input a title",
             })}
-            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none focus:ring-2 focus:ring-red-700"
+            className="w-full px-3 py-2 leading-tight text-black border rounded shadow appearance-none focus:shadow-outline focus:outline-none focus:ring-2 focus:ring-red-700"
           />
-          <span className="absolute bottom-2 right-3 text-xs text-neutral-500">
+          <span className="absolute text-xs bottom-2 right-3 text-neutral-500">
             {" "}
             {watch("title") ? 40 - watch("title").length : ""}
           </span>
           {errors.title && (
-            <p className="mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
-              {errors.title.message}
+            <p className="px-1 mt-2 text-xs text-red-700 bg-red-100 border border-red-700 rounded">
+              {errors.title.message.toString()}
             </p>
           )}
         </div>
@@ -203,11 +213,11 @@ export default function SpaceForm({
                 message: "Please use your Stanford email address",
               },
             })}
-            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none focus:ring-2 focus:ring-red-700"
+            className="w-full px-3 py-2 leading-tight text-black border rounded shadow appearance-none focus:shadow-outline focus:outline-none focus:ring-2 focus:ring-red-700"
           />
           {errors.email && (
-            <p className=" mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
-              {errors.email.message}
+            <p className="px-1 mt-2 text-xs text-red-700 bg-red-100 border border-red-700 rounded ">
+              {errors.email.message.toString()}
             </p>
           )}
         </div>
@@ -220,6 +230,7 @@ export default function SpaceForm({
           control={control}
           locations={locations}
           errors={errors}
+          defaultValue={null}
         />
 
         {/* Date */}
@@ -240,14 +251,14 @@ export default function SpaceForm({
                   onChange={onChange}
                   minDate={nextSunday}
                   maxDate={nextSaturday}
-                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none focus:ring-2 focus:ring-red-700"
+                  className="w-full px-3 py-2 leading-tight text-black border rounded shadow appearance-none focus:shadow-outline focus:outline-none focus:ring-2 focus:ring-red-700"
                 />
               </div>
             )}
           />
         </div>
 
-        <div className="mb-4 flex justify-between">
+        <div className="flex justify-between mb-4">
           <div className="w-1/2 pr-2">
             <label htmlFor="start" className="text-neutral-700 dark:text-white">
               Start
@@ -258,11 +269,11 @@ export default function SpaceForm({
               min="08:00"
               max="23:00"
               {...register("start", { required: "required" })}
-              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none focus:ring-2 focus:ring-red-700"
+              className="w-full px-3 py-2 leading-tight text-black border rounded shadow appearance-none focus:shadow-outline focus:outline-none focus:ring-2 focus:ring-red-700"
             />
             {errors.start && (
-              <p className=" mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
-                {errors.start.message}
+              <p className="px-1 mt-2 text-xs text-red-700 bg-red-100 border border-red-700 rounded ">
+                {errors.start.message.toString()}
               </p>
             )}
           </div>
@@ -277,18 +288,18 @@ export default function SpaceForm({
               min="08:00"
               max="23:00"
               {...register("end", { required: "required" })}
-              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none focus:ring-2 focus:ring-red-700"
+              className="w-full px-3 py-2 leading-tight text-black border rounded shadow appearance-none focus:shadow-outline focus:outline-none focus:ring-2 focus:ring-red-700"
             />
             {errors.end && (
-              <p className=" mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
-                {errors.end.message}
+              <p className="px-1 mt-2 text-xs text-red-700 bg-red-100 border border-red-700 rounded ">
+                {errors.end.message.toString()}
               </p>
             )}
           </div>
         </div>
 
         {isConflicting && !showConfirmation && (
-          <div className="text-s mb-2 rounded border-2 border-amber-600 bg-amber-50 p-1 px-3 text-amber-600">
+          <div className="p-1 px-3 mb-2 border-2 rounded text-s border-amber-600 bg-amber-50 text-amber-600">
             Warning: The selected time conflicts with an existing event!
           </div>
         )}
@@ -312,24 +323,24 @@ export default function SpaceForm({
             id="description"
             defaultValue=""
             {...register("description")}
-            className="focus:shadow-outline w-full resize-none appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none focus:ring-2 focus:ring-red-700"
-            rows="3"
+            className="w-full px-3 py-2 leading-tight text-black border rounded shadow appearance-none resize-none focus:shadow-outline focus:outline-none focus:ring-2 focus:ring-red-700"
+            rows={3}
           />
         </div>
 
         {/* Submit button */}
         {!showConfirmation && (
-          <div className="mt-4 flex items-center justify-between">
+          <div className="flex items-center justify-between mt-4">
             <input
               type="submit"
               value="Submit Request"
-              className="click-border-red-700 focus:shadow-outline cursor-pointer rounded-full bg-red-700 px-4 py-2 font-bold text-white hover:bg-red-700 focus:outline-none"
+              className="px-4 py-2 font-bold text-white bg-red-700 rounded-full cursor-pointer click-border-red-700 focus:shadow-outline hover:bg-red-700 focus:outline-none"
             />
           </div>
         )}
 
         {showConfirmation && (
-          <div className="text-md rounded border-2 border-amber-600 bg-amber-50 p-2 text-black">
+          <div className="p-2 text-black border-2 rounded text-md border-amber-600 bg-amber-50">
             <p className="pb-2">
               Your time conflicts with an existing event on the calendar.
             </p>
@@ -340,7 +351,7 @@ export default function SpaceForm({
               Cancel
             </button>
             <button
-              className="rounded-full bg-amber-600 px-3 py-1 text-white hover:bg-amber-700"
+              className="px-3 py-1 text-white rounded-full bg-amber-600 hover:bg-amber-700"
               onClick={handleConfirmSubmit}
             >
               Submit Anyway

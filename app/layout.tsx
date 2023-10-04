@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import Navbar from "./navigation.js";
+import Navbar from "./navigation";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
@@ -16,11 +16,11 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex h-screen w-screen flex-col justify-stretch font-oswald">
-          <div className="left-0 right-0 top-0 z-40 flex-shrink-0">
-            <Navbar />
+        <div className="flex flex-col w-screen h-screen justify-stretch font-oswald">
+          <div className="top-0 left-0 right-0 z-40 flex-shrink-0">
+            <Navbar className="navbar" />
           </div>
-          <div className="no-scrollbar relative flex-grow overflow-auto">
+          <div className="relative flex-grow overflow-auto no-scrollbar">
             {children}
           </div>
         </div>
