@@ -14,7 +14,7 @@ export default function Calendar({
 }) {
   if (events == undefined) {
     // handle edge case
-    return <Error statusCode={400}/>;
+    return <Error statusCode={500} />;
   }
   if (location == null) {
     // until a location is set, shows a default screen
