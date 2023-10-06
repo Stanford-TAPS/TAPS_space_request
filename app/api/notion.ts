@@ -91,7 +91,7 @@ export const getRequestableSpaces = cache(async () => {
   }
 
   return results.map((page : any) => ({
-    title: page.properties["Record Name"][0]?.text?.content,
+    title: page.properties["Record Name"].title[0]?.text?.content,
     id: page.id,
   }));
 });
