@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { Client } from "@notionhq/client";
 import { getNextSunday, convertDate } from "../lib/utilities";
+import { DatabaseObjectResponse, PartialDatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 const revalidate = 3600 * 60; // default revalidation every hour
 
@@ -49,7 +50,7 @@ export const getNextWeekEvents = async () => {
     throw new Error("Error fetching next week events");
   }
 
-  results.forEach((page) => {
+  results.forEach((page : any) => {
     const locationId = page.properties["Event Location"].relation[0].id;
 
     if (requestableLocationIds.includes(locationId)) {
@@ -89,8 +90,8 @@ export const getRequestableSpaces = cache(async () => {
     throw new Error("Error fetching requestable spaces");
   }
 
-  return results.map((page) => ({
-    title: page.properties["Record Name"].title[0]?.text?.content,
+  return results.map((page : any) => ({
+    title: page.properties["Record Name"][0]?.text?.content,
     id: page.id,
   }));
 });
@@ -117,7 +118,7 @@ export const getGroups = cache(async () => {
     throw new Error("Error fetching groups");
   }
 
-  return results.map((page) => ({
+  return results.map((page : any) => ({
     title: page.properties["Name"].title[0]?.text?.content,
     id: page.id,
   }));
@@ -145,7 +146,7 @@ export const getSpaceRequests = async () => {
     throw new Error("Error fetching space requests");
   }
 
-  return results.map((page) => ({
+  return results.map((page : any) => ({
     title: page.properties["Title"].title[0]?.text?.content,
     id: page.id,
     start: page.properties["Date"].date?.start,
@@ -178,7 +179,7 @@ export const getLocationPages = cache(async () => {
     throw new Error("Error fetching page data for locations");
   }
 
-  return results.map((page) => ({
+  return results.map((page : any) => ({
     title: page.properties["Record Name"].title[0]?.text?.content,
     id: page.id,
     building: page.properties["Building"].relation[0].id,
@@ -230,7 +231,7 @@ export const getNextMonthEvents = async (locationID) => {
 
   const events = [];
 
-  results.forEach((page) => {
+  results.forEach((page: any) => {
     events.push({
       title: page.properties["*Record Title"].title[0]?.text?.content,
       start: page.properties["Event Date"].date.start,
@@ -276,7 +277,7 @@ export const getAllEvents = async () => {
   });
 
   let events = [];
-  results.forEach((page) => {
+  results.forEach((page: any) => {
     events.push({
       title: page.properties["*Record Title"].title[0]?.text?.content,
       locationID: page.properties["Event Location"].relation[0].id,

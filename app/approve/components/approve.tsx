@@ -4,7 +4,7 @@ import Calendar from "./calendar";
 import RequestCard from "./card";
 import { useState, useEffect } from "react";
 import RefreshIcon from "./refresh_icon";
-import { formatRequests, addRequestToEvents } from "../lib/request_format.js";
+import { formatRequests, addRequestToEvents } from "../lib/request_format.jsx";
 import LocationFilter from "./filter";
 
 export default function ApprovalSystem({
@@ -120,6 +120,7 @@ export default function ApprovalSystem({
   const [selectedLocations, setSelectedLocations] = useState([]);
 
   // Function to handle the change of selected locations
+  /*
   const handleLocationChange = (event) => {
     const selectedOptions = Array.from(
       event.target.selectedOptions,
@@ -127,6 +128,7 @@ export default function ApprovalSystem({
     );
     setSelectedLocations(selectedOptions);
   };
+  */
 
   // Filter the requests based on the selected locations
   const filteredRequests = requests.filter(
@@ -144,7 +146,7 @@ export default function ApprovalSystem({
           onDecision={handleDecision}
         />
       )}
-      <div className="mx-auto mb-6 mt-4 flex w-3/5 flex-col">
+      <div className="flex flex-col w-3/5 mx-auto mt-4 mb-6">
         <div className="flex flex-row justify-between">
           <LocationFilter
             locations={locations}
@@ -153,12 +155,12 @@ export default function ApprovalSystem({
           />
           <div className="flex flex-row">
             {isRefreshing && (
-              <div className="mr-4 p-2">
+              <div className="p-2 mr-4">
                 <RefreshIcon />
               </div>
             )}
             <button
-              className="rounded border p-2 dark:border-black dark:bg-neutral-800"
+              className="p-2 border rounded dark:border-black dark:bg-neutral-800"
               onClick={() =>
                 view == "table" ? setView("calendar") : setView("table")
               }

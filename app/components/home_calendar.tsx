@@ -6,16 +6,18 @@ import Error from "next/error.js";
 
 // Calendar component shows next week view and displays any events in range,
 // as well as the location title
-export default function HomeCalendar({
+export default async function HomeCalendar({
   events, // array of events, organized into FullCalendar's event object structure
 }) {
+
+
   if (events == undefined) {
     // handle edge case
-    return <Error />;
+    return <Error statusCode={400} />;
   }
 
   return (
-    <div className="mx-auto w-1/2 py-6">
+    <div className="w-1/2 py-6 mx-auto">
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"

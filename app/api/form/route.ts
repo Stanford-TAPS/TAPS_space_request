@@ -76,13 +76,13 @@ export async function POST(request) {
     }
 
     // Create the page in Notion
-    const response = await notion.pages.create(newPage);
+    const response = await notion.pages.create(newPage as any);
 
-    if (response == {}) {
+    if (response == null) {
       return NextResponse.json({ status: 400 });
     }
-    if (response.status) {
-      return NextResponse.json({ status: response.status });
+    if ((response as any).status) {
+      return NextResponse.json({ status: (response as any).status });
     }
     return NextResponse.json(response, { status: 200 });
   } catch (error) {

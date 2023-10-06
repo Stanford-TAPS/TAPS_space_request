@@ -15,11 +15,11 @@ export async function GET() {
     },
   });
 
-  if (!results || results == {}) {
+  if (!results || results == null) {
     return NextResponse.json({ status: 400 });
   }
 
-  const spaceRequests = results.map((page) => ({
+  const spaceRequests = results.map((page: any) => ({
     title: page.properties["Title"].title[0]?.text?.content,
     id: page.id,
     start: page.properties["Date"].date?.start,
