@@ -46,11 +46,11 @@ export async function POST(request) {
       },
     };
     // Create the page in Notion
-    const response = await notion.pages.create(newPage);
-    if (response == {}) {
+    const response = await notion.pages.create(newPage as any);
+    if (response == null) {
       return NextResponse.json({ status: 400 });
     }
-    if (response.status) {
+    if ((response as any).status) {
       return NextResponse.json({ status: 400 });
     }
     try {
@@ -66,7 +66,7 @@ export async function POST(request) {
         },
       });
 
-      if (response == {}) {
+      if (response == null) {
         return NextResponse.json({ status: 400 });
       }
       return NextResponse.json({ status: 200 });

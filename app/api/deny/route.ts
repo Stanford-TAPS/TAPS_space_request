@@ -16,7 +16,7 @@ export async function POST(request) {
         },
       },
     });
-    if (response == {}) {
+    if (response == null) {
       return NextResponse.json({ status: 400 });
     }
     return NextResponse.json({ status: 200 });

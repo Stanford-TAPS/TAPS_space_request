@@ -3,7 +3,7 @@ import { getAllEvents } from "./api/notion";
 import HomeCalendar from "./components/home_calendar";
 import Slideshow from "./spaces/components/slideshow";
 
-export default async function Home() {
+export default async function Home() {  
   const events = await getAllEvents();
   return (
     <div>
