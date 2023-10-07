@@ -36,15 +36,15 @@
     /* .my-react-select-container {
   } */
     .my-react-select-container .my-react-select__control {
-      @apply w-full appearance-none rounded-none border px-3 leading-tight text-black dark:border-neutral-600 dark:bg-neutral-900 dark:text-white;
+      @apply w-full appearance-none rounded-none border border-neutral-200 px-3 leading-tight text-black dark:border-neutral-600 dark:bg-neutral-900 dark:text-white;
     }
 
     .my-react-select-container .my-react-select__control--is-focused {
-      @apply w-full appearance-none rounded-none border px-3 leading-tight text-black outline-none ring-2 ring-red-700 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white;
+      @apply w-full appearance-none rounded-none border border-neutral-200 px-3 leading-tight text-black outline-none ring-2 ring-red-700 dark:border-neutral-600 dark:bg-neutral-900 dark:text-white;
     }
 
     .my-react-select-container .my-react-select__menu {
-      @apply rounded-none border-2 border-neutral-300 bg-neutral-100 dark:border-neutral-600 dark:bg-neutral-700;
+      @apply rounded-none border border-neutral-300 bg-neutral-100 dark:border-neutral-600 dark:bg-neutral-700;
     }
 
     .my-react-select-container .my-react-select__option {

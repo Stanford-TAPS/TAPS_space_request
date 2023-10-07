@@ -17,8 +17,13 @@ export default async function Home() {
               TAPS SPACES
             </div>
             <div className="flex pb-8 space-x-16">
-              <SecondaryButton href="/spaces" text="View" onClick={null} compact={false}></SecondaryButton>
-              <PrimaryButton href="/request" text="Request" onClick={null} compact={false}></PrimaryButton>
+              <Link
+                href="/spaces"
+                className={"box-border self-center  text-center text-white transition-all duration-200 border-white outline-white hover:shadow-lg hover:outline hover:outline-1 px-8 py-3 text-2xl border-4"}
+              >
+                View
+              </Link>
+              <PrimaryButton href="/request" text="Request" onClick={null} compact={false} />
             </div>
           </div>
         </div>
@@ -27,6 +32,6 @@ export default async function Home() {
         Calendar
       </div>
       <HomeCalendar events={events} />
-    </div>
+    </div >
   );
 }

@@ -66,7 +66,7 @@ export default async function SpaceView({ params }) {
       <div className="max-w-2xl p-6 mx-auto font-normal text-center border-2 border-black text-md w-fit dark:border-0 dark:bg-neutral-800">
         {page.capacity && (
           <div className="mb-2">
-            <span className="mr-1 font-bold">Capacity</span>
+            <span className="mr-1">Capacity</span>
             {page.capacity}
           </div>
         )}
@@ -76,7 +76,6 @@ export default async function SpaceView({ params }) {
       <div className="w-1/2 mx-auto mt-10 text-2xl font-bold text-center font-roboto">
         Events scheduled at {page.title}
       </div>
-      <div className="w-48 mx-auto mt-2 border-b-2 border-black dark:border-white"></div>
       <SpaceCalendar events={events} location={page.title} />
     </>
   );

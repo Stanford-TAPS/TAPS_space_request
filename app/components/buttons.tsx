@@ -10,7 +10,7 @@ export function SecondaryButton({ href, text, onClick, compact = false }) {
         <Link
             href={href}
             onClick={onClick}
-            className={"box-border self-center  text-center text-white transition-all duration-200 border-white outline-white hover:shadow-lg hover:outline hover:outline-1" + (compact ? " w-40 y-40 py-2 border-2" : " px-8 py-3 text-2xl border-4")}
+            className={"box-border self-center  text-center dark:text-white transition-all duration-200 border-black outline-black dark:border-white dark:outline-white hover:shadow-lg hover:outline hover:outline-1" + (compact ? " w-40 y-40 py-2 border-2" : " px-8 py-3 text-2xl border-4")}
         >
             {text}
         </Link>
