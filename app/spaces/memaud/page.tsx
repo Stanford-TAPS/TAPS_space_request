@@ -34,7 +34,7 @@ export default async function MemAud() {
         <br />
         Building hours: weekdays 8:30am - 11:00pm
       </div>
-      <div className="self-center py-8">
+      <div className="self-center py-16">
         <PrimaryButton href="/request" text="Book Space in Memorial Hall" onClick={null} compact={false} />
       </div>
 
@@ -52,7 +52,7 @@ export default async function MemAud() {
         <div className="text-2xl italic font-bold">EXPLORE SPACES</div>
         <div className="ml-8 border-b-8 border-yellow-300 mr-36 w-96"></div>
       </div>
-      <div className="flex m-10">
+      <div className="flex flex-wrap justify-center m-10">
         {memAudPages.map((page) => {
           return (
             <Link
@@ -69,21 +69,21 @@ export default async function MemAud() {
                   sizes="25vw"
                 />
               </div>
-              <div className="flex flex-col w-full p-4">
-                <div className="text-2xl font-bold text-center font-roboto">
+              <div className="flex flex-col w-full p-4 pb-8">
+                <div className="text-2xl text-center font-roboto">
                   {page.title}
                 </div>
                 <div className="flex flex-wrap justify-center my-2">
                   {page.isAccessible ? (
-                    <div className="flex self-center p-2 m-1 text-sm text-white bg-blue-600 rounded-full dark:bg-blue-700">
+                    <div className="flex self-center p-2 px-4 m-1 text-sm text-white bg-blue-600 rounded-full dark:bg-blue-700">
                       <FontAwesomeIcon
                         icon={faWheelchair}
                         className="pt-1 text-sm"
                       />
-                      <div className="px-1">Accessible</div>
+                      <div className="px-1 font-normal">Accessible</div>
                     </div>
                   ) : (
-                    <div className="p-2 m-1 text-sm text-white bg-red-600 rounded-full dark:bg-red-700">
+                    <div className="p-2 px-4 m-1 text-sm font-normal text-white bg-red-600 rounded-full dark:bg-red-700">
                       Not Accessible
                     </div>
                   )}
@@ -91,18 +91,18 @@ export default async function MemAud() {
                     return (
                       <div
                         key={tag.id}
-                        className={`m-1 rounded-full bg-green-600 px-4 py-2 text-sm text-white dark:bg-green-700`}
+                        className={`m-1 rounded-full bg-green-600 px-4 py-2 text-sm font-normal text-white dark:bg-green-700`}
                       >
                         {tag.name}
                       </div>
                     );
                   })}
                 </div>
-                <div className="my-2">
-                  <span className="mr-1 font-bold">Capacity</span>
+                <div className="my-2 font-normal">
+                  <span className="mr-1">Capacity</span>
                   {page.capacity}
                 </div>
-                <div>{page.description}</div>
+                <div className="font-normal">{page.description}</div>
               </div>
             </Link>
           );
