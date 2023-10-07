@@ -5,7 +5,6 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { ClerkProvider } from '@clerk/nextjs'
 import { neobrutalism } from "@clerk/themes";
-import NextNProgress from 'nextjs-progressbar';
 config.autoAddCss = false;
 
 const inter = Inter({ subsets: ["latin"] });
