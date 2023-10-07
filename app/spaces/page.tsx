@@ -62,7 +62,7 @@ export default function View() {
         TAPS SPACES
       </div>
       <div className="w-16 m-auto mt-6 mb-10 border-2 border-red-900 dark:border-red-700"></div>
-      <div className="w-1/2 m-auto text-2xl text-center text-black dark:text-white">
+      <div className="w-1/2 m-auto text-2xl font-normal text-center text-black dark:text-white">
         TAPS maintains facilities for classes, rehearsals, design work,
         performances, and more.
         <br />

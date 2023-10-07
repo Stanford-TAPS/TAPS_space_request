@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getLocationPages } from "../../api/notion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWheelchair } from "@fortawesome/free-solid-svg-icons";
+import { PrimaryButton } from "../../components/buttons";
 
 export const dynamic = "force-dynamic";
 
@@ -12,8 +13,8 @@ export default async function MemAud() {
     (page) => page.building == "2c3692d3-5f94-4d4b-a044-b8cb0fa52d7a",
   );
   return (
-    <div className="flex w-full flex-col content-center bg-white dark:bg-neutral-900">
-      <div className="relative flex h-96 w-full items-center justify-center overflow-hidden">
+    <div className="flex flex-col content-center w-full bg-white dark:bg-neutral-900">
+      <div className="relative flex items-center justify-center w-full overflow-hidden h-96">
         <Image
           src="/memaud.jpg"
           alt="a picture of the outside of Memorial Hall"
@@ -21,11 +22,11 @@ export default async function MemAud() {
           className="object-cover"
           priority={true}
         />
-        <div className="z-10 border-4 border-yellow-400 p-12 text-center font-roboto text-7xl font-bold text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]">
+        <div className="z-10 border-4 border-white p-12 text-center font-roboto text-7xl font-bold text-white backdrop-blur-sm bg-black bg-opacity-50 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]">
           MEMORIAL HALL
         </div>
       </div>
-      <div className="mx-auto mt-10 w-3/4 text-center text-2xl">
+      <div className="w-3/4 mx-auto mt-10 text-2xl font-normal text-center">
         Memorial Hall houses classrooms, rehearsal and performance spaces, the
         costume shop, scene shops, and TAPS faculty and production staff
         offices.
@@ -33,10 +34,11 @@ export default async function MemAud() {
         <br />
         Building hours: weekdays 8:30am - 11:00pm
       </div>
-      <button className="mx-auto mt-10 w-fit rounded bg-red-600 px-8 py-4 text-center font-roboto text-3xl font-bold text-white transition-all  hover:bg-red-700">
-        Book a Space in Memorial Hall*
-      </button>
-      <div className="mb-10 p-2 text-center text-xl">
+      <div className="self-center py-8">
+        <PrimaryButton href="/request" text="Book Space in Memorial Hall" onClick={null} compact={false} />
+      </div>
+
+      <div className="p-2 mb-10 text-xl font-normal text-center">
         *not including Memorial Auditorium, which should be reserved through{" "}
         <a
           className="text-blue-800 dark:text-blue-500"
@@ -46,19 +48,19 @@ export default async function MemAud() {
           25Live
         </a>
       </div>
-      <div className="flex h-24 w-full flex-row items-center justify-end bg-neutral-100 font-roboto dark:bg-neutral-800">
-        <div className="text-2xl font-bold italic">EXPLORE SPACES</div>
-        <div className="ml-8 mr-36 w-96 border-b-8 border-yellow-300"></div>
+      <div className="flex flex-row items-center justify-end w-full h-24 bg-neutral-100 font-roboto dark:bg-neutral-800">
+        <div className="text-2xl italic font-bold">EXPLORE SPACES</div>
+        <div className="ml-8 border-b-8 border-yellow-300 mr-36 w-96"></div>
       </div>
-      <div className="m-10 flex">
+      <div className="flex m-10">
         {memAudPages.map((page) => {
           return (
             <Link
               href={`/spaces/${page.id}`}
               key={page.id}
-              className="m-2 w-80 rounded-xl border-2 border-black shadow transition-all hover:w-[22rem] dark:border-0 dark:bg-neutral-800"
+              className="m-2 transition-all border-2 border-black shadow w-80 rounded-xl hover:shadow-lg dark:border-0 dark:bg-neutral-800"
             >
-              <div className="relative h-48 w-full overflow-hidden rounded-t-lg bg-neutral-700">
+              <div className="relative w-full h-48 overflow-hidden rounded-t-lg bg-neutral-700">
                 <Image
                   src={page.cover}
                   alt={`Cover image of ${page.title}`}
@@ -67,13 +69,13 @@ export default async function MemAud() {
                   sizes="25vw"
                 />
               </div>
-              <div className="flex w-full flex-col p-4">
-                <div className="text-center font-roboto text-2xl font-bold">
+              <div className="flex flex-col w-full p-4">
+                <div className="text-2xl font-bold text-center font-roboto">
                   {page.title}
                 </div>
-                <div className="my-2 flex flex-wrap justify-center">
+                <div className="flex flex-wrap justify-center my-2">
                   {page.isAccessible ? (
-                    <div className="m-1 flex self-center rounded-full bg-blue-600 p-2 text-sm text-white dark:bg-blue-700">
+                    <div className="flex self-center p-2 m-1 text-sm text-white bg-blue-600 rounded-full dark:bg-blue-700">
                       <FontAwesomeIcon
                         icon={faWheelchair}
                         className="pt-1 text-sm"
@@ -81,7 +83,7 @@ export default async function MemAud() {
                       <div className="px-1">Accessible</div>
                     </div>
                   ) : (
-                    <div className="m-1 rounded-full bg-red-600 p-2 text-sm text-white dark:bg-red-700">
+                    <div className="p-2 m-1 text-sm text-white bg-red-600 rounded-full dark:bg-red-700">
                       Not Accessible
                     </div>
                   )}

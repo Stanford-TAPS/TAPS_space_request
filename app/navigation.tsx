@@ -13,7 +13,7 @@ export default function Navbar({ className }) {
   const user = useUser();
 
   return (
-    <nav className="flex flex-wrap items-center justify-between p-4 text-base text-white bg-red-800">
+    <nav className="flex flex-wrap items-center justify-between p-4 text-base text-white bg-transparent backdrop-blur-sm">
       <div className="flex items-center">
         <ul className="flex ml-6">
           <li>

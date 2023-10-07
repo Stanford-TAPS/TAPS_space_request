@@ -17,8 +17,8 @@ export default async function Home() {
               TAPS SPACES
             </div>
             <div className="flex pb-8 space-x-16">
-              <SecondaryButton href="/spaces" text="View" onClick={null}></SecondaryButton>
-              <PrimaryButton href="/request" text="Request" onClick={null}></PrimaryButton>
+              <SecondaryButton href="/spaces" text="View" onClick={null} compact={false}></SecondaryButton>
+              <PrimaryButton href="/request" text="Request" onClick={null} compact={false}></PrimaryButton>
             </div>
           </div>
         </div>
