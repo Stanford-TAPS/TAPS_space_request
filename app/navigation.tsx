@@ -1,37 +1,47 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
-import React, { useState, useEffect } from "react";
-import { SignInButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
+import React, { useState } from "react";
+import { SignedIn, UserButton, SignedOut, SignInButton, useUser } from "@clerk/nextjs";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCheck, faUserShield } from "@fortawesome/free-solid-svg-icons";
 
 export default function Navbar({ className }) {
   const [showSpacesDropdown, setShowSpacesDropdown] = useState(false);
   const [showMemAudDropdown, setShowMemAudDropdown] = useState(false);
   const [showRobleDropdown, setShowRobleDropdown] = useState(false);
+
   const user = useUser();
 
   return (
-    <nav className="flex flex-wrap items-center justify-between p-4 text-xl text-white bg-red-800">
+    <nav className="flex flex-wrap items-center justify-between p-4 text-base text-white bg-red-800">
       <div className="flex items-center">
         <ul className="flex ml-6">
           <li>
-            <Link href="/" className="p-4 mr-6 hover:underline">
-              HOME
-            </Link>
+            <a className="px-3 text-white transition-all duration-300 ease-in-out group" href="#">
+              <Link href="/" className="bg-left-bottom bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out ">
+                HOME
+              </Link>
+            </a>
           </li>
           <li>
-            <Link href="/request" className="p-4 mr-6 hover:underline">
-              REQUEST
-            </Link>
+            <a className="px-3 text-white transition-all duration-300 ease-in-out group" href="#">
+              <Link href="/request" className="bg-left-bottom bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out ">
+                REQUEST
+              </Link>
+            </a>
           </li>
           <li>
             <div
               onMouseEnter={() => setShowSpacesDropdown(true)}
               onMouseLeave={() => setShowSpacesDropdown(false)}
             >
-              <Link href="/spaces" className="p-4 mr-6 hover:underline">
-                SPACES
-              </Link>
+
+              <a className="px-3 text-white transition-all duration-300 ease-in-out group" href="#">
+                <Link href="/spaces" className="bg-left-bottom bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out ">
+                  SPACES
+                </Link>
+              </a>
+
               <div className="absolute flex">
                 {showSpacesDropdown && (
                   <div className="z-10 mt-4 border border-red-900 shadow">
@@ -40,19 +50,18 @@ export default function Navbar({ className }) {
                       onMouseEnter={() => setShowMemAudDropdown(true)}
                       onMouseLeave={() => setShowMemAudDropdown(false)}
                     >
-                      <Link href="/spaces/memaud">Memorial Hall</Link>
+                      <Link href="/spaces/memaud" >Memorial Hall</Link>
                     </div>
                     <div
                       className="w-full p-4 bg-red-800 outline-1 outline-white hover:outline"
                       onMouseEnter={() => setShowRobleDropdown(true)}
                       onMouseLeave={() => setShowRobleDropdown(false)}
                     >
-                      <Link href="/spaces/roble">Roble Gym</Link>
+                      <Link href="/spaces/roble" >Roble Gym</Link>
                     </div>
                     <div className="w-full p-4 bg-red-800 outline-1 outline-white hover:outline">
-                      <Link href="/spaces/nitery"> Nitery Theater </Link>
+                      <Link href="/spaces/nitery" > Nitery Theater </Link>
                     </div>
-
                   </div>
                 )}
                 {/* {showMemAudDropdown && (
@@ -80,12 +89,8 @@ export default function Navbar({ className }) {
       </div>
       <div className="flex flex-row items-center pr-4">
         <SignedIn>
-          {(user.user && user.user.publicMetadata.approver) ? <Link
-            href="/approve"
-            className="px-4 py-2 mr-6 border border-white rounded-full outline-1 hover:outline max-sm:hidden"
-          >
-            Approval page
-          </Link> : null}
+          { /* Approval page icon Font awesome */}
+          {(user.user && user.user.publicMetadata.approver) ? <Link href="/approve" className="px-3 py-2 mx-2 hover:bg-red-900"><div><a className="pr-1">APPROVALS</a> <FontAwesomeIcon icon={faUserShield} /></div></Link> : null}
         </SignedIn>
         <div>
           <SignedIn>
@@ -94,10 +99,15 @@ export default function Navbar({ className }) {
           </SignedIn>
           <SignedOut>
             {/* Signed out users get sign in button */}
-            <SignInButton />
+            <SignInButton>
+              <a className="px-3 text-white transition-all duration-300 ease-in-out group" href="#">
+                <Link href="#" className="bg-left-bottom bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out ">
+                  SIGN IN
+                </Link>
+              </a>
+            </SignInButton>
           </SignedOut>
         </div>
-
       </div>
     </nav>
   );

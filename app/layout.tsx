@@ -23,7 +23,7 @@ export default function RootLayout({
     <ClerkProvider appearance={{ baseTheme: neobrutalism }}>
       <html lang="en">
         <body className={inter.className}>
-          <div className="flex flex-col w-screen h-screen justify-stretch font-oswald">
+          <div className="flex flex-col w-screen h-screen font-semibold tracking-wider justify-stretch font-roboto ">
             <div className="top-0 left-0 right-0 z-40 flex-shrink-0">
               <Navbar className="navbar" />
             </div>
