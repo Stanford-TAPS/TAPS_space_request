@@ -51,7 +51,7 @@ export async function POST(request) {
             {
               type: "text",
               text: {
-                content: description,
+                content: description ? description : "",
               },
             },
           ],
@@ -61,6 +61,20 @@ export async function POST(request) {
             name: "New",
           },
         },
+        "Original Date": {
+          date: {
+            start: startDate,
+            end: endDate,
+            time_zone: "America/Los_Angeles",
+          },
+        },
+        "Original Location": {
+          relation: [
+            {
+              id: location.value,
+            },
+          ],
+        }
       },
     };
 
