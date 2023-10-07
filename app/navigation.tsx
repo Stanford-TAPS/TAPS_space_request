@@ -2,12 +2,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 
 export default function Navbar({ className }) {
   const [showSpacesDropdown, setShowSpacesDropdown] = useState(false);
   const [showMemAudDropdown, setShowMemAudDropdown] = useState(false);
   const [showRobleDropdown, setShowRobleDropdown] = useState(false);
+  const user = useUser();
 
   return (
     <nav className="flex flex-wrap items-center justify-between p-4 text-xl text-white bg-red-800">
@@ -78,12 +79,14 @@ export default function Navbar({ className }) {
         </ul>
       </div>
       <div className="flex flex-row items-center pr-4">
-        <Link
-          href="/approve"
-          className="px-4 py-2 mr-6 border border-white rounded-full outline-1 hover:outline max-sm:hidden"
-        >
-          Approval page
-        </Link>
+        <SignedIn>
+          {(user.user && user.user.publicMetadata.approver) ? <Link
+            href="/approve"
+            className="px-4 py-2 mr-6 border border-white rounded-full outline-1 hover:outline max-sm:hidden"
+          >
+            Approval page
+          </Link> : null}
+        </SignedIn>
         <div>
           <SignedIn>
             {/* Mount the UserButton component */}
