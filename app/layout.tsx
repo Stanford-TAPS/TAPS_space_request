@@ -5,6 +5,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { ClerkProvider } from '@clerk/nextjs'
 import { neobrutalism } from "@clerk/themes";
+import { SessionProvider } from "next-auth/react"
 config.autoAddCss = false;
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,23 +17,27 @@ export const metadata = {
 
 export default function RootLayout({
   children,
+  pageProps: { session, ...pageProps },
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,
+  pageProps: { session: any, [key: string]: any },
 }) {
   return (
-    <ClerkProvider appearance={{ baseTheme: neobrutalism }}>
-      <html lang="en">
-        <body className={inter.className}>
-          <div className="flex flex-col w-screen h-screen justify-stretch font-oswald">
-            <div className="top-0 left-0 right-0 z-40 flex-shrink-0">
-              <Navbar className="navbar" />
+    <SessionProvider session={pageProps.session}>
+      <ClerkProvider appearance={{ baseTheme: neobrutalism }}>
+        <html lang="en">
+          <body className={inter.className}>
+            <div className="flex flex-col w-screen h-screen justify-stretch font-oswald">
+              <div className="top-0 left-0 right-0 z-40 flex-shrink-0">
+                <Navbar className="navbar" />
+              </div>
+              <div className="relative flex-grow overflow-auto no-scrollbar">
+                {children}
+              </div>
             </div>
-            <div className="relative flex-grow overflow-auto no-scrollbar">
-              {children}
-            </div>
-          </div>
-        </body>
-      </html>
-    </ClerkProvider>
+          </body>
+        </html>
+      </ClerkProvider>
+    </SessionProvider>
   );
 }
