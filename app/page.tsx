@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getAllEvents } from "./api/notion";
 import HomeCalendar from "./components/home_calendar";
 import Slideshow from "./spaces/components/slideshow";
-import { signIn } from "next-auth/react";
+import { PrimaryButton, SecondaryButton } from "./components/buttons";
 
 export default async function Home() {
   const events = await getAllEvents();
@@ -19,17 +19,11 @@ export default async function Home() {
             <div className="flex pb-8 space-x-16">
               <Link
                 href="/spaces"
-                className="w-56 py-3 text-4xl text-center text-white transition-colors duration-200 border-4 border-white rounded-full outline-white hover:shadow-lg hover:outline hover:outline-1"
+                className={"box-border self-center  text-center text-white transition-all duration-200 border-white outline-white hover:shadow-lg hover:outline hover:outline-1 px-8 py-3 text-2xl border-4"}
               >
                 View
               </Link>
-              <Link
-                href="/request"
-                className="w-56 py-3 text-4xl text-center text-white transition-colors duration-200 bg-red-700 rounded-full outline-1 outline-red-700 hover:shadow-lg hover:outline"
-              >
-                Request
-              </Link>
-
+              <PrimaryButton href="/request" text="Request" onClick={null} compact={false} />
             </div>
           </div>
         </div>
@@ -38,6 +32,6 @@ export default async function Home() {
         Calendar
       </div>
       <HomeCalendar events={events} />
-    </div>
+    </div >
   );
 }

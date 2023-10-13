@@ -23,15 +23,8 @@ export default function GroupSelect({ control, groups }) {
         defaultValue={null}
         render={({ field }) => (
           <Select
-            className=" text-black"
-            theme={(theme) => ({
-              ...theme,
-              colors: {
-                ...theme.colors,
-                primary: "#b91c1c",
-              },
-            })}
-            {...field}
+            className="my-react-select-container"
+            classNamePrefix="my-react-select"
             options={options}
           />
         )}
