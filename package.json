@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "devssl": "npx local-ssl-proxy --key localhost-key.pem --cert localhost.pem --source 3000 --target 2999 & next dev -p 2999",
+    "devssl": "local-ssl-proxy --key localhost-key.pem --cert localhost.pem --source 3000 --target 2999 & next dev -p 2999",
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest"
