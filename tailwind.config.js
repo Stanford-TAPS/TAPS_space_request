@@ -14,6 +14,7 @@ module.exports = {
         oswald: ["Oswald", "sans-serif"],
         playfair: ["Playfair", "serif"],
         roboto: ["Roboto Condensed", "Oswald", "sans-serif"],
+        source: ["Source Sans Pro", "sans-serif"],
       },
       boxShadow: {
         b: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",

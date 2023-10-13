@@ -29,21 +29,16 @@ export default function LocationSelect({
         rules={{ required: "Please select a location" }}
         render={({ field }) => (
           <Select
-            className="text-black"
-            theme={(theme) => ({
-              ...theme,
-              colors: {
-                ...theme.colors,
-                primary: "#b91c1c",
-              },
-            })}
+            className="my-react-select-container"
+            classNamePrefix="my-react-select"
+
             {...field}
             options={options}
           />
         )}
       />
       {errors.location && (
-        <p className=" mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700">
+        <p className="px-1 mt-2 text-xs text-red-700 bg-red-100 border border-red-700 rounded ">
           {errors.location.message}
         </p>
       )}
