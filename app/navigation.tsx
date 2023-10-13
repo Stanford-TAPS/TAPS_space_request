@@ -2,7 +2,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import { SignInButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 import { signIn } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserShield } from "@fortawesome/free-solid-svg-icons";
@@ -11,8 +10,6 @@ export default function Navbar({ className }) {
   const [showSpacesDropdown, setShowSpacesDropdown] = useState(false);
   const [showMemAudDropdown, setShowMemAudDropdown] = useState(false);
   const [showRobleDropdown, setShowRobleDropdown] = useState(false);
-
-  const user = useUser();
 
   return (
     <nav className="flex flex-wrap items-center justify-between p-4 text-base text-white shadow dark:bg-cardinal backdrop-blur-sm">
@@ -103,25 +100,24 @@ export default function Navbar({ className }) {
         </ul>
       </div>
       <div className="flex flex-row items-center pr-4">
-        <SignedIn>
-          { /* Approval page icon Font awesome */}
-          {(user.user && user.user.publicMetadata.approver) ? <Link href="/approve" className="px-3 py-2 mx-2 text-black dark:hover:bg-red-900 hover:bg-cardinal dark:text-white hover:text-white"><div><a className="pr-1">APPROVALS</a> <FontAwesomeIcon icon={faUserShield} /></div></Link> : null}
+        {/* <SignedIn>
+          {(user.user && user.user.publicMetadata.approver) ? <Link
+            href="/approve"
+            className="px-4 py-2 mr-6 border border-white rounded-full outline-1 hover:outline max-sm:hidden"
+          >
+            Approval page
+          </Link> : null}
         </SignedIn>
+          */}
         <div>
+          {/*
           <SignedIn>
-            {/* Mount the UserButton component */}
             <UserButton afterSignOutUrl="/" />
           </SignedIn>
           <SignedOut>
-            {/* Signed out users get sign in button */}
-            <SignInButton>
-              <a className="px-3 text-black transition-all duration-300 ease-in-out dark:text-white group" href="#">
-                <Link href="#" className="bg-left-bottom bg-gradient-to-r from-black to-black dark:from-white dark:to-white bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out ">
-                  SIGN IN
-                </Link>
-              </a>
-            </SignInButton>
+            <SignInButton />
           </SignedOut>
+        */}
         </div>
       </div>
     </nav>
