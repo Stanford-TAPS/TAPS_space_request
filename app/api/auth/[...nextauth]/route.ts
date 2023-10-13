@@ -1,6 +1,6 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
-import { get } from "http";
+import { get } from "https";
 import NextAuth, { AuthOptions } from "next-auth";
 
 const prisma = new PrismaClient();
@@ -9,13 +9,20 @@ const handler = NextAuth({
   adapter: PrismaAdapter(prisma),
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      console.log("signIn", { user, account, profile, email, credentials });
-      /*prisma.user.update({
-        where: { id: account.userId },
-        data: {
-
-          },
-      });*/
+      const profileData = profile as any;
+      const primsaData = {
+        name: profile.name,
+        firstName: profileData.given_name,
+        lastName: profileData.family_name,
+        email: profileData.email,
+        sunet: profileData.preferred_username,
+        affiliations: (profileData.eduPersonScopedAffiliation as String)
+          .split(" "),
+      };
+      const res = await prisma.user.update({
+        where: { id: user.id },
+        data: primsaData,
+      });
 
       return true;
     },
@@ -33,8 +40,7 @@ const handler = NextAuth({
       },
       idToken: true,
       checks: ["pkce", "state"],
-      profile(profile, tokens) {
-        console.log("profile", profile, tokens);
+      profile(profile) {
         return {
           id: profile.sub,
           name: profile.name,
@@ -44,6 +50,29 @@ const handler = NextAuth({
           email: profile.email,
           affiliations: profile.eduperson_scoped_affiliation,
         };
+      },
+      userinfo: {
+        url: "https://login.stanford.edu/idp/profile/oidc/userinfo",
+        async request(context) {
+          const res = await fetch(
+            "https://login.stanford.edu/idp/profile/oidc/userinfo",
+            {
+              headers: {
+                Authorization: `Bearer ${context.tokens.access_token}`,
+              },
+            },
+          );
+
+          if (!res.ok) {
+            throw new Error(
+              "Failed to fetch user data! Error:" + res.statusText,
+            );
+          }
+
+          const data = await res.json();
+
+          return data;
+        },
       },
     },
   ],
