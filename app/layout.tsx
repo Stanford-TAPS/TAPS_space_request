@@ -5,7 +5,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { ClerkProvider } from '@clerk/nextjs'
 import { neobrutalism } from "@clerk/themes";
-import { SessionProvider } from "next-auth/react"
+import { NextAuthProvider } from "./components/client_providers";
 config.autoAddCss = false;
 
 const inter = Inter({ subsets: ["latin"] });
@@ -17,13 +17,11 @@ export const metadata = {
 
 export default function RootLayout({
   children,
-  pageProps: { session, ...pageProps },
 }: {
   children: React.ReactNode,
-  pageProps: { session: any, [key: string]: any },
 }) {
   return (
-    <SessionProvider session={pageProps.session}>
+    <NextAuthProvider>
       <ClerkProvider appearance={{ baseTheme: neobrutalism }}>
         <html lang="en">
           <body className={inter.className}>
@@ -38,6 +36,6 @@ export default function RootLayout({
           </body>
         </html>
       </ClerkProvider>
-    </SessionProvider>
+    </NextAuthProvider>
   );
 }

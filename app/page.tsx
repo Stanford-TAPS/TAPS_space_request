@@ -2,13 +2,14 @@ import Link from "next/link";
 import { getAllEvents } from "./api/notion";
 import HomeCalendar from "./components/home_calendar";
 import Slideshow from "./spaces/components/slideshow";
+import { signIn } from "next-auth/react";
 
-export default async function Home() {  
+export default async function Home() {
   const events = await getAllEvents();
   return (
     <div>
       <div className="relative h-[47.5rem] w-full overflow-hidden">
-        <Slideshow/>
+        <Slideshow />
         <div className="absolute inset-0 bg-black opacity-40"></div>
         <div className="absolute top-0 left-0 right-0 z-10 flex flex-col items-center justify-center w-full h-full">
           <div className="flex h-fit w-fit flex-col items-center p-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]">
@@ -28,6 +29,7 @@ export default async function Home() {
               >
                 Request
               </Link>
+
             </div>
           </div>
         </div>

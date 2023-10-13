@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { SignInButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
+import { signIn } from "next-auth/react";
 
 export default function Navbar({ className }) {
   const [showSpacesDropdown, setShowSpacesDropdown] = useState(false);
