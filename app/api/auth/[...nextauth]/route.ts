@@ -5,7 +5,7 @@ import NextAuth, { AuthOptions } from "next-auth";
 
 const prisma = new PrismaClient();
 
-const handler = NextAuth({
+const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
@@ -76,6 +76,13 @@ const handler = NextAuth({
       },
     },
   ],
-} as AuthOptions);
+  pages: {
+    signIn: "/sign-in",
+    signOut: "/sign-out",
+    error: "/auth/error", // Error code passed in query string as ?error=
+  },
+};
 
-export { handler as GET, handler as POST };
+const handler = NextAuth(authOptions);
+
+export { authOptions, handler as GET, handler as POST };

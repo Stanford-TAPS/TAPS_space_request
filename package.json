@@ -25,6 +25,7 @@
     "@notionhq/client": "^2.2.8",
     "@prisma/client": "^5.4.2",
     "autoprefixer": "10.4.14",
+    "boring-avatars": "^1.10.1",
     "classnames": "^2.3.2",
     "date-fns": "^2.30.0",
     "encoding": "^0.1.13",
