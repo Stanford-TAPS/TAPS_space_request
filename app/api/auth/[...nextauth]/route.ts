@@ -2,8 +2,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import { get } from "https";
 import NextAuth, { AuthOptions } from "next-auth";
-
-const prisma = new PrismaClient();
+import prisma from "../../../../db";
 
 const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),

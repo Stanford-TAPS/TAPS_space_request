@@ -1,4 +1,3 @@
-import { currentUser } from "@clerk/nextjs";
 import {
   getRequestableSpaces,
   getSpaceRequests,
@@ -6,15 +5,14 @@ import {
 } from "../api/notion";
 import ApprovalSystem from "./components/approve";
 import Table from "./components/table";
-import NotAuthorized from "../components/not_authorized";
+import { isAuthorized, NotAuthorized } from "../components/not_authorized";
 
 export const dynamic = "force-dynamic"; // refreshing the page means data is refetched
 
 export default async function Approve() {
 
-  const user = await currentUser();
-
-  if (!user.publicMetadata.approver) return <NotAuthorized />;
+  const isAuth = await isAuthorized(false);
+  if (!isAuth) return <NotAuthorized />
 
   const spaceRequests = await getSpaceRequests();
   const locations = await getRequestableSpaces();
