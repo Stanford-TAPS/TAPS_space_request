@@ -48,6 +48,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   affiliations  String[]
+  emailVerified Boolean?   @default(false)
   isApprover Boolean @default(false)
   isTeacher Boolean @default(false)
   isStudent Boolean @default(false)

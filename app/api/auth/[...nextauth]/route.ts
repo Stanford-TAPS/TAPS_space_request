@@ -7,6 +7,7 @@ const prisma = new PrismaClient();
 
 const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
       const profileData = profile as any;
@@ -19,14 +20,6 @@ const authOptions: AuthOptions = {
         affiliations: (profileData.eduPersonScopedAffiliation as String)
           .split(" "),
       };
-      const res = await prisma.user.upsert({
-        where: { id: user.id },
-        update: primsaData,
-        create: {
-          id: user.id,
-          ...primsaData,
-        },
-      });
 
       return true;
     },
@@ -50,9 +43,12 @@ const authOptions: AuthOptions = {
           name: profile.name,
           firstName: profile.given_name,
           lastName: profile.family_name,
-          username: profile.preferred_username,
+          sunet: profile.preferred_username,
           email: profile.email,
-          affiliations: profile.eduperson_scoped_affiliation,
+          emailVerified: true,
+          affiliations: (profile.eduPersonScopedAffiliation as String).split(
+            " ",
+          ),
         };
       },
       userinfo: {
@@ -80,11 +76,7 @@ const authOptions: AuthOptions = {
       },
     },
   ],
-  pages: {
-    signIn: "/sign-in",
-    signOut: "/sign-out",
-    error: "/auth/error", // Error code passed in query string as ?error=
-  },
+  pages: {},
 };
 
 const handler = NextAuth(authOptions);

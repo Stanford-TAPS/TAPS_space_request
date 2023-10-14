@@ -1,18 +1,15 @@
+import { getServerSession } from "next-auth";
 import { withAuth } from "next-auth/middleware"
+import { authOptions } from "./app/api/auth/[...nextauth]/route";
 
 export default withAuth({
     // Matches the pages config in `[...nextauth]`
-    pages: {
-        signIn: '/sign-in',
-        signOut: '/sign-out',
-    },
     callbacks: {
         authorized({ req, token }) {
-            console.log(req)
-            console.log(token)
             if (token) return true // If there is a token, the user is authenticated
         }
     },
+
 })
 
 export const config = {
