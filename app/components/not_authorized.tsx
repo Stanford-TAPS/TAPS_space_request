@@ -79,6 +79,7 @@ export async function NotAuthorized() {
 export async function isAuthorized(shouldBeApprover): Promise<boolean> {
     const session = await getServerSession(authOptions);
 
+
     if (session && shouldBeApprover) {
         const res = await prisma.user.findUnique({
             where: {
@@ -92,5 +93,5 @@ export async function isAuthorized(shouldBeApprover): Promise<boolean> {
         if (res.isApprover) return true
     }
 
-    return false;
+    return session ? true : false;
 }

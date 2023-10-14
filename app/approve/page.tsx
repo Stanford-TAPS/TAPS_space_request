@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic"; // refreshing the page means data is ref
 
 export default async function Approve() {
 
-  const isAuth = await isAuthorized(false);
+  const isAuth = await isAuthorized(true);
   if (!isAuth) return <NotAuthorized />
 
   const spaceRequests = await getSpaceRequests();
