@@ -19,9 +19,13 @@ const authOptions: AuthOptions = {
         affiliations: (profileData.eduPersonScopedAffiliation as String)
           .split(" "),
       };
-      const res = await prisma.user.update({
+      const res = await prisma.user.upsert({
         where: { id: user.id },
-        data: primsaData,
+        update: primsaData,
+        create: {
+          id: user.id,
+          ...primsaData,
+        },
       });
 
       return true;
