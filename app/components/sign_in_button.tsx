@@ -10,9 +10,9 @@ import { signIn } from "next-auth/react";
 export const SignInButton = () => {
     // Login button with fontawesome icon
     return <div className="text-base text-black cursor-pointer font-oswald dark:text-white" >
-        <a onClick={() => signIn("stanford")} >
+        <div onClick={() => signIn("stanford")} >
             <FontAwesomeIcon icon={faSignIn} className="pr-2" />
             SIGN IN
-        </a>
+        </div>
     </div>
 };
