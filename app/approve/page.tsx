@@ -4,7 +4,6 @@ import {
   getNextWeekEvents,
 } from "../api/notion";
 import ApprovalSystem from "./components/approve";
-import Table from "./components/table";
 import { isAuthorized, NotAuthorized } from "../components/not_authorized";
 
 export const dynamic = "force-dynamic"; // refreshing the page means data is refetched

@@ -3,9 +3,8 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 import { PrimaryButton } from "./buttons";
 import prisma from "../../db";
 import { getSession, signIn, signOut } from "next-auth/react";
-import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamation, faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
 
 

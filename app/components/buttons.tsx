@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { useState, useEffect } from "react";
 
 const CONFLICT_EVENT_COLOR = "#d97706"; // amber 600
 const DEFAULT_EVENT_COLOR = "#059669"; // emerald 600

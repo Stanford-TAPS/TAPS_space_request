@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { getAllEvents } from "./api/notion";
-import HomeCalendar from "./components/home_calendar";
 import Slideshow from "./spaces/components/slideshow";
 import { PrimaryButton, SecondaryButton } from "./components/buttons";
 import HomeCalendarWrapper from "./components/home_calendar_wrapper";

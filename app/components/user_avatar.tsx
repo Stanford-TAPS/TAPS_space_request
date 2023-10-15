@@ -1,12 +1,7 @@
 import Avatar from "boring-avatars";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../api/auth/[...nextauth]/route"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignIn } from "@fortawesome/free-solid-svg-icons";
-import { signIn } from "next-auth/react";
 import { SignInButton } from "./sign_in_button";
-import { useState } from "react";
-import { Router } from "next/router";
 import Link from "next/link";
 
 

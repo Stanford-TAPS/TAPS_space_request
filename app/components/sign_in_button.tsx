@@ -1,7 +1,4 @@
 "use client"
-import Avatar from "boring-avatars";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "../api/auth/[...nextauth]/route"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignIn } from "@fortawesome/free-solid-svg-icons";
 import { signIn } from "next-auth/react";
