@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { PrimaryButton } from "./buttons";
 import prisma from "../../db";
-import { signIn, signOut } from "next-auth/react";
+import { getSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamation, faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
@@ -77,7 +77,9 @@ export async function NotAuthorized() {
 }
 
 export async function isAuthorized(shouldBeApprover): Promise<boolean> {
-    const session = await getServerSession(authOptions);
+    const isServer = typeof window === "undefined";
+
+    const session = isServer ? await getServerSession(authOptions) : await getSession();
 
 
     if (session && shouldBeApprover) {
