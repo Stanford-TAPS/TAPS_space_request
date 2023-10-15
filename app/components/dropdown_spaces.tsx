@@ -13,7 +13,7 @@ const DropdownSpaces = () => {
                 onMouseLeave={() => setShowSpacesDropdown(false)}
             >
 
-                <div className="px-3 text-black transition-all duration-300 ease-in-out dark:text-white group" href="#">
+                <div className="px-3 text-black transition-all duration-300 ease-in-out dark:text-white group">
                     <Link href="/spaces" className="bg-left-bottom bg-gradient-to-r from-black to-black dark:from-white dark:to-white bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out ">
                         SPACES
                     </Link>
