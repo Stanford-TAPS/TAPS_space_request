@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserShield } from "@fortawesome/free-solid-svg-icons";
-import { UserAvatar } from "./components/userAvatar";
+import { UserAvatar } from "./components/user_avatar";
 import DropdownSpaces from "./components/dropdown_spaces";
 import { ShowIfAuthorized } from "./components/not_authorized";
 

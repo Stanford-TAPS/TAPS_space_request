@@ -24,7 +24,7 @@ export function PrimaryButton({ href, text, onClick, compact = false }) {
         <Link
             href={href}
             onClick={onClick}
-            className={"box-border self-center text-center text-white transition-all duration-200 bg-red-700 border-4 border-red-700 outline-1 outline-red-700 hover:shadow-lg hover:outline" + (compact ? " w-40 py-3 px-2" : " px-8 py-3 text-2xl")}
+            className={"box-border self-center text-center text-white transition-all duration-200 bg-cardinal border-4 border-cardinal outline-1 outline-cardinal hover:shadow-lg hover:outline" + (compact ? " w-40 py-3 px-2" : " px-8 py-3 text-2xl")}
         >
             {text}
         </Link>

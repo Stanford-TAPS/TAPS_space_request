@@ -70,8 +70,8 @@ export async function NotAuthorized() {
         {session ? <p className="p-4 text-xl font-roboto">Please enusre you are signed in with the correct account.</p> :
             <p className="p-4 text-xl font-roboto">Please sign in.</p>}
 
-        {session ? <PrimaryButton href="/sign-in" text="Try Another Account" onClick={null} compact={false} /> :
-            <PrimaryButton href="/sign-in" text="Sign In" compact={false} onClick={null} />}
+        {session ? <PrimaryButton href="/account" text="Try Another Account" onClick={null} compact={false} /> :
+            <PrimaryButton href="/account" text="Sign In" compact={false} onClick={null} />}
 
     </div>;
 }
