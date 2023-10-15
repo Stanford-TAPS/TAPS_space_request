@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserShield } from "@fortawesome/free-solid-svg-icons";
 import { UserAvatar } from "./components/userAvatar";
 import DropdownSpaces from "./components/dropdown_spaces";
+import { ShowIfAuthorized } from "./components/not_authorized";
 
 export default function Navbar({ className }) {
 
@@ -45,15 +46,15 @@ export default function Navbar({ className }) {
         </ul>
       </div>
       <div className="flex flex-row items-center pr-4">
-        {/* <SignedIn>
-          {(user.user && user.user.publicMetadata.approver) ? <Link
+        <ShowIfAuthorized shouldBeApprover>
+          <Link
             href="/approve"
             className="px-4 py-2 mr-6 border border-white rounded-full outline-1 hover:outline max-sm:hidden"
           >
             Approval page
-          </Link> : null}
-        </SignedIn>
-          */}
+          </Link>
+        </ShowIfAuthorized>
+
         <div>
           <UserAvatar />
         </div>

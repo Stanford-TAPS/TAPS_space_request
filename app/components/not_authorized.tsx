@@ -81,17 +81,28 @@ export async function isAuthorized(shouldBeApprover): Promise<boolean> {
 
 
     if (session && shouldBeApprover) {
-        const res = await prisma.user.findUnique({
-            where: {
-                email: session.user.email
-            },
-            select: {
-                isApprover: true
-            },
-        })
-
-        if (res.isApprover) return true
+        return isApprover(session.user.email);
     }
 
     return session ? true : false;
+}
+
+export async function isApprover(email: string) {
+    const res = await prisma.user.findUnique({
+        where: {
+            email: email
+        },
+        select: {
+            isApprover: true
+        },
+    })
+
+    return res.isApprover;
+}
+
+export async function ShowIfAuthorized({ shouldBeApprover = false, children }) {
+    const isAuth = await isAuthorized(shouldBeApprover);
+
+    if (isAuth) return children;
+    else return null;
 }

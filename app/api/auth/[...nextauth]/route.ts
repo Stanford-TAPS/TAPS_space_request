@@ -1,6 +1,5 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
-import { get } from "https";
 import NextAuth, { AuthOptions } from "next-auth";
 import prisma from "../../../../db";
 
