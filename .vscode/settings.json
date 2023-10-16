@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "queue": "cpp",
+    "__bit_reference": "cpp",
+    "ios": "cpp"
+  }
+}

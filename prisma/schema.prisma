@@ -50,8 +50,6 @@ model User {
   affiliations  String[]
   emailVerified Boolean?   @default(false)
   isApprover Boolean @default(false)
-  isTeacher Boolean @default(false)
-  isStudent Boolean @default(false)
   isAdmin Boolean @default(false)
 }
 
