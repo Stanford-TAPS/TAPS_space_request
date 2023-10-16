@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { getAllEvents } from "./api/notion";
-import HomeCalendar from "./components/home_calendar";
 import Slideshow from "./spaces/components/slideshow";
 import { PrimaryButton, SecondaryButton } from "./components/buttons";
+import HomeCalendarWrapper from "./components/home_calendar_wrapper";
+import { Suspense } from "react";
+import Loading from "./loading";
 
-export default async function Home() {
-  const events = await getAllEvents();
+export default function Home() {
   return (
     <div>
       <div className="relative h-[47.5rem] w-full overflow-hidden">
@@ -31,7 +31,7 @@ export default async function Home() {
       <div className="w-full mt-8 text-4xl font-bold text-center font-roboto">
         Calendar
       </div>
-      <HomeCalendar events={events} />
+      <Suspense fallback={<Loading />}><HomeCalendarWrapper /></Suspense>
     </div >
   );
 }

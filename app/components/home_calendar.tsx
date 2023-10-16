@@ -1,7 +1,6 @@
 "use client";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import Link from "next/link.js";
 import Error from "next/error.js";
 
 // Calendar component shows next week view and displays any events in range,
