@@ -10,14 +10,12 @@
 
 <br>
 
-<div align="center">
-    ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
-    ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
-    ![Dependabot](https://img.shields.io/badge/dependabot-025E8C?style=for-the-badge&logo=dependabot&logoColor=white)
-    ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
-    ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
-    ![License](https://img.shields.io/github/license/Stanford-TAPS/TAPS_space_request/?color=orange&style=for-the-badge)
- </div>
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
+![Dependabot](https://img.shields.io/badge/dependabot-025E8C?style=for-the-badge&logo=dependabot&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![License](https://img.shields.io/github/license/Stanford-TAPS/TAPS_space_request/?color=orange&style=for-the-badge)
 
 <br>
 
@@ -127,8 +125,8 @@ mkcert -install
 
 ### Deploying
 
-We use Vercel to deploy our app. Clone the repo:
+We use Vercel to deploy our app. Here is a button to deploy your own instance:
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FStanford-TAPS%2FTAPS_space_request&env=DATABASE_URL,NEXTAUTH_SECRET,NEXTAUTH_URL,STANFORD_CLIENT_SECRET,STANFORD_CLIENT_ID,NOTION_EVENTS_ID,NOTION_FACILITIES_ID,NOTION_GROUPS_ID,NOTION_KEY,NOTION_SPACE_REQUESTS_ID&envDescription=Variables%20needed%20to%20run&envLink=https%3A%2F%2Fgithub.com%2FStanford-TAPS%2FTAPS_space_request)
 
-
+Any Next.js compatible hosting provider should work, but we have not tested any others.
