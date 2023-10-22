@@ -15,7 +15,7 @@
 ![Dependabot](https://img.shields.io/badge/dependabot-025E8C?style=for-the-badge&logo=dependabot&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
-![License](https://img.shields.io/github/license/Stanford-TAPS/TAPS_space_request/?color=orange&style=for-the-badge)
+![License](https://img.shields.io/github/license/Stanford-TAPS/TAPS_space_request?color=orange&style=for-the-badge)
 
 <br>
 
