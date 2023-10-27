@@ -1,10 +1,19 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth, { AuthOptions } from "next-auth";
 import prisma from "../../../../db";
+import * as Sentry from "@sentry/browser";
 
 const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   secret: process.env.NEXTAUTH_SECRET,
+  events: {
+    signIn({ user }) {
+      Sentry.setUser({ email: user.email });
+    },
+    signOut() {
+      Sentry.setUser(null);
+    },
+  },
   providers: [
     {
       id: "stanford",
@@ -19,9 +28,10 @@ const authOptions: AuthOptions = {
       idToken: true,
       checks: ["pkce", "state"],
       profile(profile) {
-        const affiliations = (profile.eduPersonScopedAffiliation as String).split(
-          " ",
-        );
+        const affiliations = (profile.eduPersonScopedAffiliation as String)
+          .split(
+            " ",
+          );
         return {
           id: profile.sub,
           name: profile.name,

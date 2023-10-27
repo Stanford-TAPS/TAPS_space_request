@@ -70,6 +70,7 @@ Create a `.env.local` file in the root directory of this project. Add the requir
 | NOTION_GROUPS_ID         | The ID of the Notion database for groups                      |
 | NOTION_KEY               | The Notion API key                                            |
 | NOTION_SPACE_REQUESTS_ID | The ID of the Notion database for space requests              |
+| SENTRY_DSN               | The Sentry DSN for error tracking                             |
 
 ```bash
 touch .env.local
@@ -88,6 +89,7 @@ NOTION_FACILITIES_ID=
 NOTION_GROUPS_ID=
 NOTION_KEY=
 NOTION_SPACE_REQUESTS_ID=
+SENTRY_DSN=
 ```
 
 ### Database
@@ -131,3 +133,7 @@ We use Vercel to deploy our app. Here is a button to deploy your own instance:
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FStanford-TAPS%2FTAPS_space_request&env=DATABASE_URL,NEXTAUTH_SECRET,NEXTAUTH_URL,STANFORD_CLIENT_SECRET,STANFORD_CLIENT_ID,NOTION_EVENTS_ID,NOTION_FACILITIES_ID,NOTION_GROUPS_ID,NOTION_KEY,NOTION_SPACE_REQUESTS_ID&envDescription=Variables%20needed%20to%20run&envLink=https%3A%2F%2Fgithub.com%2FStanford-TAPS%2FTAPS_space_request)
 
 Any Next.js compatible hosting provider should work, but we have not tested any others.
+
+### Sentry
+
+We use Sentry to track errors. To use Sentry, you must set the `SENTRY_DSN` environment variable.
