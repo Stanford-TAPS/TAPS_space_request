@@ -120,6 +120,7 @@ export const getGroups = cache(async () => {
   return results.map((page: any) => ({
     title: page.properties["Name"].title[0]?.text?.content,
     id: page.id,
+    image: page.icon?.file.url,
   }));
 });
 
