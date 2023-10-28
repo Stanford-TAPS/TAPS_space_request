@@ -50,7 +50,7 @@ export default function GroupSelect({ control, groups }) {
                 ),
 
                 SingleValue: ({ data, ...props }) => (
-                  <div className="absolute flex items-center h-1 cursor-pointer left-1 top-3">
+                  <div className="absolute flex items-center h-1 cursor-pointer left-1 top-4">
                     {data.image ? (
                       <Image
                         src={data.image}
