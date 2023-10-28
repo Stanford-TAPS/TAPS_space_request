@@ -27,6 +27,8 @@
     "classnames": "^2.3.2",
     "date-fns": "^2.30.0",
     "encoding": "^0.1.13",
+    "flowbite": "^2.0.0",
+    "flowbite-react": "^0.6.4",
     "font-awesome": "^4.7.0",
     "i": "^0.3.7",
     "moment-timezone": "^0.5.43",
