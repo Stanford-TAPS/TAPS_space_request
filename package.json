@@ -39,7 +39,7 @@
     "react-dom": "18.2.0",
     "react-fontawesome": "^1.7.1",
     "react-hook-form": "^7.45.2",
-    "react-scroll-parallax": "^3.4.2",
+    "react-scroll-parallax": "^3.4.3",
     "react-select": "^5.8.0",
     "react-spinners": "^0.13.8",
     "sharp": "^0.32.5",
