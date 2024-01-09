@@ -4,6 +4,7 @@ import Navbar from "./navigation";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { NextAuthProvider } from "./components/client_providers";
+import { Analytics } from '@vercel/analytics/react';
 config.autoAddCss = false;
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,18 +21,19 @@ export default function RootLayout({
 }) {
   return (
     <NextAuthProvider>
-        <html lang="en">
-          <body className={inter.className}>
-            <div className="flex flex-col w-screen h-screen justify-stretch font-oswald">
-              <div className="top-0 left-0 right-0 z-40 flex-shrink-0">
-                <Navbar className="navbar" />
-              </div>
-              <div className="relative flex-grow overflow-auto no-scrollbar">
-                {children}
-              </div>
+      <html lang="en">
+        <body className={inter.className}>
+          <div className="flex flex-col w-screen h-screen justify-stretch font-oswald">
+            <div className="top-0 left-0 right-0 z-40 flex-shrink-0">
+              <Navbar className="navbar" />
             </div>
-          </body>
-        </html>
+            <div className="relative flex-grow overflow-auto no-scrollbar">
+              {children}
+            </div>
+          </div>
+          <Analytics />
+        </body>
+      </html>
     </NextAuthProvider>
   );
 }
