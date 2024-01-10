@@ -98,7 +98,7 @@ export default function View() {
           >
             <FontAwesomeIcon
               icon={faLocationDot}
-              className="m-5 ml-0 text-2xl transition-all group-hover:text-blue-600"
+              className="m-5 ml-0 text-2xl transition-all group-hover:text-cardinal"
             />
             <div className="text-xl leading-relaxed text-left">
               551 JANE STANFORD WAY <br />
@@ -138,7 +138,7 @@ export default function View() {
           >
             <FontAwesomeIcon
               icon={faLocationDot}
-              className="m-5 ml-0 text-2xl transition-all group-hover:text-blue-600"
+              className="m-5 ml-0 text-2xl transition-all group-hover:text-cardinal"
             />
             <div className="text-xl leading-relaxed text-left">
               375 SANTA TERESA STREET <br />
@@ -192,7 +192,7 @@ export default function View() {
           >
             <FontAwesomeIcon
               icon={faLocationDot}
-              className="m-5 ml-0 text-2xl transition-all group-hover:text-blue-600"
+              className="m-5 ml-0 text-2xl transition-all group-hover:text-cardinal"
             />
             <div className="text-xl leading-relaxed text-left">
               514 LASUEN MALL <br />
