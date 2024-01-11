@@ -49,69 +49,46 @@ export default function RequestCard({ request, locations, onDecision }) {
           onEdited={handleEdited}
         />
       ) : (
-        <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg dark:border-0 dark:bg-neutral-800">
-          <h2 className="mb-6 text-center font-roboto text-4xl font-bold">
-            {request.title}
-          </h2>
-          <div className="flex w-full justify-between pb-4">
-            <p className="pr-4">{` ${request.date}`}</p>
-            <p>{`${request.startTime} - ${request.endTime}`}</p>
-          </div>
-
-          <p className="pb-4">{`Location: ${request.location}`}</p>
-
-          <p className="pb-4">{`Contact: (this is still in progress)`}</p>
-          <p>Description: {request.description}</p>
-          <div className="mb-8 flex w-full justify-between pt-8 ">
-            <button
-              onClick={() => setDecision("approve")}
-              className="w-24 p-2 text-white bg-green-500 rounded-lg hover:bg-green-600 hover:shadow-md"
-            >
-              Approve
-            </button>
-            <button
-              onClick={() => setDecision("deny")}
-              className="w-24 p-2 text-white bg-red-500 rounded-lg hover:bg-red-600 hover:shadow-md"
-            >
-              Deny
-            </button>
-            <button
-              onClick={() => setIsEditing(true)}
-              className="w-24 p-2 text-white rounded-lg bg-amber-500 hover:bg-amber-600 hover:shadow-md"
-            >
-              Edit
-            </button>
-          
-        )}
-      </div>
-      {request.conflictStatus != "noConflict" && (
-        <ConflictBox
-          conflicts={request.conflicts}
-          status={request.conflictStatus}
-        />
-      )}
-
-      {decision && (
         <>
-          <div
-            className="fixed inset-0 z-30 opacity-50 bg-neutral-800"
-            onClick={handleCancel}
-          ></div>
-          <div className="absolute z-40 transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2">
-            <MessageBox
-              decision={decision}
-              requestName={request.title}
-              onConfirm={handleConfirm}
-              onCancel={handleCancel}
-            />
+          <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg dark:border-0 dark:bg-neutral-800">
+            <h2 className="mb-6 text-center font-roboto text-4xl font-bold">
+              {request.title}
+            </h2>
+            <div className="flex w-full justify-between pb-4">
+              <p className="pr-4">{` ${request.date}`}</p>
+              <p>{`${request.startTime} - ${request.endTime}`}</p>
+            </div>
+
+            <p className="pb-4">{`Location: ${request.location}`}</p>
+            <p className="pb-4">Contact: (this is still in progress)</p>
+            <p>Description: {request.description}</p>
+            <div className="mb-8 flex w-full justify-between pt-8 ">
+              <button
+                onClick={() => setDecision("approve")}
+                className="w-24 rounded-lg bg-green-500 p-2 text-white hover:bg-green-600 hover:shadow-md"
+              >
+                Approve
+              </button>
+              <button
+                onClick={() => setDecision("deny")}
+                className="w-24 rounded-lg bg-red-500 p-2 text-white hover:bg-red-600 hover:shadow-md"
+              >
+                Deny
+              </button>
+              <button
+                onClick={() => setIsEditing(true)}
+                className="w-24 rounded-lg bg-amber-500 p-2 text-white hover:bg-amber-600 hover:shadow-md"
+              >
+                Edit
+              </button>
+            </div>
           </div>
-          {request.conflictStatus != "noConflict" && (
+          {request.conflictStatus !== "noConflict" && (
             <ConflictBox
               conflicts={request.conflicts}
               status={request.conflictStatus}
             />
           )}
-
           {decision && (
             <>
               <div
@@ -126,9 +103,15 @@ export default function RequestCard({ request, locations, onDecision }) {
                   onCancel={handleCancel}
                 />
               </div>
+              {request.conflictStatus !== "noConflict" && (
+                <ConflictBox
+                  conflicts={request.conflicts}
+                  status={request.conflictStatus}
+                />
+              )}
             </>
           )}
-        </div>
+        </>
       )}
     </>
   );
