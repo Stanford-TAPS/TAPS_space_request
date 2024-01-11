@@ -1,4 +1,3 @@
-import { Client } from "@notionhq/client";
 import { NextResponse } from "next/server";
 import { notion } from "../notion";
 

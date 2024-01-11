@@ -1,7 +1,5 @@
 "use client";
 import "../../request_calendar_override.css";
-import classNames from "classnames";
-import { useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { getNextSunday } from "../../lib/utilities";
@@ -44,7 +42,7 @@ export default function Calendar({
   });
 
   return (
-    <div className="no-scrollbar mt-2 grow overflow-auto rounded p-4 pt-0 shadow-lg outline outline-1 outline-neutral-200 dark:bg-neutral-800 dark:outline-none">
+    <div className="p-4 pt-0 mt-2 overflow-auto rounded shadow-lg no-scrollbar grow outline outline-1 outline-neutral-200 dark:bg-neutral-800 dark:outline-none">
       <FullCalendar
         plugins={[timeGridPlugin]}
         initialView="timeGridWeek"

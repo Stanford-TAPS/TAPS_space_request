@@ -11,7 +11,7 @@ export default function SpaceCalendar({
 }) {
   if (events == undefined) {
     // handle edge case
-    return <Error statusCode={400}/>;
+    return <Error statusCode={500} />;
   }
 
   return (

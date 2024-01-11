@@ -14,7 +14,7 @@ export default function Calendar({
 }) {
   if (events == undefined) {
     // handle edge case
-    return <Error statusCode={400}/>;
+    return <Error statusCode={500} />;
   }
   if (location == null) {
     // until a location is set, shows a default screen
@@ -50,11 +50,11 @@ export default function Calendar({
 function Default() {
   return (
     <div className="flex flex-col items-center justify-start h-full p-5 pt-32 space-y-8">
-      <h1 className="text-4xl text-center">
+      <h1 className="text-4xl text-center font-roboto">
         Select a location to view its availability
       </h1>
       <div className="w-24 border-b-2 border-black dark:border-white"></div>
-      <div className="w-full text-xl leading-relaxed text-center md:w-2/3">
+      <div className="w-full text-xl leading-relaxed text-center md:w-2/3 font-roboto">
         Please note that spaces can only be reserved for the following week.
         Available hours may vary by location, but are typically between 8:30 am
         and 10:30 pm.{" "}

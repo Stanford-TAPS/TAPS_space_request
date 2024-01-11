@@ -19,20 +19,18 @@ export default function Slideshow() {
   }, []);
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    <div className="relative w-full h-screen overflow-hidden">
       <div className="whitespace-nowrap ">
         {images.map((backgroundImage, i) => (
           <div
-            className={`absolute top-0 h-screen w-full ${
-              i === index ? "opacity-100" : "opacity-0"
-            } transition-opacity duration-1000`}
+            className={`absolute top-0 h-full w-full ${i === index ? "opacity-100" : "opacity-0"
+              } transition-opacity duration-1000`}
             key={i}
           >
             <Image
               src={backgroundImage}
-              sizes="110vw"
               alt="Pictures of TAPS spaces"
-              className="object-cover"
+              className="object-cover w-full h-full"
             />
           </div>
         ))}

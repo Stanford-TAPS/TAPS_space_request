@@ -1,19 +1,18 @@
 "use client";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import Link from "next/link.js";
 import Error from "next/error.js";
 
 // Calendar component shows next week view and displays any events in range,
 // as well as the location title
-export default async function HomeCalendar({
+export default function HomeCalendar({
   events, // array of events, organized into FullCalendar's event object structure
 }) {
 
 
   if (events == undefined) {
     // handle edge case
-    return <Error statusCode={400} />;
+    return <Error statusCode={500} />;
   }
 
   return (

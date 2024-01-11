@@ -65,22 +65,45 @@ export default function RequestCard({ request, locations, onDecision }) {
           <div className="mb-8 flex w-full justify-between pt-8 ">
             <button
               onClick={() => setDecision("approve")}
-              className="w-24 rounded-lg bg-green-500 p-2 text-white hover:bg-green-600 hover:shadow-md"
+              className="w-24 p-2 text-white bg-green-500 rounded-lg hover:bg-green-600 hover:shadow-md"
             >
               Approve
             </button>
             <button
               onClick={() => setDecision("deny")}
-              className="w-24 rounded-lg bg-red-500 p-2 text-white hover:bg-red-600 hover:shadow-md"
+              className="w-24 p-2 text-white bg-red-500 rounded-lg hover:bg-red-600 hover:shadow-md"
             >
               Deny
             </button>
             <button
               onClick={() => setIsEditing(true)}
-              className="w-24 rounded-lg bg-amber-500 p-2 text-white hover:bg-amber-600 hover:shadow-md"
+              className="w-24 p-2 text-white rounded-lg bg-amber-500 hover:bg-amber-600 hover:shadow-md"
             >
               Edit
             </button>
+          
+        )}
+      </div>
+      {request.conflictStatus != "noConflict" && (
+        <ConflictBox
+          conflicts={request.conflicts}
+          status={request.conflictStatus}
+        />
+      )}
+
+      {decision && (
+        <>
+          <div
+            className="fixed inset-0 z-30 opacity-50 bg-neutral-800"
+            onClick={handleCancel}
+          ></div>
+          <div className="absolute z-40 transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2">
+            <MessageBox
+              decision={decision}
+              requestName={request.title}
+              onConfirm={handleConfirm}
+              onCancel={handleCancel}
+            />
           </div>
           {request.conflictStatus != "noConflict" && (
             <ConflictBox
