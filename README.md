@@ -112,19 +112,21 @@ To run the app, run:
 yarn dev
 ```
 
-If you wish to run in SSL mode, run:
+If you wish to run in SSL (required for Stanford SSO to work) mode, run:
 
 ```bash
 yarn devssl
 ```
 
-You should have a local certificate in the root directory generated with `mkcert` called `localhost.pem` and `localhost-key.pem`. If developing with Firefox, you must also install `nss`.
+You should have a local certificate in the root directory generated with `mkcert`, with files called `localhost.pem` and `localhost-key.pem`. If developing with Firefox, you must also install `nss`. All this can be done with:
 
 ```bash
 brew install nss
 brew install mkcert
 mkcert -install
 ```
+
+Once you have the certificate, you can just run `yarn devssl` and it will work.
 
 ### Deploying
 
