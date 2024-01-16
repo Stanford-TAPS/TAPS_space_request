@@ -21,7 +21,7 @@
     "@fullcalendar/react": "^6.1.8",
     "@fullcalendar/timegrid": "^6.1.8",
     "@notionhq/client": "^2.2.8",
-    "@prisma/client": "^5.8.0",
+    "@prisma/client": "^5.8.1",
     "@sentry/nextjs": "^7.93.0",
     "@types/react-dom": "^18.2.18",
     "@vercel/analytics": "^1.1.1",
