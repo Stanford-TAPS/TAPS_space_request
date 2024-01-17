@@ -18,7 +18,43 @@ export default function EditingCard({ request, locations, onEdited }) {
 
   function onSubmit(data) {
     console.log("submitting", data);
+    submitUpdate(data);
   }
+
+  const submitUpdate = async (data) => {
+    // format dates for Notion
+    console.log(request);
+    const formattedDate = request.start.split("T")[0];
+    const startDate = `${formattedDate}T${data.start}`; // add selected start time on original date
+    const endDate = `${formattedDate}T${data.end}`;
+    const pageID = request.id;
+    console.log(startDate, endDate, pageID);
+    const payload = {
+      ...data,
+      startDate,
+      endDate,
+      pageID,
+    };
+
+    // make API call
+    try {
+      const response = await fetch("/api/edit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        console.log("success");
+      } else {
+        console.log(response);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   function handleCancel() {
     console.log("cancel");
