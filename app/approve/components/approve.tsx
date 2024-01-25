@@ -24,16 +24,19 @@ export default function ApprovalSystem({
 
   // Automatically refreshes requests every 2 min
   useEffect(() => {
-    const refresh = async () => {
-      setIsRefreshing(true);
-      await refetchRequests(events);
-      setIsRefreshing(false);
-    };
-
-    const intervalId = setInterval(refresh, 2 * 60 * 1000); // 2 minutes in milliseconds
+    const intervalId = setInterval(refreshRequests, 2 * 60 * 1000); // 2 minutes in milliseconds
 
     return () => clearInterval(intervalId); // This will clear the interval when the component unmounts
   }, [events]);
+
+  const refreshRequests = async () => {
+    setIsRefreshing(true);
+    await refetchRequests(events);
+    setSelectedRequest(
+      requests.find((request) => request.id === selectedRequest.id),
+    );
+    setIsRefreshing(false);
+  };
 
   // sets chosen request
   function handleRequestSelected(request) {
@@ -119,17 +122,6 @@ export default function ApprovalSystem({
 
   const [selectedLocations, setSelectedLocations] = useState([]);
 
-  // Function to handle the change of selected locations
-  /*
-  const handleLocationChange = (event) => {
-    const selectedOptions = Array.from(
-      event.target.selectedOptions,
-      (option) => option.value,
-    );
-    setSelectedLocations(selectedOptions);
-  };
-  */
-
   // Filter the requests based on the selected locations
   const filteredRequests = requests.filter(
     (request) =>
@@ -144,6 +136,7 @@ export default function ApprovalSystem({
           request={selectedRequest}
           locations={locations}
           onDecision={handleDecision}
+          onEdited={refreshRequests}
         />
       )}
       <div className="mx-auto mb-6 mt-4 flex w-3/5 flex-col">

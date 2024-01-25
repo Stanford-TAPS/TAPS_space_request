@@ -8,12 +8,18 @@ import EditingCard from "./editingcard";
 
 // Card displaying properties of the selected request. Option to approve, deny,
 // or edit. On selection, calls onEventDecided with result ("approve", "deny", "edit")
-export default function RequestCard({ request, locations, onDecision }) {
+export default function RequestCard({
+  request,
+  locations,
+  onDecision,
+  onEdited,
+}) {
   const [decision, setDecision] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
   function handleEdited() {
     setIsEditing(false);
+    onEdited();
   }
 
   function handleConfirm(message) {

@@ -47,7 +47,7 @@ export default function EditingCard({ request, locations, onEdited }) {
       });
 
       if (response.ok) {
-        console.log("success");
+        onEdited();
       } else {
         console.log(response);
       }
