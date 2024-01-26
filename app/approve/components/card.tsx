@@ -20,6 +20,7 @@ export default function RequestCard({
   function handleEdited() {
     setIsEditing(false);
     onEdited();
+    console.log(request);
   }
 
   function handleConfirm(message) {

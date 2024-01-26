@@ -32,11 +32,17 @@ export default function ApprovalSystem({
   const refreshRequests = async () => {
     setIsRefreshing(true);
     await refetchRequests(events);
-    setSelectedRequest(
-      requests.find((request) => request.id === selectedRequest.id),
-    );
     setIsRefreshing(false);
   };
+
+  useEffect(() => {
+    if (selectedRequest) {
+      console.log(requests);
+      setSelectedRequest(
+        requests.find((request) => request.id === selectedRequest.id),
+      );
+    }
+  }, [requests]);
 
   // sets chosen request
   function handleRequestSelected(request) {
