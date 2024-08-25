@@ -8,7 +8,6 @@ const DEFAULT_EVENT_COLOR = "#059669"; // emerald 600
 
 // Handles logic and state of the space request system
 export default function SpaceRequest({ spaces, eventsByLocation, groups }) {
-  const [location, setLocation] = useState(null); // tracks selected location
   const [locationTitle, setLocationTitle] = useState(null);
   const [events, setEvents] = useState([]); // holds events for the selected location
   const [conflict, setConflict] = useState(false); // tracks whether the request date/time conflitcs with an existing event
@@ -28,7 +27,6 @@ export default function SpaceRequest({ spaces, eventsByLocation, groups }) {
   // when a location is selected, grabs events for the location, rechecks conflict, and
   // finds title data for calendar
   const handleLocationSelected = (locationID) => {
-    setLocation(locationID);
     const data = eventsByLocation[locationID]; // Access events directly from eventsByLocation
     if (data) {
       let requestedEvent = events.find((event) => event.id == "123");

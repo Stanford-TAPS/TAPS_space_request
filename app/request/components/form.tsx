@@ -7,6 +7,7 @@ import { useState } from "react";
 import GroupSelect from "./group_select";
 import LocationSelect from "../../components/location_select";
 import ReactDatePicker from "react-datepicker";
+import { useSession } from "next-auth/react";
 
 // This is the component for the form. It uses the React Hook Form
 // library for structure and behavior.
@@ -21,6 +22,9 @@ export default function SpaceForm({
   const [showConfirmation, setShowConfirmation] = useState(false); // controls when confirmation box is shown (if there are conflicts)
   const [formData, setFormData] = useState(null); // saves form data on initial submission while user confirms
   const [isStanfordTimezone, setIsStanfordTimezone] = useState(null); // tracks if user is not in Stanford's local time
+
+  // Get user data, determine if they are staff or faculty
+  const user = useSession().data.user;
 
   // if timezone is not same as Stanford, we track it to warn them
   // that times in the system are all based on local Stanford time

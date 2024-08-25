@@ -6,16 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import authOptions from "../api/auth/[...nextauth]/auth";
 
-
-
 type ProtectedProps = {
     shouldBeApprover?: boolean;
     children?: React.ReactNode;
     onAuth?: () => Promise<void>;
     isAuthorized?: boolean;
 };
-
-
 
 
 export default async function ProtectedPage({ shouldBeApprover = false, children, onAuth = async () => { }, isAuthorized = false }) {
@@ -100,6 +96,21 @@ export async function isApprover(email: string) {
 
     return res.isApprover;
 }
+
+export async function isFacultyOrStaff(email: string) {
+    const res = await prisma.user.findUnique({
+        where: {
+            email: email
+        },
+        select: {
+            affiliations: true,
+            isAdmin: true
+        },
+    })
+
+    return res.isAdmin || res.affiliations.includes("faculty@stanford.edu") || res.affiliations.includes("staff@stanford.edu");
+}
+
 
 export async function ShowIfAuthorized({ shouldBeApprover = false, children }) {
     const isAuth = await isAuthorized(shouldBeApprover);
