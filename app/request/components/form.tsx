@@ -1,7 +1,7 @@
 "use client";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm, Controller } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { getNextSunday } from "../../lib/utilities";
 import { useState } from "react";
 import GroupSelect from "./group_select";
@@ -21,17 +21,17 @@ export default function SpaceForm({
   const [submitStatus, setSubmitStatus] = useState("unsubmitted"); // tracks state of form submission API call for loading
   const [showConfirmation, setShowConfirmation] = useState(false); // controls when confirmation box is shown (if there are conflicts)
   const [formData, setFormData] = useState(null); // saves form data on initial submission while user confirms
-  const [isStanfordTimezone, setIsStanfordTimezone] = useState(null); // tracks if user is not in Stanford's local time
 
   // Get user data, determine if they are staff or faculty
-  const user = useSession().data.user;
+  const { data: session } = useSession();
+  const user = session?.user;
 
   // if timezone is not same as Stanford, we track it to warn them
   // that times in the system are all based on local Stanford time
-  useEffect(() => {
+  const isStanfordTimezone = useMemo(() => {
     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const stanfordTimezone = "America/Los_Angeles";
-    setIsStanfordTimezone(userTimezone === stanfordTimezone);
+    return userTimezone === stanfordTimezone;
   }, []);
 
   // prepare React Hook Form methods
@@ -51,7 +51,7 @@ export default function SpaceForm({
         id: null,
         title: null,
       },
-      email: null,
+      email: user.email,
       title: null,
       description: null,
     },
