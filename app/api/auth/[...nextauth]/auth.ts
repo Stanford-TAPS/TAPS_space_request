@@ -1,4 +1,4 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { AuthOptions } from "next-auth";
 import prisma from "../../../../db";
 import * as Sentry from "@sentry/browser";
