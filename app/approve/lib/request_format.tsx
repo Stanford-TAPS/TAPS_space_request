@@ -2,6 +2,7 @@ import { format, parseISO, isWithinInterval } from "date-fns";
 
 export function formatRequests(spaceRequests, locations, events) {
   for (let i = 0; i < spaceRequests.length; i++) {
+
     const location = locations.find(
       ({ id }) => id === spaceRequests[i].locationID,
     );

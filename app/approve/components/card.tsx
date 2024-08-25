@@ -57,34 +57,34 @@ export default function RequestCard({
         />
       ) : (
         <>
-          <div className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg dark:border-0 dark:bg-neutral-800">
-            <h2 className="mb-6 text-center font-roboto text-4xl font-bold">
+          <div className="flex flex-col flex-1 max-w-2xl px-8 pt-12 mx-4 mt-4 mb-20 overflow-y-auto text-xl bg-white border rounded shadow-lg dark:border-0 dark:bg-neutral-800">
+            <h2 className="mb-6 text-4xl font-bold text-center font-roboto">
               {request.title}
             </h2>
-            <div className="flex w-full justify-between pb-4">
+            <div className="flex justify-between w-full pb-4">
               <p className="pr-4">{` ${request.date}`}</p>
               <p>{`${request.startTime} - ${request.endTime}`}</p>
             </div>
 
             <p className="pb-4">{`Location: ${request.location}`}</p>
-            <p className="pb-4">Contact: (this is still in progress)</p>
+            <p className="pb-4">Contact: {request.email}</p>
             <p>Description: {request.description}</p>
-            <div className="mb-8 flex w-full justify-between pt-8 ">
+            <div className="flex justify-between w-full pt-8 mb-8 ">
               <button
                 onClick={() => setDecision("approve")}
-                className="w-24 rounded-lg bg-green-500 p-2 text-white hover:bg-green-600 hover:shadow-md"
+                className="w-24 p-2 text-white bg-green-500 rounded-lg hover:bg-green-600 hover:shadow-md"
               >
                 Approve
               </button>
               <button
                 onClick={() => setDecision("deny")}
-                className="w-24 rounded-lg bg-red-500 p-2 text-white hover:bg-red-600 hover:shadow-md"
+                className="w-24 p-2 text-white bg-red-500 rounded-lg hover:bg-red-600 hover:shadow-md"
               >
                 Deny
               </button>
               <button
                 onClick={() => setIsEditing(true)}
-                className="w-24 rounded-lg bg-amber-500 p-2 text-white hover:bg-amber-600 hover:shadow-md"
+                className="w-24 p-2 text-white rounded-lg bg-amber-500 hover:bg-amber-600 hover:shadow-md"
               >
                 Edit
               </button>
@@ -99,10 +99,10 @@ export default function RequestCard({
           {decision && (
             <>
               <div
-                className="fixed inset-0 z-30 bg-neutral-800 opacity-50"
+                className="fixed inset-0 z-30 opacity-50 bg-neutral-800"
                 onClick={handleCancel}
               ></div>
-              <div className="absolute left-1/2 top-1/2 z-40 -translate-x-1/2 -translate-y-1/2 transform">
+              <div className="absolute z-40 transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2">
                 <MessageBox
                   decision={decision}
                   requestName={request.title}

@@ -27,6 +27,7 @@ export async function GET() {
     locationID: page.properties["Location"].relation[0].id,
     group: page.properties["Group/Organization"].relation[0]?.id,
     description: page.properties["Description"].rich_text[0]?.text?.content,
+    email: page.properties["Email"].email,
   }));
 
   return NextResponse.json({ spaceRequests });

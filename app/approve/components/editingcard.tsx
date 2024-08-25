@@ -80,19 +80,16 @@ export default function EditingCard({ request, locations, onEdited }) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="mx-6 mb-20 mt-4 w-1/3 rounded border bg-white px-16 pt-12 text-xl shadow-lg dark:border-0 dark:bg-neutral-800"
+      className="flex flex-col flex-1 max-w-2xl px-8 pt-12 mx-4 mt-4 mb-20 overflow-y-auto text-xl bg-white border rounded shadow-lg dark:border-0 dark:bg-neutral-800"
     >
-      <p className="pb-1 text-sm">
-        Warning! This feature doesn&apos;t actually work yet :)
-      </p>
-      <h2 className="mb-6 text-center font-roboto text-4xl font-bold">
+      <h2 className="mb-6 text-4xl font-bold text-center font-roboto">
         {request.title}
       </h2>
-      <div className="flex w-full justify-between pb-4">
-        <p className="pr-4">{` ${request.date}`}</p>
-        <div>
-          <div className="mb-4 flex justify-between">
-            <div className="w-1/2 pr-2">
+      <div className="flex flex-col justify-between w-full pb-4 sm:flex-row">
+        <p className="pr-4 mb-2 sm:mb-0">{` ${request.date}`}</p>
+        <div className="w-full sm:w-auto">
+          <div className="flex flex-col justify-between mb-4 sm:flex-row">
+            <div className="w-full pr-0 mb-2 sm:w-1/2 sm:pr-2 sm:mb-0">
               <label
                 htmlFor="start"
                 className="text-neutral-700 dark:text-white"
@@ -106,16 +103,16 @@ export default function EditingCard({ request, locations, onEdited }) {
                 max="23:00"
                 defaultValue={convertTo24HourFormat(request.startTime)}
                 {...register("start", { required: "required" })}
-                className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none focus:ring-2 focus:ring-red-700"
+                className="w-full px-3 py-2 leading-tight text-black border rounded shadow appearance-none focus:shadow-outline focus:outline-none focus:ring-2 focus:ring-red-700"
               />
               {errors.start && (
-                <p className="mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700 ">
+                <p className="px-1 mt-2 text-xs text-red-700 bg-red-100 border border-red-700 rounded ">
                   {errors.start.message.toString()}
                 </p>
               )}
             </div>
 
-            <div className="w-1/2 pl-2">
+            <div className="w-full pl-0 sm:w-1/2 sm:pl-2">
               <label htmlFor="end" className="text-neutral-700 dark:text-white">
                 End
               </label>
@@ -126,10 +123,10 @@ export default function EditingCard({ request, locations, onEdited }) {
                 max="23:00"
                 defaultValue={convertTo24HourFormat(request.endTime)}
                 {...register("end", { required: "required" })}
-                className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-black shadow focus:outline-none focus:ring-2 focus:ring-red-700"
+                className="w-full px-3 py-2 leading-tight text-black border rounded shadow appearance-none focus:shadow-outline focus:outline-none focus:ring-2 focus:ring-red-700"
               />
               {errors.end && (
-                <p className="mt-2 rounded border border-red-700 bg-red-100 px-1 text-xs text-red-700 ">
+                <p className="px-1 mt-2 text-xs text-red-700 bg-red-100 border border-red-700 rounded ">
                   {errors.end.message.toString()}
                 </p>
               )}
@@ -144,17 +141,17 @@ export default function EditingCard({ request, locations, onEdited }) {
         defaultValue={request.location}
       />
 
-      <p className="pb-4">{`Contact: (this is still in progress)`}</p>
-      <p>Description: {request.description}</p>
-      <div className="mb-8 flex w-full justify-between pt-8 ">
+      <p className="pb-4 break-words">{`Contact: ${request.email}`}</p>
+      <p className="break-words">Description: {request.description}</p>
+      <div className="flex flex-col justify-between w-full pt-8 mb-8 sm:flex-row ">
         <input
           type="submit"
           value="Confirm"
-          className="w-36 rounded-lg bg-amber-500 p-2 text-white hover:bg-amber-600 hover:shadow-md"
+          className="w-full p-2 mb-2 text-white rounded-lg sm:w-36 bg-amber-500 hover:bg-amber-600 hover:shadow-md sm:mb-0"
         />
         <button
           onClick={() => handleCancel()}
-          className="w-36 rounded-lg bg-neutral-500 p-2 text-white hover:bg-neutral-600 hover:shadow-md"
+          className="w-full p-2 text-white rounded-lg sm:w-36 bg-neutral-500 hover:bg-neutral-600 hover:shadow-md"
         >
           Cancel
         </button>
