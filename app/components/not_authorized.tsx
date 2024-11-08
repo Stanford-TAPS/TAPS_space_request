@@ -32,11 +32,11 @@ export default async function ProtectedPage({ shouldBeApprover = false, children
                 email: session.user.email
             },
             select: {
-                isApprover: true
+                role: true
             },
         })
 
-        if (res.isApprover) return children
+        if (res?.role === "APPROVER" || res?.role === "ADMIN") return children
     }
 
     await onAuth();
@@ -78,7 +78,7 @@ export function isAuthorized(shouldBeApprover: boolean, user: User): boolean {
 }
 
 export function isApprover(user: User) {
-    return true;
+    return user?.role === "APPROVER" || user?.role === "ADMIN";
 }
 
 export function isFacultyOrStaff(user: User) {
