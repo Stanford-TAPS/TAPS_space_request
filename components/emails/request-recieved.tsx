@@ -19,16 +19,16 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
 }) => (
     <div style={{ fontFamily: 'Arial, sans-serif', maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
         <img
-            src={`https://taps.stanford.edu/logo.png`}
+            src={`https://request.taps.stanford.edu/logo.png`}
             alt="Stanford Logo"
-            width="150"
-            height="150"
+            width="100"
+            height="100"
             style={{ display: 'block', marginBottom: '24px' }}
         />
         <h1 style={{ color: '#8C1515', marginBottom: '24px' }}>Booking Request Received for {location}!</h1>
 
         <p>Hello {firstName},</p>
-        <p>Your booking request for {groupName} has been received. We will get back to you soon with booking confirmation and final details.</p>
+        <p>Your booking request for <b>{groupName}</b> has been received. We will get back to you soon with booking confirmation and final details.</p>
 
         <table style={{ width: '100%', borderCollapse: 'collapse', margin: '24px 0' }}>
             <tbody>

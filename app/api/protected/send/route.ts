@@ -8,7 +8,7 @@ export async function POST() {
     try {
         const { data, error } = await resend.emails.send({
             from: "Stanford T&PS <taps_requests@stanford.edu>",
-            to: ["emorenoa@stanford.edu"],
+            to: ["lsfowler@stanford.edu"],
             subject: "T&PS Booking Request Received",
             react: EmailTemplate({
                 firstName: "John",
