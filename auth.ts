@@ -23,7 +23,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       session.user.sunet = (user as any).sunet;
       session.user.affiliations = (user as any).affiliations;
       session.user.emailVerified = (user as any).emailVerified;
-      console.log("session", session);
       return session;
     },
   },
@@ -48,7 +47,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       },
       token: "https://login.stanford.edu/idp/profile/oidc/token",
       profile: (profile) => {
-        console.log("profile", profile);
         return {
           id: profile.sub,
           email: profile.email,

@@ -43,7 +43,7 @@ export default async function Navbar({ className }) {
         </ul>
       </div>
       <div className="flex flex-row items-center pr-4">
-        <ShowIfAuthorized shouldBeApprover={true} user={session?.user}>
+        <ShowIfAuthorized shouldBeApprover={true} session={session}>
           <Link href="/approve" className="px-3 py-2 mx-2 text-black dark:hover:bg-red-900 hover:bg-cardinal dark:text-white hover:text-white">
             <div className="flex flex-row items-center ">
               <div className="pr-2">APPROVALS</div> <FontAwesomeIcon icon={faUserShield} />

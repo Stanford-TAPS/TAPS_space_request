@@ -49,7 +49,7 @@ export default function ApprovalSystem({
   const approveRequest = async (request) => {
     setApproveStatus("approving");
     try {
-      const response = await fetch("/api/approve", {
+      const response = await fetch("/api/protected/approve", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -71,7 +71,7 @@ export default function ApprovalSystem({
   const denyRequest = async (request) => {
     setDenyStatus("denying");
     try {
-      const response = await fetch("/api/deny", {
+      const response = await fetch("/api/protected/deny", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -112,7 +112,7 @@ export default function ApprovalSystem({
   }
 
   const refetchRequests = async (events) => {
-    const response = await fetch("/api/get_requests", {
+    const response = await fetch("/api/protected/get_requests", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

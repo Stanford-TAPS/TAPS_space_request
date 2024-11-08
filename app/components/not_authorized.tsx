@@ -3,7 +3,7 @@ import prisma from "../../db";
 import { getSession, signIn, signOut } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
-import { User } from "next-auth";
+import { Session, User } from "next-auth";
 import { Suspense } from "react";
 import { auth } from "@/auth";
 
@@ -27,19 +27,8 @@ export default async function ProtectedPage({ shouldBeApprover = false, children
     }
 
     if (session && shouldBeApprover) {
-        const res = await prisma.user.findUnique({
-            where: {
-                email: session.user.email
-            },
-            select: {
-                role: true
-            },
-        })
-
-        if (res?.role === "APPROVER" || res?.role === "ADMIN") return children
+        if (isApprover(session)) return children
     }
-
-    await onAuth();
 
     // Center the sign in form
     return <div className="flex flex-col items-center justify-center h-full">
@@ -72,21 +61,22 @@ export async function NotAuthorized() {
     </div>;
 }
 
-export function isAuthorized(shouldBeApprover: boolean, user: User): boolean {
-    if (shouldBeApprover) return isApprover(user);
+export function isAuthorized(shouldBeApprover: boolean, session: Session): boolean {
+    if (shouldBeApprover) return isApprover(session);
     return true;
 }
 
-export function isApprover(user: User) {
-    return user?.role === "APPROVER" || user?.role === "ADMIN";
+export function isApprover(session: Session | null) {
+    console.log("session", session);
+    return session?.user?.role === "APPROVER" || session?.user?.role === "ADMIN";
 }
 
-export function isFacultyOrStaff(user: User) {
-    return true;
+export function isFacultyOrStaff(session: Session) {
+    return session.user.affiliations.includes("faculty@stanford.edu") || session.user.affiliations.includes("staff@stanford.edu");
 }
 
-export function ShowIfAuthorized({ shouldBeApprover = false, children, user }: { shouldBeApprover: boolean, children: React.ReactNode, user: User }) {
-    const isAuth = isAuthorized(shouldBeApprover, user);
+export function ShowIfAuthorized({ shouldBeApprover = false, children, session }: { shouldBeApprover: boolean, children: React.ReactNode, session: Session }) {
+    const isAuth = isAuthorized(shouldBeApprover, session);
 
     if (isAuth) return children;
     return null;
