@@ -5,10 +5,11 @@ import { faUserShield } from "@fortawesome/free-solid-svg-icons";
 import { UserAvatar } from "./components/user_avatar";
 import DropdownSpaces from "./components/dropdown_spaces";
 import { ShowIfAuthorized } from "./components/not_authorized";
+import { auth } from "../auth";
 
-export default function Navbar({ className }) {
+export default async function Navbar({ className }) {
 
-
+  const session = await auth();
   return (
     <nav className="flex flex-wrap items-center justify-between p-4 text-base text-white shadow dark:bg-cardinal backdrop-blur-sm" >
       <div className="flex items-center">
@@ -42,7 +43,7 @@ export default function Navbar({ className }) {
         </ul>
       </div>
       <div className="flex flex-row items-center pr-4">
-        <ShowIfAuthorized shouldBeApprover>
+        <ShowIfAuthorized shouldBeApprover={true} user={session?.user}>
           <Link href="/approve" className="px-3 py-2 mx-2 text-black dark:hover:bg-red-900 hover:bg-cardinal dark:text-white hover:text-white">
             <div className="flex flex-row items-center ">
               <div className="pr-2">APPROVALS</div> <FontAwesomeIcon icon={faUserShield} />

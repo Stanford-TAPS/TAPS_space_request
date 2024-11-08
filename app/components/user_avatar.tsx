@@ -1,12 +1,11 @@
 import Avatar from "boring-avatars";
-import { getServerSession } from "next-auth/next";
 import { SignInButton } from "./sign_in_button";
 import Link from "next/link";
-import authOptions from "../api/auth/[...nextauth]/auth";
+import { auth } from "@/auth";
 
 
 export const UserAvatar = async () => {
-    const session = await getServerSession(authOptions)
+    const session = await auth()
 
     if (!session) {
         // Login button with fontawesome icon
@@ -16,7 +15,7 @@ export const UserAvatar = async () => {
         <Link href="/account">
             <Avatar
                 size={40}
-                name={session.user.name}
+                name={session?.user?.name ?? "Unknown"}
                 variant="beam"
                 colors={["#000000", "#5A5659", "#035E04", "#E6E0DE", "#F6E846"]}
             />

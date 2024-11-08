@@ -1,10 +1,11 @@
-import { getServerSession } from "next-auth/next";
 import { PrimaryButton } from "./buttons";
 import prisma from "../../db";
 import { getSession, signIn, signOut } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
-import authOptions from "../api/auth/[...nextauth]/auth";
+import { User } from "next-auth";
+import { Suspense } from "react";
+import { auth } from "@/auth";
 
 type ProtectedProps = {
     shouldBeApprover?: boolean;
@@ -15,7 +16,7 @@ type ProtectedProps = {
 
 
 export default async function ProtectedPage({ shouldBeApprover = false, children, onAuth = async () => { }, isAuthorized = false }) {
-    const session = await getServerSession(authOptions)
+    const session = await auth()
 
     if (isAuthorized) {
         return children
@@ -55,7 +56,7 @@ export default async function ProtectedPage({ shouldBeApprover = false, children
 }
 
 export async function NotAuthorized() {
-    const session = await getServerSession(authOptions)
+    const session = await auth()
 
     return <div className="flex flex-col items-center justify-center h-full">
         <FontAwesomeIcon icon={faExclamationCircle} className="pb-4 text-6xl text-gray-500 dark:text-neutral-700" />
@@ -71,50 +72,22 @@ export async function NotAuthorized() {
     </div>;
 }
 
-export async function isAuthorized(shouldBeApprover): Promise<boolean> {
-    const isServer = typeof window === "undefined";
-
-    const session = isServer ? await getServerSession(authOptions) : await getSession();
-
-
-    if (session && shouldBeApprover) {
-        return isApprover(session.user.email);
-    }
-
-    return session ? true : false;
+export function isAuthorized(shouldBeApprover: boolean, user: User): boolean {
+    if (shouldBeApprover) return isApprover(user);
+    return true;
 }
 
-export async function isApprover(email: string) {
-    const res = await prisma.user.findUnique({
-        where: {
-            email: email
-        },
-        select: {
-            isApprover: true
-        },
-    })
-
-    return res.isApprover;
+export function isApprover(user: User) {
+    return true;
 }
 
-export async function isFacultyOrStaff(email: string) {
-    const res = await prisma.user.findUnique({
-        where: {
-            email: email
-        },
-        select: {
-            affiliations: true,
-            isAdmin: true
-        },
-    })
-
-    return res.isAdmin || res.affiliations.includes("faculty@stanford.edu") || res.affiliations.includes("staff@stanford.edu");
+export function isFacultyOrStaff(user: User) {
+    return true;
 }
 
-
-export async function ShowIfAuthorized({ shouldBeApprover = false, children }) {
-    const isAuth = await isAuthorized(shouldBeApprover);
+export function ShowIfAuthorized({ shouldBeApprover = false, children, user }: { shouldBeApprover: boolean, children: React.ReactNode, user: User }) {
+    const isAuth = isAuthorized(shouldBeApprover, user);
 
     if (isAuth) return children;
-    else return null;
+    return null;
 }

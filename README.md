@@ -60,8 +60,8 @@ Create a `.env.local` file in the root directory of this project. Add the requir
 | ------------------------ | ------------------------------------------------------------- |
 | DATABASE_URL             | The URL of the Postgres database, with a pooler               |
 | DIRECT_URL               | The URL of the Postgres database, without a pooler            |
-| NEXTAUTH_SECRET          | A random string used to encrypt NextAuth Info                 |
-| NEXTAUTH_URL             | The URL of the NextJS app, if on Vercel `https://$VERCEL_URL` |
+| AUTH_SECRET              | A random string used to encrypt NextAuth Info                 |
+| AUTH_URL                 | The URL of the NextJS app, if on Vercel `https://$VERCEL_URL` |
 | VERCEL_URL               | The URL of the NextJS app                                     |
 | STANFORD_CLIENT_SECRET   | The Stanford OAuth Client Secret                              |
 | STANFORD_CLIENT_ID       | The Stanford OAuth Client ID                                  |
@@ -78,9 +78,8 @@ touch .env.local
 
 ```bash
 DATABASE_URL=
-DIRECT_URL=
-NEXTAUTH_SECRET=
-NEXTAUTH_URL=
+AUTH_SECRET=
+AUTH_URL=
 VERCEL_URL=
 STANFORD_CLIENT_SECRET=
 STANFORD_CLIENT_ID=
@@ -132,7 +131,7 @@ Once you have the certificate, you can just run `yarn devssl` and it will work.
 
 We use Vercel to deploy our app. Here is a button to deploy your own instance:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FStanford-TAPS%2FTAPS_space_request&env=DATABASE_URL,NEXTAUTH_SECRET,NEXTAUTH_URL,STANFORD_CLIENT_SECRET,STANFORD_CLIENT_ID,NOTION_EVENTS_ID,NOTION_FACILITIES_ID,NOTION_GROUPS_ID,NOTION_KEY,NOTION_SPACE_REQUESTS_ID&envDescription=Variables%20needed%20to%20run&envLink=https%3A%2F%2Fgithub.com%2FStanford-TAPS%2FTAPS_space_request)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FStanford-TAPS%2FTAPS_space_request&env=DATABASE_URL,AUTH_SECRET,AUTH_URL,STANFORD_CLIENT_SECRET,STANFORD_CLIENT_ID,NOTION_EVENTS_ID,NOTION_FACILITIES_ID,NOTION_GROUPS_ID,NOTION_KEY,NOTION_SPACE_REQUESTS_ID&envDescription=Variables%20needed%20to%20run&envLink=https%3A%2F%2Fgithub.com%2FStanford-TAPS%2FTAPS_space_request)
 
 Any Next.js compatible hosting provider should work, but we have not tested any others.
 
