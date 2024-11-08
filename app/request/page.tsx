@@ -5,13 +5,15 @@ import {
 } from "../api/notion";
 import ProtectedPage, { NotAuthorized, isAuthorized } from "../components/not_authorized";
 import SpaceRequest from "./components/request";
+import { auth } from "@/auth";
 
 export const dynamic = "force-dynamic"; // refreshing the page means data is refetched
 
 // Server-side base of the request page
 export default async function RequestPage() {
+  const session = await auth();
 
-  const isAuth = await isAuthorized(false);
+  const isAuth = isAuthorized(false, session);
 
   if (!isAuth) return <NotAuthorized />
 
