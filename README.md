@@ -13,7 +13,7 @@
 ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
 ![Dependabot](https://img.shields.io/badge/dependabot-025E8C?style=for-the-badge&logo=dependabot&logoColor=white)
-![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+![Neon DB](https://img.shields.io/badge/Neon-0099FF?style=for-the-badge&logo=neon&logoColor=white)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 ![License](https://img.shields.io/github/license/Stanford-TAPS/TAPS_space_request?color=orange&style=for-the-badge)
 ![Notion](https://img.shields.io/badge/Notion-f0e0d0?style=for-the-badge&logo=notion&logoColor=black)
@@ -99,7 +99,7 @@ We use Prisma to manage our database. Once you have configure `DATABASE_URL` and
 prisma migrate deploy
 ```
 
-Our database provider for account management is [Supabase](https://supabase.io), but any Prisma-compatible database will work.
+Our database provider for account management is [Neon](https://neon.tech), but any Prisma-compatible with Edge support will work.
 
 The actual Notion database is managed by the Notion API, and is not managed by Prisma, it is used to query all spaces, events and organizations.
 
