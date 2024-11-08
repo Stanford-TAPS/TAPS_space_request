@@ -1,4 +1,4 @@
-import { notion } from "../notion";
+import { notion } from "../../notion";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

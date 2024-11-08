@@ -1,26 +1,19 @@
-import { withAuth } from "next-auth/middleware"
-import { NextResponse } from "next/server"
-import type { NextRequestWithAuth } from "next-auth/middleware"
+import { auth } from "@/auth"
 
-export default withAuth(
-    function middleware(request: NextRequestWithAuth) {
-        // Only protect /api/* routes
-        if (request.nextUrl.pathname.startsWith("/api/")) {
-            if (!request.nextauth.token) {
-                return NextResponse.json(
-                    { error: "Unauthorized" },
-                    { status: 401 }
-                )
-            }
-        }
-        return NextResponse.next()
-    },
-    {
-        callbacks: {
-            authorized: ({ token }) => !!token
+export default auth((req) => {
+    const { nextUrl } = req;
+    const isProtectedRoute = nextUrl.pathname.startsWith('/api/protected');
+
+    if (isProtectedRoute) {
+        const { user } = req.auth;
+        if (!user?.role || (user?.role !== "APPROVER" && user?.role !== "ADMIN")) {
+            return Response.json(
+                { error: 'Unauthorized - Approver role required' },
+                { status: 403 }
+            );
         }
     }
-)
+})
 
 // Configure which routes to protect
 export const config = {

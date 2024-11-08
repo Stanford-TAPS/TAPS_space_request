@@ -38,7 +38,7 @@ export default function EditingCard({ request, locations, onEdited }) {
 
     // make API call
     try {
-      const response = await fetch("/api/edit", {
+      const response = await fetch("/api/protected/edit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,31 +1,27 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String  @unique
-  type               String
-  provider           String
-  providerAccountId  String 
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String  @id @default(cuid())
+  userId            String  @unique
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -41,16 +37,15 @@ model Session {
 model User {
   id            String    @id @default(cuid())
   name          String?
+  email         String?   @unique
+  affiliations  String[]
   firstName     String?
   lastName      String?
-  email         String?   @unique
   sunet         String?   @unique
-  accounts      Account[]
+  emailVerified Boolean?  @default(false)
+  role          Role?
+  accounts      Account?
   sessions      Session[]
-  affiliations  String[]
-  emailVerified Boolean?   @default(false)
-  isApprover Boolean @default(false)
-  isAdmin Boolean @default(false)
 }
 
 model VerificationToken {
@@ -59,4 +54,10 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+enum Role {
+  ADMIN
+  APPROVER
+  USER
 }
