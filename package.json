@@ -36,7 +36,7 @@
     "font-awesome": "^4.7.0",
     "i": "^0.3.7",
     "moment-timezone": "^0.5.46",
-    "next": "^14.2.6",
+    "next": "^15.0.3",
     "next-auth": "^5.0.0-beta.25",
     "postcss": "8.4.41",
     "react": "^18.3.1",
