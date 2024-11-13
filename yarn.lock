@@ -2684,10 +2684,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"boring-avatars@npm:^1.10.2":
-  version: 1.10.2
-  resolution: "boring-avatars@npm:1.10.2"
-  checksum: 10c0/3613beecc44de8192aed4e3ccdf9d0794ff1a49f6d77af9827c0c73f9a5624ea896d12a02022ce530045ea410c17e02b1a916174cd78adc7923111cf4fd0c1e3
+"boring-avatars@npm:^1.11.2":
+  version: 1.11.2
+  resolution: "boring-avatars@npm:1.11.2"
+  checksum: 10c0/b574bbbd926faeca7615c82a1bc2e0dda85803ed677c5e243b27cdda7b1ee97289d53f81bfe89087429b73897e2a329e306f13fd65c279e23b394595cfa15828
   languageName: node
   linkType: hard
 
@@ -8185,7 +8185,7 @@ __metadata:
     "@types/react-dom": "npm:^18.3.0"
     "@vercel/analytics": "npm:^1.3.1"
     autoprefixer: "npm:10.4.20"
-    boring-avatars: "npm:^1.10.2"
+    boring-avatars: "npm:^1.11.2"
     classnames: "npm:^2.5.1"
     date-fns: "npm:^3.6.0"
     encoding: "npm:^0.1.13"
