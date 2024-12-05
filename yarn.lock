@@ -2037,13 +2037,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^18.3.4":
-  version: 18.3.4
-  resolution: "@types/react@npm:18.3.4"
+"@types/react@npm:^18.3.13":
+  version: 18.3.13
+  resolution: "@types/react@npm:18.3.13"
   dependencies:
     "@types/prop-types": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10c0/5c52e1e6f540cff21e3c2a5212066d02e005f6fb21e4a536a29097fae878db9f407cd7a4b43778f51359349c5f692e08bc77ddb5f5cecbfca9ca4d4e3c91a48e
+  checksum: 10c0/91815e00157deb179fa670aa2dfc491952698b7743ffddca0e3e0f16e7a18454f3f5ef72321a07386c49e721563b9d280dbbdfae039face764e2fdd8ad949d4b
   languageName: node
   linkType: hard
 
@@ -8181,7 +8181,7 @@ __metadata:
     "@prisma/client": "npm:^5.22.0"
     "@sentry/nextjs": "npm:^7.119.0"
     "@types/node": "npm:^22.5.0"
-    "@types/react": "npm:^18.3.4"
+    "@types/react": "npm:^18.3.13"
     "@types/react-dom": "npm:^18.3.0"
     "@vercel/analytics": "npm:^1.3.1"
     autoprefixer: "npm:10.4.20"
